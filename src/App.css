@@ -1,0 +1,60 @@
+.custom-megamenu {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    width: 100%;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.custom-megamenu .p-menuitem-link {
+    transition: all 0.3s ease-in-out;
+    background-color: transparent;
+    padding: 12px 16px;
+    position: relative;
+    overflow: hidden;
+    justify-content: center;
+    z-index: 3;
+    color: white;
+}
+
+.custom-megamenu .p-menuitem-text {
+    color: white;
+    font-size: large;
+}
+
+.custom-megamenu .p-menuitem-link:hover {
+    background-color: black;
+}
+
+.p-megamenu .p-menuitem>.p-menuitem-content .p-menuitem-link .p-submenu-icon {
+    color: white;
+}
+
+.custom-megamenu .p-menuitem-link:hover {
+    color: white;
+    background-color: black;
+    transform: scale(1.05);
+    justify-content: center;
+}
+
+.custom-megamenu .p-megamenu-grid .p-menuitem-content:active {
+    background-color: transparent;
+    color: white;
+}
+
+.custom-megamenu .p-megamenu-grid .p-menuitem-content {
+    background-color: black;
+    color: white;
+}
+
+.fallback-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+}
