@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ActualsPage = () => {
+const ActualsPage: React.FC = () => {
     return (
         <div>ActualsPage</div>
     )
