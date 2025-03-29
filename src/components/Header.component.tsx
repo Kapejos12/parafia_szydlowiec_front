@@ -1,9 +1,30 @@
 import { MegaMenu } from 'primereact/megamenu';
 import { MenuItem } from 'primereact/menuitem';
+import { useEffect, useState } from 'react';
 
-// import logo from "../assets/header.png";
+const HeaderComponent: React.FC = () => {
+    const [isVisible, setIsVisible] = useState<boolean>(true);
+    const [prevScrollPosition, setPrevScrollPosition] = useState<number>(0);
 
-const HeaderComponent = () => {
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollPosition = window.pageYOffset;
+
+            if (currentScrollPosition > prevScrollPosition) {
+                setIsVisible(false);
+            } else {
+                setIsVisible(true);
+            }
+
+            setPrevScrollPosition(currentScrollPosition);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [prevScrollPosition]);
 
     const menuItems: MenuItem[] = [
         {
@@ -53,13 +74,15 @@ const HeaderComponent = () => {
 
     return (
         <header>
-            <div className="flex items-center space-x-4">
-                <MegaMenu
-                    model={menuItems}
-                    className="custom-megamenu"
-                    breakpoint="960px"
-                />
-            </div>
+            {isVisible && (
+                <div className="flex items-center space-x-4">
+                    <MegaMenu
+                        model={menuItems}
+                        className="custom-megamenu"
+                        breakpoint="960px"
+                    />
+                </div>
+            )}
         </header>
     )
 }

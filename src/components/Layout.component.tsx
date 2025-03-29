@@ -3,8 +3,11 @@ import HeaderComponent from "./Header.component"
 import HeroComponent from "./Hero.component"
 
 import kosciol from '../assets/kosciol.jpeg';
+import React, { useState } from "react";
 
-const LayoutComponent = () => {
+const LayoutComponent: React.FC = () => {
+    const [showSidebar, setShowSidebar] = useState<boolean>(true);
+
     return (
         <div>
             <HeaderComponent />
@@ -14,9 +17,23 @@ const LayoutComponent = () => {
                     <Outlet />
                 </div>
 
-                <aside style={{ width: '250px', backgroundColor: '#f0f0f0', padding: '20px' }}>
-                    <h2>Sidebar</h2>
-                    <p>Tu będą najwajniejsze informacje</p>
+                <aside
+                    style={{
+                        width: showSidebar ? '25%' : '30px', // gdy sidebar schowany, pozostaje "wyczuwalny" pasek o szerokości 30px
+                        backgroundColor: '#f0f0f0',
+                        padding: showSidebar ? '20px' : '0',
+                        overflow: 'hidden',
+                        transition: 'width 0.3s ease, padding 0.3s ease'
+                    }}
+                    onMouseEnter={() => setShowSidebar(true)}
+                    onMouseLeave={() => setShowSidebar(false)}
+                >
+                    {showSidebar && (
+                        <>
+                            <h2>Sidebar</h2>
+                            <p>Tu będą najwajniejsze informacje</p>
+                        </>
+                    )}
                 </aside>
             </div>
         </div>
