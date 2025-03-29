@@ -19,7 +19,7 @@ const LayoutComponent: React.FC = () => {
 
                 <aside
                     style={{
-                        width: showSidebar ? '25%' : '30px', // gdy sidebar schowany, pozostaje "wyczuwalny" pasek o szerokości 30px
+                        width: showSidebar ? '25%' : '30px',
                         backgroundColor: '#f0f0f0',
                         padding: showSidebar ? '20px' : '0',
                         overflow: 'hidden',
