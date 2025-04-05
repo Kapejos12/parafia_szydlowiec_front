@@ -51,6 +51,16 @@
     color: white;
 }
 
+.p-megamenu-root-list {
+    color: white;
+    align-items: center;
+}
+
+.p-megamenu-button {
+    background-color: black;
+    color: white;
+}
+
 .fallback-container {
     display: flex;
     align-items: center;
