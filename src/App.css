@@ -56,6 +56,12 @@
     align-items: center;
 }
 
+@media (max-width: 960px) {
+    .p-megamenu-root-list {
+        background-color: black;
+    }
+}
+
 .p-megamenu-button {
     background-color: black;
     color: white;
