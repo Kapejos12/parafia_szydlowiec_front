@@ -1,13 +1,13 @@
 export interface Actuals {
-    Slug: string;
-    Tytul: string;
-    Tresc: string;
-    Dodano: string;
+    slug: string;
+    title: string;
+    content: string;
+    creationDate: string;
 }
 
 export interface News {
     slug: string;
     title: string;
-    description: string;
-    date: string;
+    content: string;
+    creationDate: string;
 }

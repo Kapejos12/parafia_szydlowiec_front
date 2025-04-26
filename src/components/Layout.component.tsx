@@ -9,6 +9,7 @@ const LayoutComponent: React.FC = () => {
     const [showSidebar, setShowSidebar] = useState<boolean>(true);
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
     const [markerTop, setMarkerTop] = useState<number>(0);
+    const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
     const asideRef = React.useRef<HTMLDivElement>(null);
     const markerHeight = 30; // stała wysokość markera
 
@@ -65,6 +66,23 @@ const LayoutComponent: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowBackToTop(window.pageYOffset > 300);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        handleScroll(); // na wypadek scrolla już przy starcie
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
     return (
         <div>
             <HeaderComponent />
@@ -119,6 +137,15 @@ const LayoutComponent: React.FC = () => {
                     )}
                 </aside>
             </div>
+            {showBackToTop && (
+                <button
+                    onClick={scrollToTop}
+                    className={`back-to-top ${showBackToTop ? 'visible' : ''}`}
+                    aria-label="Wróć na górę strony"
+                >
+                    ↑ Do góry
+                </button>
+            )}
         </div>
     )
 }

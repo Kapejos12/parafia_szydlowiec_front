@@ -10,16 +10,19 @@ const HeaderComponent: React.FC = () => {
         const handleScroll = () => {
             const currentScrollPosition = window.pageYOffset;
 
-            if (currentScrollPosition > prevScrollPosition) {
-                setIsVisible(false);
+            if (currentScrollPosition === 0) {
+                setIsVisible(true); // pokaż menu tylko gdy jesteśmy na samej górze
             } else {
-                setIsVisible(true);
+                setIsVisible(false); // ukryj menu
             }
 
             setPrevScrollPosition(currentScrollPosition);
         };
 
         window.addEventListener('scroll', handleScroll);
+
+        // Wywołanie od razu na starcie, jeśli komponent ładuje się już ze scrolla
+        handleScroll();
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
