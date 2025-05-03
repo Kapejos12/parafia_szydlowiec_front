@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { NewsImage, NewsItem } from '../../utils/types';
+import { PostImage, PostItem } from '../../utils/types';
 import { fetchActualBySlug } from '../../utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { ProgressSpinner } from 'primereact/progressspinner';
@@ -15,9 +15,9 @@ import MarkdownComponent from '../Markdown.component/Markdown.component';
 const NewsDetailComponent: React.FC = () => {
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
-    const [news, setNews] = useState<NewsItem | null>(null);
+    const [news, setNews] = useState<PostItem | null>(null);
 
-    const { data, isLoading, error } = useQuery<NewsItem>({
+    const { data, isLoading, error } = useQuery<PostItem>({
         queryKey: ['aktualnosci', slug],
         queryFn: () => fetchActualBySlug(slug || '')
     });
@@ -46,11 +46,11 @@ const NewsDetailComponent: React.FC = () => {
     ];
 
     // Renderowanie szablonu zdjęcia dla galerii
-    const itemGalleriaTemplate = (item: NewsImage) => {
+    const itemGalleriaTemplate = (item: PostImage) => {
         return <img src={item.url} alt={item.alt || ''} style={{ width: '100%', display: 'block' }} />;
     };
 
-    const thumbnailGalleriaTemplate = (item: NewsImage) => {
+    const thumbnailGalleriaTemplate = (item: PostImage) => {
         return <img src={item.url} alt={item.alt || ''} style={{ width: '100%', display: 'block' }} />;
     };
 
