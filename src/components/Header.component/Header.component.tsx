@@ -35,10 +35,6 @@ const HeaderComponent: React.FC = () => {
             url: '/'
         },
         {
-            label: "Aktualności",
-            url: '/aktualnosci'
-        },
-        {
             label: "Ogłoszenia",
             url: '/ogloszenia'
         },
