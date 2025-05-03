@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom"
-import HeaderComponent from "./Header.component"
-import HeroComponent from "./Hero.component"
+import HeaderComponent from "../Header.component/Header.component"
+import HeroComponent from "../Hero.component/Hero.component"
 
-import kosciol from '../assets/kosciol.jpeg';
+import kosciol from '../../assets/kosciol.jpeg';
 import React, { useEffect, useMemo, useState } from "react";
+import SidebarContent from "../SidebarContent.component/SidebarContent.component";
 
 const LayoutComponent: React.FC = () => {
     const [showSidebar, setShowSidebar] = useState<boolean>(true);
@@ -129,12 +130,7 @@ const LayoutComponent: React.FC = () => {
                     >
                         {showSidebar ? '>' : '<'}
                     </div>
-                    {showSidebar && (
-                        <>
-                            <h2>Sidebar</h2>
-                            <p>Tu będą najwajniejsze informacje</p>
-                        </>
-                    )}
+                    {showSidebar && <SidebarContent />}
                 </aside>
             </div>
             {showBackToTop && (

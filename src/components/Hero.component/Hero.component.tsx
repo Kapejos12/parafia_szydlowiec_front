@@ -1,4 +1,4 @@
-import './styles.css';
+import './hero-styles.css';
 
 interface HeroProps {
     backgroundImage: string;
