@@ -165,11 +165,11 @@ const SidebarContent: React.FC = () => {
                         </p>
                         <p className="flex align-items-center mb-3">
                             <i className="pi pi-phone text-primary text-xl mr-3"></i>
-                            <span className="font-medium">Telefon: 574 922 900</span>
+                            <a href="tel:+48574922900"><span className="font-medium">Telefon: 574 922 900</span></a>
                         </p>
                         <p className="flex align-items-center">
                             <i className="pi pi-envelope text-primary text-xl mr-3"></i>
-                            <span className="font-medium">Email: swzygmuntszydlowiec@interia.pl</span>
+                            <a href="mailto:swzygmuntszydlowiec@interia.pl"><span className="font-medium">Email: swzygmuntszydlowiec@interia.pl</span></a>
                         </p>
                     </div>
                 </div>

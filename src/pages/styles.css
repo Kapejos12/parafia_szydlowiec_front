@@ -1,0 +1,107 @@
+/* HomePage.css */
+
+/* Styl dla kart aktualności */
+.news-card {
+    transition: all 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-left: 4px solid var(--primary-color);
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.news-card .p-card-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--surface-200);
+    padding-bottom: 0.5rem;
+}
+
+.news-card .news-content {
+    min-height: 150px;
+}
+
+.news-card .p-card-footer {
+    background-color: var(--surface-50);
+    margin: 0 -1rem -1rem -1rem;
+    padding: 1rem;
+    border-top: 1px solid var(--surface-200);
+}
+
+.news-card .p-chip {
+    transition: all 0.2s ease;
+}
+
+.news-card .p-chip:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* Styl dla filtrów */
+.filter-container {
+    margin-bottom: 1rem;
+}
+
+.filter-container .p-multiselect {
+    border-radius: 2rem;
+}
+
+.filter-container .p-multiselect:hover {
+    border-color: var(--primary-color);
+}
+
+/* Animacja dla ładowania */
+.p-skeleton {
+    animation: skeleton-animation 1.5s ease-in-out infinite;
+    background: linear-gradient(90deg, var(--surface-100) 25%, var(--surface-200) 50%, var(--surface-100) 75%);
+    background-size: 200% 100%;
+}
+
+@keyframes skeleton-animation {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Styl dla przycisków */
+.p-button.p-button-outlined {
+    transition: all 0.2s ease;
+}
+
+.p-button.p-button-outlined:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* Styl dla responsywności */
+@media screen and (max-width: 768px) {
+    .news-card .p-card-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* Styl dla nagłówka sekcji */
+h2 .text-primary {
+    position: relative;
+}
+
+h2 .text-primary::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 4px;
+    background-color: var(--primary-color);
+    bottom: -8px;
+    left: 0;
+    border-radius: 2px;
+}
