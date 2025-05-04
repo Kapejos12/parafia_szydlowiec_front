@@ -6,8 +6,10 @@ import kosciol from '../../assets/kosciol.jpeg';
 import React, { useEffect, useMemo, useState } from "react";
 import SidebarContent from "../SidebarContent.component/SidebarContent.component";
 
+import './layout-styles.css';
+
 const LayoutComponent: React.FC = () => {
-    const [showSidebar, setShowSidebar] = useState<boolean>(true);
+    const [showSidebar, setShowSidebar] = useState<boolean>(false);
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
     const [markerTop, setMarkerTop] = useState<number>(0);
     const [showBackToTop, setShowBackToTop] = useState<boolean>(false);

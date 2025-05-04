@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { PostImage, PostItem } from '../../utils/types';
-import { fetchActualBySlug } from '../../utils/api';
+import { Post, GalleriaImage, Media } from '../../utils/types';
+import { fetchPostBySlug } from '../../utils/api';
 import { useQuery } from '@tanstack/react-query';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { Button } from 'primereact/button';
@@ -9,49 +9,98 @@ import { Card } from 'primereact/card';
 import { Galleria } from 'primereact/galleria';
 import { BreadCrumb } from 'primereact/breadcrumb';
 // import { Image } from 'primereact/image';
-import { Tag } from 'primereact/tag';
+// import { Tag } from 'primereact/tag';
 import MarkdownComponent from '../Markdown.component/Markdown.component';
 
 const NewsDetailComponent: React.FC = () => {
+    const STRAPI_URL = import.meta.env.VITE_NODE_ENV === "production" ? import.meta.env.VITE_PRODUCTION_API_BASE_URL : import.meta.env.VITE_DEVELOPMENT_API_BASE_URL;
     const { slug } = useParams<{ slug: string }>();
     const navigate = useNavigate();
-    const [news, setNews] = useState<PostItem | null>(null);
+    const [news, setNews] = useState<Post>();
+    const [photos, setPhotos] = useState<GalleriaImage[]>([]);
 
-    const { data, isLoading, error } = useQuery<PostItem>({
-        queryKey: ['aktualnosci', slug],
-        queryFn: () => fetchActualBySlug(slug || '')
+    const { data, isLoading, error } = useQuery<Post>({
+        queryKey: ['post', slug],
+        queryFn: () => fetchPostBySlug(slug || '')
     });
 
     useEffect(() => {
-        console.log('data: ', data);
+        const processPhotosForGalleria = (
+            data: Post | Post[],
+            imageFieldName: keyof Post
+        ): GalleriaImage[] => {
+            // Convert single post to array if needed
+            const posts = Array.isArray(data) ? data : [data];
+
+            return posts.map(post => {
+                // Get the media array from the specified field
+                const mediaItems = post[imageFieldName] as Media[];
+
+                // Skip if no media items
+                if (!mediaItems || !Array.isArray(mediaItems) || mediaItems.length === 0) {
+                    return [];
+                }
+
+                return mediaItems.map(photo => {
+                    if (!photo) return null;
+
+                    // Create Galleria-compatible object
+                    return {
+                        itemImageSrc: `${STRAPI_URL}${photo.url}`,
+                        thumbnailImageSrc: photo.formats && photo.formats.thumbnail
+                            ? `${STRAPI_URL}${photo.formats.thumbnail.url}`
+                            : `${STRAPI_URL}${photo.url}`,
+                        alt: post.title || 'Image',
+                        title: post.title || '',
+                    };
+                }).filter(Boolean) as GalleriaImage[]; // Remove any null entries
+            }).flat(); // Flatten array if we have multiple images per post
+        };
+
         if (data) {
             setNews(data);
+            setPhotos(processPhotosForGalleria(data, "photos"));
         }
-    }, [data, slug])
+    }, [STRAPI_URL, data, slug])
 
-    const formatDate = (dateString: string): string => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('pl-PL', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
+    const formatDate = (date: Date | string): string => {
+        // Handle both Date objects and date strings
+        const dateObject = date instanceof Date ? date : new Date(date);
+
+        // Check if date is valid before formatting
+        if (isNaN(dateObject.getTime())) {
+            return 'Invalid date';
+        }
+
+        try {
+            return dateObject.toLocaleDateString('pl-PL', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        } catch (error) {
+            // Fallback format in case toLocaleDateString fails
+            const day = dateObject.getDate();
+            const month = dateObject.getMonth() + 1;
+            const year = dateObject.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
     };
 
     // Ścieżka nawigacji (breadcrumb)
     const home = { icon: 'pi pi-home', url: '/' };
     const breadcrumbItems = [
-        { label: 'Aktualności', url: '/aktualnosci' },
         { label: news?.title || 'Szczegóły aktualności' }
     ];
 
     // Renderowanie szablonu zdjęcia dla galerii
-    const itemGalleriaTemplate = (item: PostImage) => {
-        return <img src={item.url} alt={item.alt || ''} style={{ width: '100%', display: 'block' }} />;
+    const itemGalleriaTemplate = (item: GalleriaImage) => {
+        return <img src={item.itemImageSrc} alt={item.alt || ''} style={{ width: '100%', display: 'block' }} />;
     };
 
-    const thumbnailGalleriaTemplate = (item: PostImage) => {
-        return <img src={item.url} alt={item.alt || ''} style={{ width: '100%', display: 'block' }} />;
+    const thumbnailGalleriaTemplate = (item: GalleriaImage) => {
+        return <img src={item.thumbnailImageSrc} alt={item.alt || ''} style={{ width: '100%', display: 'block' }} />;
     };
 
     // // Komponent do wyświetlania obrazków wewnątrz Markdown
@@ -122,9 +171,13 @@ const NewsDetailComponent: React.FC = () => {
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 <i className="pi pi-calendar" style={{ marginRight: '8px' }}></i>
-                                <span>{formatDate(news.creationDate)}</span>
+                                <span>{formatDate(news.createdAt)}</span>
                             </div>
-                            <Tag value={news.category} severity="info" />
+                            {/* {news.category.map((category, index) => {
+                                return (
+                                    <Tag key={index} value={category.name} severity="info" />
+                                );
+                            })} */}
                         </div>
 
                         {/* Tytuł */}
@@ -144,14 +197,13 @@ const NewsDetailComponent: React.FC = () => {
                         </div>
 
                         {/* Galeria zdjęć - jeśli jest więcej niż jedno zdjęcie i nie są już wyświetlane w treści Markdown */}
-                        {news.images && news.images.length > 1 && (
-                            <div style={{ marginTop: '30px' }}>
-                                <h3 style={{ fontWeight: 'bold', marginBottom: '15px' }}>Galeria zdjęć</h3>
+                        {photos && photos.length > 1 && (
+                            <div>
                                 <Galleria
-                                    value={news.images}
+                                    value={photos}
                                     responsiveOptions={[
                                         {
-                                            breakpoint: '991px',
+                                            breakpoint: '960px',
                                             numVisible: 4
                                         },
                                         {
