@@ -6,6 +6,7 @@ import HomePage from './pages/Home.page'
 import NewsPage from './pages/News.page'
 import PageNotFound from './pages/404.page'
 import NewsDetailComponent from './components/NewsDetail.component/NewsDetail.component'
+import ContactPage from './pages/Contact/Contact.page'
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="aktualnosci/:slug" element={<NewsDetailComponent />} />
         <Route path="ogloszenia" element={<NewsPage />} />
+        <Route path="kontakt" element={<ContactPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

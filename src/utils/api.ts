@@ -6,7 +6,7 @@ const apiClient = axios.create({
 });
 
 export const fetchPosts = async (): Promise<Post[]> => {
-    const response = await apiClient.get("/api/posts");
+    const response = await apiClient.get("/api/posts?populate=*");
     return response.data.data;
 }
 
