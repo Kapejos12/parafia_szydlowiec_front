@@ -1,0 +1,105 @@
+/* Kontener dla MultiSelect */
+.p-multiselect {
+    width: 100%;
+    border-radius: 2rem !important;
+    transition: all 0.2s ease;
+    border: 1px solid var(--surface-300) !important;
+    background-color: var(--surface-0) !important;
+}
+
+.p-multiselect:hover {
+    border-color: var(--primary-400) !important;
+}
+
+.p-multiselect.p-focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 1px var(--primary-100) !important;
+}
+
+/* Label w MultiSelect */
+.p-multiselect-label {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.95rem !important;
+    color: var(--surface-700) !important;
+}
+
+.p-multiselect-label.p-placeholder {
+    color: var(--surface-500) !important;
+}
+
+/* Style dla Chipów w MultiSelect */
+.p-multiselect .p-multiselect-token {
+    background-color: var(--primary-100) !important;
+    color: var(--primary-800) !important;
+    border-radius: 1rem !important;
+    margin: 0.1rem 0.3rem 0.1rem 0 !important;
+    padding: 0.25rem 0.75rem !important;
+    transition: all 0.2s ease !important;
+    animation: chipFadeIn 0.3s ease !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.p-multiselect .p-multiselect-token:hover {
+    background-color: var(--primary-200) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Ikona usuwania w Chipie */
+.p-multiselect .p-multiselect-token-icon {
+    margin-left: 0.5rem !important;
+    color: var(--primary-600) !important;
+    transition: all 0.2s ease !important;
+}
+
+.p-multiselect .p-multiselect-token-icon:hover {
+    color: var(--primary-900) !important;
+    transform: scale(1.2) !important;
+}
+
+/* Tekst w Chipie */
+.p-multiselect .p-multiselect-token-label {
+    font-weight: 500 !important;
+}
+
+/* Panel dropdown dla MultiSelect */
+.p-multiselect-panel {
+    border-radius: 1rem !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    border: 1px solid var(--surface-200) !important;
+}
+
+.p-multiselect-panel .p-multiselect-items {
+    padding: 0.5rem !important;
+}
+
+.p-multiselect-panel .p-multiselect-item {
+    border-radius: 0.5rem !important;
+    margin: 0.2rem !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.p-multiselect-panel .p-multiselect-item:hover {
+    background-color: var(--primary-50) !important;
+    transform: translateX(2px) !important;
+}
+
+.p-multiselect-panel .p-multiselect-item.p-highlight {
+    background-color: var(--primary-100) !important;
+    color: var(--primary-900) !important;
+    font-weight: 500 !important;
+}
+
+/* Animacja dla chipów */
+@keyframes chipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

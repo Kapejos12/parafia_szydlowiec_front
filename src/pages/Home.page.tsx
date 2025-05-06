@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { fetchCategories, fetchPosts } from "../utils/api";
+import { fetchPosts } from "../utils/api";
 import { Category, Post } from "../utils/types";
 import { Card } from "primereact/card";
 import { DataView } from "primereact/dataview";
@@ -8,31 +8,17 @@ import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { Chip } from "primereact/chip";
 import { Skeleton } from "primereact/skeleton";
-import { MultiSelect } from "primereact/multiselect";
 import { Divider } from "primereact/divider";
-import { InputText } from "primereact/inputtext";
 // import CategoryBanner from "../components/CategoryBanner.component/CategoryBanner.component";
 
 import './styles.css';
-import '../components/CategoryBanner.component/category-banner-styles.css';
+import CategoryBanner from "../components/CategoryBanner.component/CategoryBanner.component";
+import NewsFilters from "../components/NewsFilter.component/NewsFilter.component";
 
 const HomePage = () => {
     const navigate = useNavigate();
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
-    const [searchTerm, setSearchTerm] = useState<string>("");
-
-    /// Pobieranie kategorii
-    const {
-        data: categories = [],
-        isLoading: categoriesLoading,
-        error: categoriesError
-    } = useQuery<Category[]>({
-        queryKey: ['categories'],
-        queryFn: fetchCategories,
-        staleTime: 10 * 60 * 1000,  // 10 minut
-        gcTime: 30 * 60 * 1000
-    });
 
     // Pobieranie aktualności
     const {
@@ -47,6 +33,7 @@ const HomePage = () => {
         gcTime: 30 * 60 * 1000
     });
 
+    // Filtrowanie postów na podstawie wybranych kategorii i wyszukiwanego terminu
     useEffect(() => {
         if (posts.length === 0) return;
 
@@ -54,34 +41,23 @@ const HomePage = () => {
 
         // Filtrowanie po kategoriach
         if (selectedCategories.length > 0) {
-            const categoryIds = selectedCategories.map(cat => cat.id);
+            const categorySlugs = selectedCategories.map(cat => cat.slug);
             filtered = filtered.filter(post => {
                 // Bezpieczne sprawdzenie czy post.categories istnieje i nie jest puste
                 if (!post.categories || post.categories.length === 0) {
                     return false;
                 }
                 // Teraz możemy bezpiecznie użyć some()
-                return post.categories.some(cat => categoryIds.includes(cat.id));
+                return post.categories.some(cat => categorySlugs.includes(cat.slug));
             });
         }
 
-        // Filtrowanie po wyszukiwanym terminie
-        if (searchTerm.trim() !== "") {
-            const term = searchTerm.toLowerCase().trim();
-            filtered = filtered.filter(post =>
-                post.title.toLowerCase().includes(term) ||
-                (post.shortContent && post.shortContent.toLowerCase().includes(term))
-            );
-        }
-
         setFilteredPosts(filtered);
-    }, [posts, selectedCategories, searchTerm]);
+    }, [posts, selectedCategories]);
 
     const formatDate = (date: Date | string): string => {
-        // Handle both Date objects and date strings
         const dateObject = date instanceof Date ? date : new Date(date);
 
-        // Check if date is valid before formatting
         if (isNaN(dateObject.getTime())) {
             return 'Invalid date';
         }
@@ -94,7 +70,6 @@ const HomePage = () => {
             });
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
-            // Fallback format in case toLocaleDateString fails
             const day = dateObject.getDate();
             const month = dateObject.getMonth() + 1;
             const year = dateObject.getFullYear();
@@ -113,7 +88,7 @@ const HomePage = () => {
         }
     };
 
-    /// Szablon dla kategorii w ramach elementu aktualności
+    // Szablon dla kategorii w ramach elementu aktualności
     const renderCategories = (categories?: Category[]) => {
         if (!categories || categories.length === 0) return null;
 
@@ -185,38 +160,7 @@ const HomePage = () => {
         ));
     };
 
-    const renderFilters = () => {
-        return (
-            <div className="flex flex-column md:flex-row md:justify-content-between md:align-items-center mb-4">
-                <div className="filter-container md:w-6 mb-3 md:mb-0">
-                    <span className="p-input-icon-left w-full">
-                        <i className="pi pi-search" />
-                        <InputText
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder="Wyszukaj aktualności..."
-                            className="w-full"
-                        />
-                    </span>
-                </div>
-
-                <div className="filter-container md:w-6">
-                    <MultiSelect
-                        value={selectedCategories}
-                        options={categories}
-                        onChange={(e) => setSelectedCategories(e.value)}
-                        optionLabel="name"
-                        placeholder="Filtruj po kategorii"
-                        display="chip"
-                        className="w-full"
-                        disabled={categoriesLoading}
-                        panelClassName="category-panel"
-                    />
-                </div>
-            </div>
-        );
-    };
-
+    // Obsługa błędów
     const renderError = (error: Error | null) => {
         if (!error) return null;
 
@@ -241,11 +185,21 @@ const HomePage = () => {
     if (postsLoading) {
         return (
             <div className="grid">
+                <div className="col-12">
+                    <CategoryBanner
+                        categories={[]}
+                        selectedCategories={selectedCategories}
+                    />
+                </div>
                 <div className="col-12 lg:col-10 lg:col-offset-1">
-                    <div className="card shadow-3 border-round-xl">
-                        {renderFilters()}
-                        <Divider />
-                        <div className="grid">
+                    <div className="card shadow-3 border-round-xl p-0">
+                        {/* Nowy komponent filtrów */}
+                        <NewsFilters
+                            selectedCategories={selectedCategories}
+                            setSelectedCategories={setSelectedCategories}
+                        />
+                        <Divider className="m-0" />
+                        <div className="grid p-3">
                             {loadingTemplate()}
                         </div>
                     </div>
@@ -254,47 +208,56 @@ const HomePage = () => {
         );
     }
 
-    if (postsError || categoriesError) {
+    if (postsError) {
         return (
             <div className="flex flex-column align-items-center justify-content-center min-h-screen">
-                {renderError(postsError || categoriesError as Error)}
+                {renderError(postsError as Error)}
             </div>
         );
     }
 
     return (
         <div className="grid">
+            <div className="col-12">
+                <CategoryBanner
+                    categories={[]}
+                    selectedCategories={selectedCategories}
+                />
+            </div>
             <div className="col-12 lg:col-10 lg:col-offset-1">
-                <div className="card shadow-3 border-round-xl">
-                    {renderFilters()}
-                    <Divider />
+                <div className="card shadow-3 border-round-xl p-0">
+                    {/* Nowy komponent filtrów */}
+                    <NewsFilters
+                        selectedCategories={selectedCategories}
+                        setSelectedCategories={setSelectedCategories}
+                    />
+                    <Divider className="m-0" />
 
                     {/* Lista aktualności */}
-                    {filteredPosts.length > 0 ? (
-                        <DataView value={filteredPosts} layout="grid" itemTemplate={itemTemplate} />
-                    ) : (
-                        <div className="flex justify-content-center align-items-center p-5">
-                            <div className="text-center">
-                                <i className="pi pi-filter-slash text-5xl text-500 mb-3"></i>
-                                <h3>Brak aktualności spełniających kryteria</h3>
-                                {(selectedCategories.length > 0 || searchTerm !== "") && (
+                    <div className="p-3">
+                        {filteredPosts.length > 0 ? (
+                            <DataView value={filteredPosts} layout="grid" itemTemplate={itemTemplate} />
+                        ) : (
+                            <div className="flex justify-content-center align-items-center p-5">
+                                <div className="text-center">
+                                    <i className="pi pi-filter-slash text-5xl text-500 mb-3"></i>
+                                    <h3>Brak aktualności spełniających kryteria</h3>
                                     <Button
                                         label="Wyczyść filtry"
                                         icon="pi pi-times"
                                         className="p-button-text mt-3"
                                         onClick={() => {
                                             setSelectedCategories([]);
-                                            setSearchTerm("");
                                         }}
                                     />
-                                )}
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
     );
-}
+};
 
-export default HomePage
+export default HomePage;
