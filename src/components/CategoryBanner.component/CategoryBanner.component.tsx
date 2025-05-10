@@ -15,7 +15,7 @@ const CategoryBanner = ({ categories, selectedCategories }: CategoryBannerProps)
         if (selectedCategories.length === 0) {
             // Domyślny gradient dla wszystkich kategorii
             setGradientStyle({
-                background: "linear-gradient(135deg, var(--primary-color) 0%, var(--primary-800) 100%)"
+                background: "linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%)"
             });
             return;
         }

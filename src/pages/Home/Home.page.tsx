@@ -1,19 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { fetchPosts } from "../utils/api";
-import { Category, Post } from "../utils/types";
-import { Card } from "primereact/card";
+import { fetchPosts } from "../../utils/api";
+import { Category, Post } from "../../utils/types";
+// import { Card } from "primereact/card";
 import { DataView } from "primereact/dataview";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { Chip } from "primereact/chip";
 import { Skeleton } from "primereact/skeleton";
 import { Divider } from "primereact/divider";
-// import CategoryBanner from "../components/CategoryBanner.component/CategoryBanner.component";
 
-import './styles.css';
-import CategoryBanner from "../components/CategoryBanner.component/CategoryBanner.component";
-import NewsFilters from "../components/NewsFilter.component/NewsFilter.component";
+import './home-styles.css';
+import CategoryBanner from "../../components/CategoryBanner.component/CategoryBanner.component";
+import NewsFilters from "../../components/NewsFilter.component/NewsFilter.component";
 
 const HomePage = () => {
     const navigate = useNavigate();
@@ -33,7 +32,7 @@ const HomePage = () => {
         gcTime: 30 * 60 * 1000
     });
 
-    // Filtrowanie postów na podstawie wybranych kategorii i wyszukiwanego terminu
+    // Filtrowanie postów na podstawie wybranych kategorii
     useEffect(() => {
         if (posts.length === 0) return;
 
@@ -88,52 +87,72 @@ const HomePage = () => {
         }
     };
 
-    // Szablon dla kategorii w ramach elementu aktualności
-    const renderCategories = (categories?: Category[]) => {
-        if (!categories || categories.length === 0) return null;
+    // // Szablon dla kategorii w ramach elementu aktualności
+    // const renderCategories = (categories?: Category[]) => {
+    //     if (!categories || categories.length === 0) return null;
 
-        return (
-            <div className="flex flex-wrap gap-1 mt-2">
-                {categories.map(cat => (
-                    <Chip
-                        key={cat.id}
-                        label={cat.name}
-                        className="bg-primary-100 text-primary-900 category-chip"
-                        onClick={() => handleCategoryClick(cat)}
-                    />
-                ))}
-            </div>
-        );
-    };
+    //     return (
+    //         <div className="card-categories">
+    //             {categories.map(cat => (
+    //                 <Chip
+    //                     key={cat.id}
+    //                     label={cat.name}
+    //                     className="category-chip"
+    //                     onClick={() => handleCategoryClick(cat)}
+    //                 />
+    //             ))}
+    //         </div>
+    //     );
+    // };
 
     // Szablon dla elementu aktualności
     const itemTemplate = (news: Post) => {
         return (
             <div className="col-12 md:col-6 lg:col-4 p-2">
-                <Card
-                    title={news.title}
-                    footer={(
-                        <div className="flex justify-content-between align-items-center">
-                            <span className="flex align-items-center">
-                                <i className="pi pi-calendar mr-2"></i>
-                                {news.createdAt ? formatDate(news.createdAt) : "Brak daty"}
-                            </span>
-                            <Button
-                                label="Czytaj więcej"
-                                icon="pi pi-arrow-right"
-                                iconPos="right"
-                                className="p-button-rounded p-button-outlined"
-                                onClick={() => navigate(`/aktualnosci/${news.slug}`)}
-                            />
-                        </div>
-                    )}
-                    className="news-card shadow-3 border-round-xl"
+                <div
+                    className="news-card"
+                    onClick={() => navigate(`/aktualnosci/${news.slug}`)}
                 >
-                    <div className="news-content">
-                        {renderCategories(news.categories)}
-                        <p className="line-height-3 mt-3">{news.shortContent}</p>
+                    {/* Niewidoczny link pokrywający całą kartę */}
+                    <div className="card-link" aria-hidden="true" />
+
+                    <div className="news-card-header">
+                        <h3>{news.title}</h3>
                     </div>
-                </Card>
+                    <div className="news-card-content">
+                        <p>{news.shortContent}</p>
+                        <div className="card-categories">
+                            {news.categories && news.categories.map(cat => (
+                                <Chip
+                                    key={cat.id}
+                                    label={cat.name}
+                                    className="category-chip"
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // Zapobiega wywołaniu onClick na karcie
+                                        handleCategoryClick(cat);
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                    <div className="news-card-footer">
+                        <span className="post-date">
+                            <i className="pi pi-calendar"></i>
+                            {news.createdAt ? formatDate(news.createdAt) : "Brak daty"}
+                        </span>
+                        {/* Opcjonalnie możemy ukryć przycisk, skoro cała karta jest klikalna */}
+                        {/* <a 
+                        className="read-more-btn"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/aktualnosci/${news.slug}`);
+                        }}
+                    >
+                        Czytaj więcej
+                        <i className="pi pi-arrow-right"></i>
+                    </a> */}
+                    </div>
+                </div>
             </div>
         );
     };
@@ -192,8 +211,7 @@ const HomePage = () => {
                     />
                 </div>
                 <div className="col-12 lg:col-10 lg:col-offset-1">
-                    <div className="card shadow-3 border-round-xl p-0">
-                        {/* Nowy komponent filtrów */}
+                    <div className="card">
                         <NewsFilters
                             selectedCategories={selectedCategories}
                             setSelectedCategories={setSelectedCategories}
@@ -217,42 +235,50 @@ const HomePage = () => {
     }
 
     return (
-        <div className="grid">
-            <div className="col-12">
-                <CategoryBanner
-                    categories={[]}
-                    selectedCategories={selectedCategories}
-                />
-            </div>
-            <div className="col-12 lg:col-10 lg:col-offset-1">
-                <div className="card shadow-3 border-round-xl p-0">
-                    {/* Nowy komponent filtrów */}
-                    <NewsFilters
+        <div className="news-container">
+            <div className="grid">
+                <div className="col-12">
+                    <CategoryBanner
+                        categories={[]}
                         selectedCategories={selectedCategories}
-                        setSelectedCategories={setSelectedCategories}
                     />
-                    <Divider className="m-0" />
+                </div>
+                <div className="col-12 lg:col-10 lg:col-offset-1">
+                    <div className="card">
+                        <NewsFilters
+                            selectedCategories={selectedCategories}
+                            setSelectedCategories={setSelectedCategories}
+                        />
+                        <Divider className="m-0" />
 
-                    {/* Lista aktualności */}
-                    <div className="p-3">
-                        {filteredPosts.length > 0 ? (
-                            <DataView value={filteredPosts} layout="grid" itemTemplate={itemTemplate} />
-                        ) : (
-                            <div className="flex justify-content-center align-items-center p-5">
-                                <div className="text-center">
-                                    <i className="pi pi-filter-slash text-5xl text-500 mb-3"></i>
-                                    <h3>Brak aktualności spełniających kryteria</h3>
-                                    <Button
-                                        label="Wyczyść filtry"
-                                        icon="pi pi-times"
-                                        className="p-button-text mt-3"
-                                        onClick={() => {
-                                            setSelectedCategories([]);
-                                        }}
-                                    />
+                        {/* Lista aktualności */}
+                        <div className="p-3">
+                            {filteredPosts.length > 0 ? (
+                                <DataView
+                                    value={filteredPosts}
+                                    layout="grid"
+                                    itemTemplate={itemTemplate}
+                                    rows={9}
+                                    paginator={filteredPosts.length > 9}
+                                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+                                />
+                            ) : (
+                                <div className="no-results">
+                                    <div>
+                                        <i className="pi pi-filter-slash"></i>
+                                        <h3>Brak aktualności spełniających kryteria</h3>
+                                        <Button
+                                            label="Wyczyść filtry"
+                                            icon="pi pi-times"
+                                            className="p-button-text"
+                                            onClick={() => {
+                                                setSelectedCategories([]);
+                                            }}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

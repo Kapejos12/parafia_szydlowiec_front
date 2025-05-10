@@ -6,3 +6,35 @@
     margin: 0;
     padding: 0;
 }
+
+/* Zmienne kolorów CSS */
+:root {
+    /* Kolory podstawowe */
+    --color-primary: #8B1C1C;
+    --color-primary-light: #AB2828;
+    --color-primary-dark: #6E1616;
+
+    --color-secondary: #DBC391;
+    --color-secondary-light: #E5D4B2;
+    --color-secondary-dark: #C5A873;
+
+    --color-accent: #192C4A;
+    --color-accent-light: #274269;
+    --color-accent-dark: #111E33;
+
+    /* Kolory neutralne */
+    --color-background: #F9F5ED;
+    --color-element-bg: #EAEAEA;
+    --color-text: #333333;
+    --color-text-light: #666666;
+
+    /* Kolory akcentowe */
+    --color-gold: #D4B254;
+    --color-olive: #5A6B38;
+
+    /* Kolory funkcyjne */
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
+}

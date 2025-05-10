@@ -63,7 +63,7 @@
 }
 
 /* Responsywność */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 960px) {
     .category-banner {
         padding-bottom: 2rem;
     }

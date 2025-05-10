@@ -25,18 +25,18 @@ const NewsFilters = ({
         gcTime: 30 * 60 * 1000
     });
 
-    const customChipTemplate = (item: Category) => {
-        return (
-            <div className="custom-chip">
-                {item?.name}
-            </div>
-        );
-    };
+    // Uwaga: Usuwamy customowy szablon chipa, aby użyć domyślnego z ikoną usuwania
+    // To zapewni, że ikona "x" będzie widoczna
+
+    const categoryItemTemplate = (option: Category) => (
+        <div className="category-item">
+            <span>{option.name}</span>
+        </div>
+    );
 
     return (
         <div className="filters-section p-4">
             <div className="grid">
-
                 {/* MultiSelect do filtrowania po kategoriach */}
                 <div className="col-12 md:col-6">
                     <MultiSelect
@@ -45,15 +45,13 @@ const NewsFilters = ({
                         onChange={(e) => setSelectedCategories(e.value)}
                         optionLabel="name"
                         placeholder="Filtruj po kategorii"
-                        className="w-full category-multiselect"
+                        className="category-multiselect"
                         disabled={categoriesLoading}
                         display="chip"
-                        itemTemplate={(option) => (
-                            <div className="category-item">
-                                <span>{option.name}</span>
-                            </div>
-                        )}
-                        selectedItemTemplate={customChipTemplate}
+                        itemTemplate={categoryItemTemplate}
+                        // Usuwamy selectedItemTemplate, aby używać domyślnego
+                        // selectedItemTemplate={customChipTemplate}
+                        removeIcon="pi pi-times-circle" // Upewniamy się, że ikona usuwania jest ustawiona
                     />
                 </div>
             </div>
