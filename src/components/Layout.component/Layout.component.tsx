@@ -1,73 +1,35 @@
 import { Outlet } from "react-router-dom"
 import HeaderComponent from "../Header.component/Header.component"
 import HeroComponent from "../Hero.component/Hero.component"
-
 import kosciol from '../../assets/kosciol.jpeg';
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarContent from "../SidebarContent.component/SidebarContent.component";
+import { Button } from 'primereact/button';
 
 import './layout-styles.css';
 
 const LayoutComponent: React.FC = () => {
-    const [showSidebar, setShowSidebar] = useState<boolean>(false);
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
-    const [markerTop, setMarkerTop] = useState<number>(0);
     const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
-    const asideRef = React.useRef<HTMLDivElement>(null);
-    const markerHeight = 30; // stała wysokość markera
+    const [showSidebar, setShowSidebar] = useState<boolean>(false);
+
+    // Sprawdza czy urządzenie jest mobilne (szerokość < 768px)
+    const isMobile = windowWidth < 768;
 
     // Nasłuchiwanie zmian rozmiaru okna
     useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
+        const handleResize = () => {
+            const newWidth = window.innerWidth;
+            setWindowWidth(newWidth);
+            // Ukryj sidebar automatycznie gdy przejdziemy na widok mobilny
+            if (newWidth < 960) {
+                setShowSidebar(false);
+            }
+        };
+
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
-    // Ustalenie czy urządzenie jest mobilne
-    const isMobile = windowWidth < 960;
-
-    // Wyliczenie szerokości sidebaru
-    const sidebarWidth = useMemo(() => {
-        if (showSidebar) {
-            return isMobile ? windowWidth : windowWidth * 0.25;
-        } else {
-            return 30;
-        }
-    }, [showSidebar, windowWidth, isMobile]);
-
-    // Ustalenie paddingu sidebaru
-    const sidebarPadding = showSidebar ? (isMobile ? 10 : 20) : 0;
-
-    // Obliczenie pozycji markera na osi X
-    const markerLeft = useMemo(() => {
-        if (isMobile) {
-            return showSidebar ? 10 : windowWidth - 30 - 30;
-        } else {
-            return showSidebar ? windowWidth * 0.75 - 30 : windowWidth - 30 - 30;
-        }
-    }, [showSidebar, windowWidth, isMobile]);
-
-    // Dla urządzeń mobilnych obliczamy dynamiczną pozycję markera względem sidebaru
-    useEffect(() => {
-        if (isMobile && asideRef.current) {
-            const rect = asideRef.current.getBoundingClientRect();
-            let newMarkerTop = rect.top + rect.height / 2;
-            // Klamrujemy wartość newMarkerTop, aby nie wychodziła poza widok
-            if (newMarkerTop < markerHeight / 2) {
-                newMarkerTop = markerHeight / 2;
-            } else if (newMarkerTop > window.innerHeight - markerHeight / 2) {
-                newMarkerTop = window.innerHeight - markerHeight / 2;
-            }
-            setMarkerTop(newMarkerTop);
-        }
-    }, [isMobile, showSidebar, windowWidth]);
-
-    // Handler dla urządzeń mobilnych
-    const toggleSidebar = () => {
-        if (isMobile) {
-            setShowSidebar(prev => !prev);
-        }
-    };
 
     useEffect(() => {
         const handleScroll = () => {
@@ -82,6 +44,11 @@ const LayoutComponent: React.FC = () => {
         };
     }, []);
 
+    // Funkcja przełączająca widoczność sidebara na urządzeniach mobilnych
+    const toggleSidebar = () => {
+        setShowSidebar(!showSidebar);
+    };
+
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -90,51 +57,33 @@ const LayoutComponent: React.FC = () => {
         <div>
             <HeaderComponent />
             <HeroComponent backgroundImage={kosciol} title="Parafia Św Zygmunta w Szydłowcu" />
-            <div style={{ display: "flex", minHeight: 'calc(100vh - 200px)' }}>
-                <div style={{ flex: 1, padding: '20px' }}>
+
+            {/* Przycisk przełączający sidebar (widoczny tylko na urządzeniach mobilnych) */}
+            {isMobile && (
+                <div className="sidebar-toggle-container">
+                    <Button
+                        icon={showSidebar ? "pi pi-times" : "pi pi-bars"}
+                        onClick={toggleSidebar}
+                        className="p-button-rounded p-button-primary sidebar-toggle-button"
+                        aria-label={showSidebar ? "Zamknij panel boczny" : "Otwórz panel boczny"}
+                    />
+                </div>
+            )}
+
+            <div className="layout-container">
+                {/* Główna treść */}
+                <div className={`main-content ${isMobile && showSidebar ? 'shifted' : ''}`}>
                     <Outlet />
                 </div>
 
+                {/* Sidebar - różne style dla mobilnych i desktopowych */}
                 <aside
-                    ref={asideRef}
-                    style={{
-                        position: 'relative',
-                        width: typeof sidebarWidth === 'number' ? `${sidebarWidth}px` : sidebarWidth,
-                        backgroundColor: '#f0f0f0',
-                        padding: `${sidebarPadding}px`,
-                        overflow: 'hidden',
-                        transition: 'width 0.3s ease, padding 0.3s ease'
-                    }}
-                    onMouseEnter={!isMobile ? () => setShowSidebar(true) : undefined}
-                    onMouseLeave={!isMobile ? () => setShowSidebar(false) : undefined}
-                    onClick={isMobile ? toggleSidebar : undefined}
+                    className={`sidebar ${isMobile ? 'mobile' : 'desktop'} ${showSidebar ? 'show' : ''}`}
                 >
-                    {/* Marker pozycjonowany fixed, by opierać się na wymiarach okna */}
-                    <div
-                        style={{
-                            position: 'fixed',
-                            top: isMobile ? `${markerTop}px` : '50%', // desktop: 50%, mobile: dynamic
-                            left: `${markerLeft}px`,
-                            transform: 'translateY(-50%)',
-                            width: `${markerHeight}px`,
-                            height: `${markerHeight}px`,
-                            backgroundColor: '#ccc',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            userSelect: 'none',
-                            zIndex: 1000,
-                            transition: 'left 0.3s ease, top 0.3s ease',
-                            fontSize: '20px',
-                        }}
-                    >
-                        {showSidebar ? '>' : '<'}
-                    </div>
-                    {showSidebar && <SidebarContent />}
+                    <SidebarContent onClose={isMobile ? toggleSidebar : undefined} />
                 </aside>
             </div>
+
             {showBackToTop && (
                 <button
                     onClick={scrollToTop}
