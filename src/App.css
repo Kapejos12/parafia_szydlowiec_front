@@ -27,7 +27,7 @@
 }
 
 .custom-megamenu .p-menuitem-link:hover {
-    background-color: black;
+    background-color: var(--color-accent);
 }
 
 .p-megamenu .p-menuitem>.p-menuitem-content .p-menuitem-link .p-submenu-icon {
@@ -36,7 +36,7 @@
 
 .custom-megamenu .p-menuitem-link:hover {
     color: white;
-    background-color: black;
+    background-color: var(--color-accent);
     transform: scale(1.05);
     justify-content: center;
 }
@@ -47,7 +47,7 @@
 }
 
 .custom-megamenu .p-megamenu-grid .p-menuitem-content {
-    background-color: black;
+    background-color: var(--color-accent);
     color: white;
 }
 
@@ -58,13 +58,20 @@
 
 @media (max-width: 960px) {
     .p-megamenu-root-list {
-        background-color: black;
+        background-color: var(--color-accent);
     }
 }
 
 .p-megamenu-button {
-    background-color: black;
+    background-color: var(--color-accent);
     color: white;
+}
+
+.p-menuitem .p-menuitem-active .p-highlight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .fallback-container {

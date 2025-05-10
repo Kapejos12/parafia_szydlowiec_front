@@ -17,8 +17,8 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
     // Custom panel header template with styled headers
     const customHeader = (title: string) => {
         return (
-            <div className="flex align-items-center justify-content-center">
-                <span className="text-xl font-semibold text-primary">{title}</span>
+            <div className="panel-header-wrapper">
+                <span>{title}</span>
             </div>
         );
     };
@@ -34,7 +34,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
     return (
         <div className="parish-sidebar shadow-2 p-3 border-round">
             <div className="sidebar-header">
-                <h2 className="text-2xl font-bold mb-4 text-center text-primary border-bottom-1 border-primary pb-2">
+                <h2 className="border-bottom-1 border-primary pb-2">
                     Informacje parafialne
                 </h2>
 
@@ -55,17 +55,17 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                 className="mb-4 border-1 border-200"
                 toggleable
             >
-                <div className="flex flex-column gap-3 ">
-                    <div className="p-2 surface-100 border-round">
-                        <h4 className="font-bold mb-2 text-primary text-center">Niedziele i święta:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                <div className="flex-column gap-3">
+                    <div className="surface-100">
+                        <h4>Niedziele i święta:</h4>
+                        <p className="text-lg text-center shadow-1">
                             7:00, 9:00, 10:30, 12:00, 18:00
                         </p>
                     </div>
                     <Divider />
-                    <div className="p-2 surface-100 border-round align-items-center">
-                        <h4 className="font-bold mb-2 text-primary text-center">Dni powszednie:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                    <div className="surface-100">
+                        <h4>Dni powszednie:</h4>
+                        <p className="text-lg text-center shadow-1">
                             7:00, 7:30, 17:30, 18:00
                         </p>
                     </div>
@@ -78,45 +78,45 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                 className="mb-4 border-1 border-200"
                 toggleable
             >
-                <div className="flex flex-column gap-3">
-                    <div className="p-2 surface-100 border-round justify-content-center">
-                        <h4 className="font-bold mb-2 text-primary text-primary">M.B. Nieustającej Pomocy:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                <div className="flex-column gap-3">
+                    <div className="surface-100">
+                        <h4>M.B. Nieustającej Pomocy:</h4>
+                        <p className="text-lg text-center shadow-1">
                             Środa po Mszy o godzinie 18:00
                         </p>
                     </div>
                     <Divider />
-                    <div className="p-2 surface-100 border-round align-items-center">
-                        <h4 className="font-bold mb-2 text-primary text-primary">Koronka do Miłosierdzia Bożego:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                    <div className="surface-100">
+                        <h4>Koronka do Miłosierdzia Bożego:</h4>
+                        <p className="text-lg text-center shadow-1">
                             Piątek: 17:15
                         </p>
                     </div>
                     <Divider />
-                    <div className="p-2 surface-100 border-round align-items-center">
-                        <h4 className="font-bold mb-2 text-primary text-primary">Nabożeństwo różańcowe - październik:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                    <div className="surface-100">
+                        <h4>Nabożeństwo różańcowe - październik:</h4>
+                        <p className="text-lg text-center shadow-1">
                             Dni powszednie: 17:00 | Niedziela: 16:30
                         </p>
                     </div>
                     <Divider />
-                    <div className="p-2 surface-100 border-round align-items-center">
-                        <h4 className="font-bold mb-2 text-primary text-primary">Nabożeństwa majowe, czerwcowe:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                    <div className="surface-100">
+                        <h4>Nabożeństwa majowe, czerwcowe:</h4>
+                        <p className="text-lg text-center shadow-1">
                             Dni powszednie: 17:00 | Sobota: 17:30 | Niedziela: 16:30
                         </p>
                     </div>
                     <Divider />
-                    <div className="p-2 surface-100 border-round align-items-center">
-                        <h4 className="font-bold mb-2 text-primary text-primary">Gorzkie Żale - Wielki Post:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                    <div className="surface-100">
+                        <h4>Gorzkie Żale - Wielki Post:</h4>
+                        <p className="text-lg text-center shadow-1">
                             Niedziela: 16:30
                         </p>
                     </div>
                     <Divider />
-                    <div className="p-2 surface-100 border-round align-items-center">
-                        <h4 className="font-bold mb-2 text-primary text-primary">Droga Krzyżowa - Wielki Post:</h4>
-                        <p className="text-lg font-medium text-center p-2 border-round shadow-1">
+                    <div className="surface-100">
+                        <h4>Droga Krzyżowa - Wielki Post:</h4>
+                        <p className="text-lg text-center shadow-1">
                             Dla dzieci: 16:00 | Dla dorosłych: 17:00
                         </p>
                     </div>
@@ -129,12 +129,12 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                 className="mb-4 border-1 border-200"
                 toggleable
             >
-                <div className="flex flex-column gap-3">
-                    <div className="flex align-items-start p-2 surface-100 border-round justify-content-center">
-                        <i className="pi pi-clock text-primary text-2xl mr-3 mt-1"></i>
+                <div className="flex-column gap-3">
+                    <div className="flex align-items-start surface-100">
+                        <i className="pi pi-clock icon"></i>
                         <div>
-                            <h4 className="font-bold mb-2 text-primary text-primary">Godziny otwarcia:</h4>
-                            <div className=" p-2 border-round shadow-1">
+                            <h4>Godziny otwarcia:</h4>
+                            <div className="shadow-1">
                                 <p className="mb-2">Poniedziałek - Piątek: <span className="font-medium">16:00-17:30</span></p>
                                 <p>Sobota: <span className="font-medium">9:00-10:30</span></p>
                             </div>
@@ -149,13 +149,13 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                 className="mb-4 border-1 border-200"
                 toggleable
             >
-                <div className="flex flex-column align-items-center">
+                <div className="flex-column align-items-center">
                     <Calendar
                         inline
                         style={{ width: '100%' }}
                         className="border-1 border-200 shadow-1 p-2 border-round"
                     />
-                    <div className="flex justify-content-center mt-3">
+                    <div className="event-button-container">
                         <Button
                             label="Zobacz wydarzenia"
                             icon="pi pi-calendar"
@@ -172,18 +172,18 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                 className="mb-4 border-1 border-200"
                 toggleable
             >
-                <div className="p-2 surface-100 border-round">
-                    <div className="bg-white p-3 border-round shadow-1">
-                        <p className="flex align-items-center mb-3">
-                            <i className="pi pi-map-marker text-primary text-xl mr-3"></i>
+                <div className="surface-100">
+                    <div className="contact-container">
+                        <p className="contact-item">
+                            <i className="pi pi-map-marker contact-icon"></i>
                             <span className="font-medium">ul. Zakościelna 13, 26-500 Szydłowiec</span>
                         </p>
-                        <p className="flex align-items-center mb-3">
-                            <i className="pi pi-phone text-primary text-xl mr-3"></i>
+                        <p className="contact-item">
+                            <i className="pi pi-phone contact-icon"></i>
                             <a href="tel:+48574922900"><span className="font-medium">Telefon: 574 922 900</span></a>
                         </p>
-                        <p className="flex align-items-center">
-                            <i className="pi pi-envelope text-primary text-xl mr-3"></i>
+                        <p className="contact-item">
+                            <i className="pi pi-envelope contact-icon"></i>
                             <a href="mailto:swzygmuntszydlowiec@interia.pl"><span className="font-medium">Email: swzygmuntszydlowiec@interia.pl</span></a>
                         </p>
                     </div>
