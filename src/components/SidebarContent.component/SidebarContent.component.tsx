@@ -135,8 +135,8 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                         <div>
                             <h4>Godziny otwarcia:</h4>
                             <div className="shadow-1">
-                                <p className="mb-2">Poniedziałek - Piątek: <span className="font-medium">16:00-17:30</span></p>
-                                <p>Sobota: <span className="font-medium">9:00-10:30</span></p>
+                                <p className="mb-2"><b>Poniedziałek - Piątek: </b><span className="font-medium">09:00-10:00 <br /> oraz <br /> 16:00-17:30</span></p>
+                                <p><b>Sobota: </b><span className="font-medium"><br />9:00-10:30</span></p>
                             </div>
                         </div>
                     </div>
@@ -176,7 +176,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                     <div className="contact-container">
                         <p className="contact-item">
                             <i className="pi pi-map-marker contact-icon"></i>
-                            <span className="font-medium">ul. Zakościelna 13, 26-500 Szydłowiec</span>
+                            <a href="https://maps.app.goo.gl/pKLYNJrhFLV9Xd9r8">ul. Zakościelna 13, 26-500 Szydłowiec</a>
                         </p>
                         <p className="contact-item">
                             <i className="pi pi-phone contact-icon"></i>
@@ -184,7 +184,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                         </p>
                         <p className="contact-item">
                             <i className="pi pi-envelope contact-icon"></i>
-                            <a href="mailto:swzygmuntszydlowiec@interia.pl"><span className="font-medium">Email: swzygmuntszydlowiec@interia.pl</span></a>
+                            <a href="mailto:swzygmuntszydlowiec@interia.pl"><span className="font-medium">Email: swzygmuntszydlowiec<br />@interia.pl</span></a>
                         </p>
                     </div>
                 </div>

@@ -35,10 +35,6 @@ const HeaderComponent: React.FC = () => {
             url: '/'
         },
         {
-            label: "Ogłoszenia",
-            url: '/ogloszenia'
-        },
-        {
             label: "Galerie zdjęć",
             url: "https://www.facebook.com/swzygmunt/photos?tab=albums",
             target: "_blank"

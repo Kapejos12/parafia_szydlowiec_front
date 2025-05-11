@@ -1,0 +1,458 @@
+/* ParishOfficePage.css */
+body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+}
+
+.parish-office-page {
+    min-height: 100vh;
+    padding: 2rem 0;
+    background-color: var(--color-background);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Nagłówek strony */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 {
+    color: var(--color-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    color: var(--color-text-light);
+    font-size: 1.2rem;
+}
+
+/* Sekcje */
+.office-hours-section,
+.sacraments-section,
+.notice-section {
+    margin-bottom: 4rem;
+}
+
+.office-hours-section h2,
+.sacraments-section h2 {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    position: relative;
+    text-align: center;
+}
+
+.office-hours-section h2::after,
+.sacraments-section h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--color-secondary);
+}
+
+.section-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: var(--color-text-light);
+    line-height: 1.6;
+}
+
+/* Karta godzin otwarcia */
+.office-hours-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.office-card {
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+    overflow: hidden;
+    border-top: 4px solid var(--color-primary);
+}
+
+.office-hours-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.office-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-secondary-light);
+}
+
+.office-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-secondary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+}
+
+.office-icon i {
+    font-size: 1.8rem;
+}
+
+.office-contact p {
+    margin: 0.4rem 0;
+    color: var(--color-text);
+}
+
+/* Tabela godzin */
+.hours-table {
+    width: 100%;
+}
+
+.hours-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.hours-table th {
+    background-color: var(--color-secondary-light);
+    color: var(--color-primary);
+    text-align: left;
+    padding: 12px 15px;
+}
+
+.hours-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--color-secondary-light);
+}
+
+.hours-table tr:last-child td {
+    border-bottom: none;
+}
+
+.closed-day {
+    color: var(--color-primary-light);
+    font-style: italic;
+}
+
+/* Sekcja sakramentów */
+.sacraments-accordion {
+    margin-top: 2rem;
+}
+
+/* Stylizacja Accordion - bez użycia !important */
+.parish-office-page .p-accordion .p-accordion-header .p-accordion-header-link {
+    background-color: white;
+    color: var(--color-primary);
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: var(--transition);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.parish-office-page .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link {
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+
+.parish-office-page .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:hover {
+    background-color: var(--color-secondary-light);
+    color: var(--color-primary-dark);
+}
+
+.parish-office-page .p-accordion .p-accordion-header:not(.p-disabled).p-highlight .p-accordion-header-link:hover {
+    background-color: var(--color-primary-light);
+    color: white;
+}
+
+.parish-office-page .p-accordion .p-accordion-content {
+    background-color: white;
+    border: none;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 1.25rem;
+}
+
+/* Zawartość sakramentów */
+.sacrament-content {
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.sacrament-description {
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.sacrament-content h4 {
+    color: var(--color-accent);
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.1rem;
+    white-space: 'pre-line'
+}
+
+.documents-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.documents-list li {
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    position: relative;
+}
+
+.documents-list li::before {
+    content: "•";
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    position: absolute;
+    left: 0;
+    top: 0.35rem;
+}
+
+.additional-info {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--color-secondary-light);
+}
+
+/* Sekcja z informacją */
+.notice-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.notice-card {
+    background-color: white;
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-left: 4px solid var(--color-accent);
+}
+
+.notice-icon {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-accent-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    color: white;
+}
+
+.notice-icon i {
+    font-size: 1.8rem;
+}
+
+.notice-card h3 {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.notice-card p {
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.notice-card p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsywność */
+@media (max-width: 960px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .office-hours-section h2,
+    .sacraments-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .office-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .parish-office-page .p-accordion .p-accordion-header .p-accordion-header-link {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+
+    .parish-office-page .p-accordion .p-accordion-content {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .parish-office-page {
+        padding: 1.5rem 0;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .page-header p {
+        font-size: 1rem;
+    }
+
+    .hours-table th,
+    .hours-table td {
+        padding: 8px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Dodatkowe style dla Markdown */
+.markdown-wrapper {
+    padding: 0;
+}
+
+/* Dostosowanie stylów dla elementów markdown */
+.prose {
+    color: var(--color-text);
+    font-family: inherit;
+}
+
+.prose h2 {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.prose h3 {
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.prose p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.prose ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.prose ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.prose li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.prose a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    transition: var(--transition);
+}
+
+.prose a:hover {
+    color: var(--color-primary-light);
+}
+
+.prose blockquote {
+    border-left: 4px solid var(--color-secondary);
+    padding-left: 1rem;
+    font-style: italic;
+    margin: 1rem 0;
+    color: var(--color-text-light);
+}
+
+.prose hr {
+    border: 0;
+    border-top: 1px solid var(--color-secondary-light);
+    margin: 1.5rem 0;
+}
+
+.dark .prose-invert {
+    color: #f3f4f6;
+}
+
+/* Ustawienie maksymalnej szerokości komponentu Markdown */
+.prose.max-w-none {
+    max-width: none;
+}
+
+/* Poprawka na padding w komponencie Markdown */
+.parish-office-page .prose.px-4.py-6 {
+    padding: 0;
+}
+
+/* Styl dla kontenera ładowania */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.loading-container p {
+    margin-top: 1rem;
+    color: var(--color-text-light);
+}
+
+/* Style dla komunikatów */
+.p-message {
+    margin: 1rem 0;
+}
+
+.parish-office-page .p-message .p-message-wrapper {
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.parish-office-page .p-message.p-message-error .p-message-icon {
+    color: var(--color-primary);
+}
+
+.parish-office-page .p-message.p-message-info .p-message-icon {
+    color: var(--color-accent);
+}

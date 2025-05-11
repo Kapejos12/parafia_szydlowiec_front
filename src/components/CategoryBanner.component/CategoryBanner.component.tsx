@@ -2,6 +2,8 @@
 import { Category } from "../../utils/types";
 import { useEffect, useState } from "react";
 
+import './category-banner-styles.css';
+
 interface CategoryBannerProps {
     categories: Category[];
     selectedCategories: Category[];
@@ -10,7 +12,6 @@ interface CategoryBannerProps {
 const CategoryBanner = ({ categories, selectedCategories }: CategoryBannerProps) => {
     const [gradientStyle, setGradientStyle] = useState<React.CSSProperties>({});
 
-    // Generowanie losowego koloru dla tła
     useEffect(() => {
         if (selectedCategories.length === 0) {
             // Domyślny gradient dla wszystkich kategorii
@@ -20,13 +21,9 @@ const CategoryBanner = ({ categories, selectedCategories }: CategoryBannerProps)
             return;
         }
 
-        // Dla wybranych kategorii generujemy unikalny gradient
-        const hue1 = 210; // Bazowa wartość hue (niebieski)
-        const hue2 = (hue1 + 40) % 360; // Przesunięcie o 40 stopni
-
         const gradient = `linear-gradient(135deg, 
-            hsl(${hue1}, 70%, 50%) 0%, 
-            hsl(${hue2}, 70%, 40%) 100%)`;
+            var(--color-primary) 0%, 
+            var(--color-primary-dark) 100%)`;
 
         setGradientStyle({ background: gradient });
     }, [selectedCategories]);
