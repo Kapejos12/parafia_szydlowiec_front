@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Category, Post } from "./types";
 import { Sacrament } from "../pages/Office/ParishOffice.page";
+import { Patron } from "../pages/Parish/Patron/PatronPage";
 
 const apiClient = axios.create({
     baseURL: import.meta.env.VITE_NODE_ENV === "production" ? import.meta.env.VITE_PRODUCTION_API_BASE_URL : import.meta.env.VITE_DEVELOPMENT_API_BASE_URL,
@@ -29,4 +30,9 @@ export const fetchPostByCategory = async (category: string): Promise<Post[]> => 
 export const fetchSacraments = async (): Promise<Sacrament[]> => {
     const response = await apiClient.get("/api/sacraments");
     return response.data.data;
+}
+
+export const fetchPatron = async (slug: string): Promise<Patron> => {
+    const response = await apiClient.get(`/api/patrons/slug/${slug}`);
+    return response.data;
 }

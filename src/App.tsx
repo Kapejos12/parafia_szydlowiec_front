@@ -7,6 +7,7 @@ import PageNotFound from './pages/404.page'
 import NewsDetailComponent from './components/NewsDetail.component/NewsDetail.component'
 import ContactPage from './pages/Contact/Contact.page'
 import ParishOffice from './pages/Office/ParishOffice.page'
+import PatronPage from './pages/Parish/Patron/PatronPage'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="aktualnosci/:slug" element={<NewsDetailComponent />} />
         <Route path="kontakt" element={<ContactPage />} />
         <Route path="kancelaria" element={<ParishOffice />} />
+        <Route path="patron" element={<PatronPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
