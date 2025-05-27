@@ -179,7 +179,15 @@ const NewsDetailComponent: React.FC = () => {
                                 );
                             })} */}
                         </div>
-
+                        {/* Przyciski akcji */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px', marginBottom: '20px' }}>
+                            <Button
+                                label="Powrót do aktualności"
+                                icon="pi pi-arrow-left"
+                                className="p-button-outlined"
+                                onClick={() => navigate('/')}
+                            />
+                        </div>
                         {/* Tytuł */}
                         <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '20px' }}>{news.title}</h1>
 
@@ -242,21 +250,6 @@ const NewsDetailComponent: React.FC = () => {
                                 className="p-button-rounded p-button-outlined p-button-help"
                                 tooltip="Drukuj"
                                 onClick={() => window.print()}
-                            />
-                        </div>
-
-                        {/* Przyciski akcji */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
-                            <Button
-                                label="Powrót do aktualności"
-                                icon="pi pi-arrow-left"
-                                className="p-button-outlined"
-                                onClick={() => navigate('/aktualnosci')}
-                            />
-                            <Button
-                                label="Udostępnij"
-                                icon="pi pi-share-alt"
-                                className="p-button-outlined p-button-success"
                             />
                         </div>
                     </Card>

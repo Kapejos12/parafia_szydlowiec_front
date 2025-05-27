@@ -1,3 +1,7 @@
+/* ===========================================
+   GLOBALNE STYLE
+   =========================================== */
+
 /* Styl dla całej strony - ciepły krem jako tło */
 body {
     background-color: var(--color-background);
@@ -15,52 +19,98 @@ body {
     padding: 0;
 }
 
+/* ===========================================
+   USUNIĘCIE BIAŁEGO TŁA Z KONTENERÓW
+   =========================================== */
+
 /* Usunięcie białego tła z głównego kontenera */
 .card {
-    background-color: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
 }
 
 /* Usunięcie białego tła z DataView */
 .p-dataview {
-    background-color: transparent !important;
-    border: none !important;
+    background-color: transparent;
+    border: none;
 }
 
 .p-dataview .p-dataview-content {
-    background-color: transparent !important;
-    border: none !important;
+    background-color: transparent;
+    border: none;
 }
 
 .p-dataview .p-dataview-header,
 .p-dataview .p-dataview-footer {
-    background-color: transparent !important;
-    border: none !important;
+    background-color: transparent;
+    border: none;
 }
 
-/* Karty aktualności - wspólne style dla wszystkich kart */
+/* Divider - zmiana koloru */
+.p-divider.p-divider-horizontal {
+    margin: 0;
+    padding: 0;
+    border-top-color: transparent;
+}
+
+/* ===========================================
+   KARTY AKTUALNOŚCI
+   =========================================== */
+
+/* Karty aktualności - wspólne style */
 .news-card {
     background-color: white;
-    /* Białe tło dla kart na kremowym tle */
     border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     overflow: hidden;
     margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
     height: 100%;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: var(--transition);
     border-left: none;
     border-right: none;
     border-bottom: none;
     border-top: 4px solid var(--color-primary);
+    cursor: pointer;
+    position: relative;
 }
 
 .news-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(139, 28, 28, 0.15);
 }
+
+/* Styl dla niewidocznego linka, który pokrywa całą kartę */
+.card-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Wizualny wskaźnik kliknięcia */
+.news-card:hover::after {
+    content: "Kliknij, aby przeczytać więcej";
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(25, 44, 74, 0.3);
+}
+
+/* ===========================================
+   SEKCJE KARTY
+   =========================================== */
 
 /* Nagłówek karty */
 .news-card-header {
@@ -85,9 +135,23 @@ body {
 
 .news-card-content p {
     margin: 0 0 1rem 0;
-    color: #333;
+    color: var(--color-text);
     line-height: 1.5;
 }
+
+/* Stopka karty */
+.news-card-footer {
+    padding: 1rem 1.5rem;
+    background-color: var(--color-background);
+    border-top: 1px solid var(--color-secondary-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ===========================================
+   KATEGORIE
+   =========================================== */
 
 /* Kategorie w karcie */
 .card-categories {
@@ -104,34 +168,30 @@ body {
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
     font-weight: 500;
-    transition: all 0.2s ease;
+    transition: var(--transition);
     cursor: pointer;
     border: none;
     display: inline-flex;
     align-items: center;
+    position: relative;
+    z-index: 2;
 }
 
 .category-chip:hover {
     background-color: var(--color-secondary);
+    color: var(--color-primary);
     transform: translateY(-2px);
 }
 
-/* Stopka karty */
-.news-card-footer {
-    padding: 1rem 1.5rem;
-    background-color: var(--color-background);
-    /* Kremowe tło dla stopki */
-    border-top: 1px solid var(--color-secondary-light);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+/* ===========================================
+   ELEMENTY NAWIGACYJNE
+   =========================================== */
 
 /* Data publikacji */
 .post-date {
     display: flex;
     align-items: center;
-    color: #666;
+    color: var(--color-text-light);
     font-size: 0.9rem;
 }
 
@@ -140,38 +200,14 @@ body {
     color: var(--color-primary);
 }
 
-/* Przycisk "Czytaj więcej" */
+/* Przycisk "Czytaj więcej" - ukryty, bo karta jest klikalna */
 .read-more-btn {
-    background-color: transparent;
-    color: var(--color-accent);
-    border: 1px solid var(--color-accent);
-    border-radius: 20px;
-    padding: 0.4rem 1rem;
-    font-size: 0.9rem;
-    transition: all 0.2s ease;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    text-decoration: none;
+    display: none;
 }
 
-.read-more-btn:hover {
-    background-color: var(--color-accent);
-    color: white;
-}
-
-.read-more-btn i {
-    margin-left: 0.5rem;
-}
-
-/* Wyświetlanie aktualności w siatce */
-.news-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    padding: 1.5rem;
-    background-color: transparent;
-}
+/* ===========================================
+   FILTRY I NAGŁÓWEK WYNIKÓW
+   =========================================== */
 
 /* Style dla filtrów */
 .filters-section {
@@ -179,29 +215,182 @@ body {
     border-radius: 8px;
     margin-bottom: 1.5rem;
     padding: 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow);
 }
 
-/* Divider - zmiana koloru */
-.p-divider.p-divider-horizontal {
-    margin: 0;
-    padding: 0;
-    border-top-color: transparent !important;
+/* Header z informacjami o wynikach */
+.results-header {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-secondary-light);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 6px rgba(139, 28, 28, 0.05);
 }
+
+.results-header .results-info {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.results-header .page-info {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.results-header .rows-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.results-header .rows-selector label {
+    color: var(--color-text);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* ===========================================
+   PAGINACJA
+   =========================================== */
 
 /* Style dla paginatora */
 .p-paginator {
-    background-color: transparent !important;
-    border: none !important;
-    padding: 1rem 0;
+    background-color: white;
+    border: 1px solid var(--color-secondary-light);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.p-paginator .p-paginator-page {
+    background-color: transparent;
+    border: 1px solid var(--color-secondary-light);
+    color: var(--color-text);
+    margin: 0 0.25rem;
+    transition: var(--transition);
+    border-radius: 4px;
+}
+
+.p-paginator .p-paginator-page:hover:not(.p-disabled) {
+    background-color: var(--color-secondary-light);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
 }
 
 .p-paginator .p-paginator-page.p-highlight {
-    background-color: var(--color-primary) !important;
-    color: white !important;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
 }
 
-/* Sekcja "brak wyników" */
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+    background-color: transparent;
+    border: 1px solid var(--color-secondary-light);
+    color: var(--color-primary);
+    margin: 0 0.25rem;
+    transition: var(--transition);
+    border-radius: 4px;
+}
+
+.p-paginator .p-paginator-first:hover:not(.p-disabled),
+.p-paginator .p-paginator-prev:hover:not(.p-disabled),
+.p-paginator .p-paginator-next:hover:not(.p-disabled),
+.p-paginator .p-paginator-last:hover:not(.p-disabled) {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+}
+
+.p-paginator .p-paginator-first.p-disabled,
+.p-paginator .p-paginator-prev.p-disabled,
+.p-paginator .p-paginator-next.p-disabled,
+.p-paginator .p-paginator-last.p-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: var(--color-text-light);
+    border-color: var(--color-element-bg);
+}
+
+/* Informacje po lewej stronie paginatora */
+.p-paginator .p-paginator-left-content {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+/* Dropdown w paginatorze */
+.p-paginator .p-dropdown {
+    margin-left: 0.5rem;
+    border: 1px solid var(--color-secondary-light);
+    border-radius: 4px;
+    background-color: white;
+    min-width: 80px;
+    height: 2.5rem;
+}
+
+.p-paginator .p-dropdown:not(.p-disabled):hover {
+    border-color: var(--color-primary);
+}
+
+.p-paginator .p-dropdown:not(.p-disabled).p-focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(139, 28, 28, 0.2);
+}
+
+.p-paginator .p-dropdown .p-dropdown-label {
+    color: var(--color-text);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.p-paginator .p-dropdown .p-dropdown-trigger {
+    color: var(--color-primary);
+    width: 2rem;
+    border-left: 1px solid var(--color-secondary-light);
+}
+
+.p-paginator .p-dropdown .p-dropdown-trigger:hover {
+    background-color: var(--color-secondary-light);
+}
+
+/* Panel dropdown */
+.p-paginator .p-dropdown-panel {
+    border: 1px solid var(--color-secondary-light);
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    background-color: white;
+}
+
+.p-paginator .p-dropdown-panel .p-dropdown-items {
+    padding: 0.25rem 0;
+}
+
+.p-paginator .p-dropdown-panel .p-dropdown-item {
+    color: var(--color-text);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.p-paginator .p-dropdown-panel .p-dropdown-item:hover {
+    background-color: var(--color-secondary-light);
+    color: var(--color-primary);
+}
+
+.p-paginator .p-dropdown-panel .p-dropdown-item.p-highlight {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* ===========================================
+   SEKCJA "BRAK WYNIKÓW"
+   =========================================== */
+
 .no-results {
     display: flex;
     justify-content: center;
@@ -222,71 +411,144 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Responsywność */
-@media (max-width: 968px) {
-    .news-grid {
-        grid-template-columns: 1fr;
+.no-results .p-button {
+    background-color: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.no-results .p-button:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* ===========================================
+   UKŁADY SIATKI
+   =========================================== */
+
+/* Wyświetlanie aktualności w siatce */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background-color: transparent;
+}
+
+/* ===========================================
+   RESPONSYWNOŚĆ
+   =========================================== */
+
+/* Responsywność dla tabletów */
+@media (max-width: 960px) {
+    .results-header {
+        padding: 1rem;
+    }
+
+    .results-header .flex {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .results-header .rows-selector {
+        justify-content: center;
+    }
+
+    .p-paginator {
+        padding: 0.875rem;
+    }
+
+    .p-paginator .p-paginator-page,
+    .p-paginator .p-paginator-first,
+    .p-paginator .p-paginator-prev,
+    .p-paginator .p-paginator-next,
+    .p-paginator .p-paginator-last {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
     }
 }
 
-/* Dodać ten fragment do istniejących styli dla .news-card */
-.news-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
-    border-top: 4px solid var(--color-primary);
-    cursor: pointer;
-    /* Dodany kursor pointer */
-    position: relative;
-    /* Dodane dla obsługi kliknięć */
+/* Responsywność dla telefonów */
+@media (max-width: 768px) {
+    .news-container {
+        padding: 1rem 0;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+
+    .news-card-header,
+    .news-card-content,
+    .news-card-footer {
+        padding: 0.75rem 1rem;
+    }
+
+    .news-card:hover::after {
+        display: none;
+    }
+
+    .p-paginator {
+        padding: 0.75rem;
+        margin-top: 1rem;
+    }
+
+    .p-paginator .p-paginator-left-content {
+        display: none;
+    }
+
+    .p-paginator .p-paginator-page,
+    .p-paginator .p-paginator-first,
+    .p-paginator .p-paginator-prev,
+    .p-paginator .p-paginator-next,
+    .p-paginator .p-paginator-last {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.85rem;
+        margin: 0 0.1rem;
+    }
+
+    /* Ukryj niektóre elementy paginacji na bardzo małych ekranach */
+    .p-paginator .p-paginator-first,
+    .p-paginator .p-paginator-last {
+        display: none;
+    }
 }
 
-/* Styl dla niewidocznego linka, który pokrywa całą kartę */
-.card-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    /* Powyżej karty, ale poniżej interaktywnych elementów */
-    cursor: pointer;
-}
+/* Bardzo małe ekrany */
+@media (max-width: 480px) {
+    .news-card-header h3 {
+        font-size: 1.1rem;
+    }
 
-/* Zapewnienie, że interaktywne elementy są powyżej niewidocznego linka */
-.category-chip,
-.read-more-btn {
-    position: relative;
-    z-index: 2;
-    /* Powyżej niewidocznego linka */
-}
+    .category-chip {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+    }
 
-/* Zapewnienie, że przycisk czytaj więcej nie jest niepotrzebny, gdy karta jest klikalna */
-.read-more-btn {
-    display: none;
-    /* Opcjonalnie - usuń przycisk "Czytaj więcej", skoro cała karta jest klikalna */
-}
+    .post-date {
+        font-size: 0.8rem;
+    }
 
-/* Dodajemy wizualny wskaźnik kliknięcia */
-.news-card:hover::after {
-    content: "Kliknij, aby przeczytać więcej";
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    background-color: var(--color-accent);
-    color: white;
-    padding: 0.4rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    z-index: 2;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    .p-paginator {
+        padding: 0.5rem;
+    }
+
+    .p-paginator .p-paginator-page,
+    .p-paginator .p-paginator-prev,
+    .p-paginator .p-paginator-next {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+        margin: 0 0.05rem;
+    }
+
+    /* Na bardzo małych ekranach pokaż tylko prev/next i aktualną stronę */
+    .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight) {
+        display: none;
+    }
+
+    .p-paginator .p-paginator-pages .p-paginator-page.p-highlight:before {
+        content: "Strona ";
+        font-size: 0.75rem;
+    }
 }

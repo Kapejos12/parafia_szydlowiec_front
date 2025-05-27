@@ -3,21 +3,33 @@ import { useNavigate } from "react-router-dom";
 import { fetchPosts } from "../../utils/api";
 import { Category, Post } from "../../utils/types";
 // import { Card } from "primereact/card";
-import { DataView } from "primereact/dataview";
+import { DataView, DataViewPageEvent } from "primereact/dataview";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
 import { Chip } from "primereact/chip";
 import { Skeleton } from "primereact/skeleton";
 import { Divider } from "primereact/divider";
+import { Dropdown } from "primereact/dropdown";
 
 import './home-styles.css';
 import CategoryBanner from "../../components/CategoryBanner.component/CategoryBanner.component";
 import NewsFilters from "../../components/NewsFilter.component/NewsFilter.component";
 
+
 const HomePage = () => {
     const navigate = useNavigate();
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
+    const [first, setFirst] = useState(0); // Index pierwszego elementu na stronie
+    const [rows, setRows] = useState(9); // Liczba elementów na stronie
+
+    // Opcje liczby elementów na stronie
+    const rowsPerPageOptions = [
+        { label: '6 na stronie', value: 6 },
+        { label: '9 na stronie', value: 9 },
+        { label: '12 na stronie', value: 12 },
+        { label: '18 na stronie', value: 18 }
+    ];
 
     // Pobieranie aktualności
     const {
@@ -42,16 +54,16 @@ const HomePage = () => {
         if (selectedCategories.length > 0) {
             const categorySlugs = selectedCategories.map(cat => cat.slug);
             filtered = filtered.filter(post => {
-                // Bezpieczne sprawdzenie czy post.categories istnieje i nie jest puste
                 if (!post.categories || post.categories.length === 0) {
                     return false;
                 }
-                // Teraz możemy bezpiecznie użyć some()
                 return post.categories.some(cat => categorySlugs.includes(cat.slug));
             });
         }
 
         setFilteredPosts(filtered);
+        // Reset paginacji przy zmianie filtrów
+        setFirst(0);
     }, [posts, selectedCategories]);
 
     const formatDate = (date: Date | string): string => {
@@ -77,33 +89,24 @@ const HomePage = () => {
     };
 
     const handleCategoryClick = (category: Category) => {
-        // Jeśli kategoria jest już wybrana, usuń ją
         if (selectedCategories.some(cat => cat.id === category.id)) {
             setSelectedCategories(selectedCategories.filter(cat => cat.id !== category.id));
-        }
-        // W przeciwnym razie dodaj ją do zaznaczonych
-        else {
+        } else {
             setSelectedCategories([...selectedCategories, category]);
         }
     };
 
-    // // Szablon dla kategorii w ramach elementu aktualności
-    // const renderCategories = (categories?: Category[]) => {
-    //     if (!categories || categories.length === 0) return null;
+    // Handler dla zmiany strony
+    const onPageChange = (event: DataViewPageEvent) => {
+        setFirst(event.first);
+        setRows(event.rows);
+    };
 
-    //     return (
-    //         <div className="card-categories">
-    //             {categories.map(cat => (
-    //                 <Chip
-    //                     key={cat.id}
-    //                     label={cat.name}
-    //                     className="category-chip"
-    //                     onClick={() => handleCategoryClick(cat)}
-    //                 />
-    //             ))}
-    //         </div>
-    //     );
-    // };
+    // Handler dla zmiany liczby elementów na stronie
+    const onRowsChange = (value: number) => {
+        setRows(value);
+        setFirst(0); // Reset do pierwszej strony
+    };
 
     // Szablon dla elementu aktualności
     const itemTemplate = (news: Post) => {
@@ -113,7 +116,6 @@ const HomePage = () => {
                     className="news-card"
                     onClick={() => navigate(`/aktualnosci/${news.slug}`)}
                 >
-                    {/* Niewidoczny link pokrywający całą kartę */}
                     <div className="card-link" aria-hidden="true" />
 
                     <div className="news-card-header">
@@ -128,7 +130,7 @@ const HomePage = () => {
                                     label={cat.name}
                                     className="category-chip"
                                     onClick={(e) => {
-                                        e.stopPropagation(); // Zapobiega wywołaniu onClick na karcie
+                                        e.stopPropagation();
                                         handleCategoryClick(cat);
                                     }}
                                 />
@@ -140,17 +142,6 @@ const HomePage = () => {
                             <i className="pi pi-calendar"></i>
                             {news.createdAt ? formatDate(news.createdAt) : "Brak daty"}
                         </span>
-                        {/* Opcjonalnie możemy ukryć przycisk, skoro cała karta jest klikalna */}
-                        {/* <a 
-                        className="read-more-btn"
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            navigate(`/aktualnosci/${news.slug}`);
-                        }}
-                    >
-                        Czytaj więcej
-                        <i className="pi pi-arrow-right"></i>
-                    </a> */}
                     </div>
                 </div>
             </div>
@@ -159,7 +150,7 @@ const HomePage = () => {
 
     // Szkielet ładowania dla elementu aktualności
     const loadingTemplate = () => {
-        return Array.from({ length: 6 }).map((_, i) => (
+        return Array.from({ length: rows }).map((_, i) => (
             <div key={i} className="col-12 md:col-6 lg:col-4 p-2">
                 <div className="border-round-xl overflow-hidden shadow-3 p-3">
                     <Skeleton width="60%" height="2rem" className="mb-2" />
@@ -177,6 +168,44 @@ const HomePage = () => {
                 </div>
             </div>
         ));
+    };
+
+    // Header z informacjami o wynikach i opcjami paginacji
+    const renderResultsHeader = () => {
+        const totalResults = filteredPosts.length;
+        const currentPage = Math.floor(first / rows) + 1;
+        const totalPages = Math.ceil(totalResults / rows);
+        const startItem = first + 1;
+        const endItem = Math.min(first + rows, totalResults);
+
+        return (
+            <div className="flex flex-column lg:flex-row justify-content-between align-items-start lg:align-items-center gap-3 mb-3 p-3 bg-gray-50 border-round">
+                <div className="flex flex-column gap-1">
+                    <span className="text-sm text-color-secondary">
+                        Wyświetlane {startItem}-{endItem} z {totalResults} wyników
+                    </span>
+                    {totalPages > 1 && (
+                        <span className="text-sm text-color-secondary">
+                            Strona {currentPage} z {totalPages}
+                        </span>
+                    )}
+                </div>
+
+                <div className="flex align-items-center gap-2">
+                    <label htmlFor="rows-dropdown" className="text-sm font-medium">
+                        Wyników na stronie:
+                    </label>
+                    <Dropdown
+                        id="rows-dropdown"
+                        value={rows}
+                        options={rowsPerPageOptions}
+                        onChange={(e) => onRowsChange(e.value)}
+                        className="w-auto"
+                        style={{ minWidth: '140px' }}
+                    />
+                </div>
+            </div>
+        );
     };
 
     // Obsługa błędów
@@ -252,16 +281,29 @@ const HomePage = () => {
                         <Divider className="m-0" />
 
                         {/* Lista aktualności */}
-                        <div className="p-3">
+                        <div>
                             {filteredPosts.length > 0 ? (
-                                <DataView
-                                    value={filteredPosts}
-                                    layout="grid"
-                                    itemTemplate={itemTemplate}
-                                    rows={9}
-                                    paginator={filteredPosts.length > 9}
-                                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
-                                />
+                                <>
+                                    {renderResultsHeader()}
+                                    <DataView
+                                        value={filteredPosts}
+                                        layout="grid"
+                                        itemTemplate={itemTemplate}
+                                        rows={rows}
+                                        first={first}
+                                        onPage={onPageChange}
+                                        paginator={true}
+                                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                                        paginatorClassName="justify-content-center mt-4"
+                                        rowsPerPageOptions={[6, 9, 12, 18]}
+                                        paginatorLeft={
+                                            <span className="text-sm text-color-secondary">
+                                                Łącznie: {filteredPosts.length} wyników
+                                            </span>
+                                        }
+                                        emptyMessage="Brak aktualności do wyświetlenia"
+                                    />
+                                </>
                             ) : (
                                 <div className="no-results">
                                     <div>

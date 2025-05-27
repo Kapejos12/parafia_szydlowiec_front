@@ -27,8 +27,7 @@ const ContactPage: React.FC = () => {
                                 <i className="pi pi-map-marker"></i>
                             </div>
                             <h3>Adres</h3>
-                            <p>ul. Zakościelna 13</p>
-                            <p>26-500 Szydłowiec</p>
+                            <a href="https://maps.app.goo.gl/pKLYNJrhFLV9Xd9r8">ul. Zakościelna 13, 26-500 Szydłowiec</a>
                         </div>
 
                         {/* Karta z telefonem */}
