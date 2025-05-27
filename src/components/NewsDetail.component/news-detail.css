@@ -1,0 +1,506 @@
+/* ===========================================
+   STRONA SZCZEGÓŁÓW AKTUALNOŚCI
+   =========================================== */
+
+.news-detail-page {
+    background-color: var(--color-background);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.news-detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ===========================================
+   BREADCRUMB
+   =========================================== */
+
+.p-breadcrumb {
+    background-color: transparent;
+    border: none;
+    padding: 0 0 1.5rem 0;
+    border-radius: 0;
+}
+
+.p-breadcrumb .p-breadcrumb-list {
+    background-color: white;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--color-secondary-light);
+}
+
+.p-breadcrumb .p-menuitem-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.p-breadcrumb .p-menuitem-link:hover {
+    color: var(--color-primary-dark);
+}
+
+.p-breadcrumb .p-breadcrumb-chevron {
+    color: var(--color-text-light);
+    margin: 0 0.5rem;
+}
+
+/* ===========================================
+   GŁÓWNA KARTA AKTUALNOŚCI
+   =========================================== */
+
+.news-detail-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: none;
+    overflow: hidden;
+    border-top: 6px solid var(--color-primary);
+}
+
+.news-detail-card .p-card-body {
+    padding: 0;
+}
+
+.news-detail-card .p-card-content {
+    padding: 2rem;
+}
+
+/* ===========================================
+   NAGŁÓWEK AKTUALNOŚCI
+   =========================================== */
+
+.news-detail-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+    padding: 2rem;
+    margin: -2rem -2rem 2rem -2rem;
+}
+
+.news-detail-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.news-detail-date {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+}
+
+.news-detail-date i {
+    margin-right: 0.5rem;
+    color: var(--color-secondary);
+}
+
+.news-detail-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.news-detail-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    color: white;
+}
+
+/* ===========================================
+   TREŚĆ AKTUALNOŚCI
+   =========================================== */
+
+.news-detail-content {
+    margin-bottom: 2rem;
+}
+
+.markdown-body {
+    color: var(--color-text);
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+    color: var(--color-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.markdown-body h1 {
+    font-size: 2rem;
+    border-bottom: 2px solid var(--color-secondary-light);
+    padding-bottom: 0.5rem;
+}
+
+.markdown-body h2 {
+    font-size: 1.6rem;
+}
+
+.markdown-body h3 {
+    font-size: 1.3rem;
+}
+
+.markdown-body p {
+    margin-bottom: 1rem;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+}
+
+.markdown-body li {
+    margin-bottom: 0.5rem;
+}
+
+.markdown-body blockquote {
+    border-left: 4px solid var(--color-secondary);
+    background-color: var(--color-background);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+}
+
+.markdown-body code {
+    background-color: var(--color-element-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.markdown-body pre {
+    background-color: var(--color-element-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+/* ===========================================
+   GALERIA ZDJĘĆ
+   =========================================== */
+
+.news-detail-gallery {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--color-background);
+    border-radius: 12px;
+    border: 1px solid var(--color-secondary-light);
+}
+
+.p-galleria {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.p-galleria .p-galleria-item-wrapper {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.p-galleria .p-galleria-thumbnail-wrapper {
+    background-color: var(--color-element-bg);
+    border-radius: 8px;
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+
+.p-galleria .p-galleria-thumbnail-item {
+    border-radius: 6px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.p-galleria .p-galleria-thumbnail-item:hover {
+    opacity: 0.8;
+}
+
+.p-galleria .p-galleria-thumbnail-item.p-galleria-thumbnail-item-current {
+    border: 2px solid var(--color-primary);
+}
+
+/* ===========================================
+   PRZYCISKI SPOŁECZNOŚCIOWE
+   =========================================== */
+
+.news-detail-social {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background-color: var(--color-background);
+    border-radius: 12px;
+    border: 1px solid var(--color-secondary-light);
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.news-detail-social .p-button {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    transition: var(--transition);
+}
+
+.news-detail-social .p-button.p-button-info {
+    background-color: #3b5998;
+    border-color: #3b5998;
+}
+
+.news-detail-social .p-button.p-button-info:hover {
+    background-color: #2d4373;
+    border-color: #2d4373;
+    transform: translateY(-2px);
+}
+
+.news-detail-social .p-button.p-button-secondary {
+    background-color: var(--color-text-light);
+    border-color: var(--color-text-light);
+}
+
+.news-detail-social .p-button.p-button-secondary:hover {
+    background-color: var(--color-text);
+    border-color: var(--color-text);
+    transform: translateY(-2px);
+}
+
+.news-detail-social .p-button.p-button-help {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.news-detail-social .p-button.p-button-help:hover {
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+    transform: translateY(-2px);
+}
+
+/* ===========================================
+   PRZYCISKI AKCJI
+   =========================================== */
+
+.news-detail-actions .p-button {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    color: white;
+    transition: var(--transition);
+}
+
+.news-detail-actions .p-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-1px);
+}
+
+.back-button {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.back-button:hover {
+    background-color: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+/* ===========================================
+   STANY ŁADOWANIA I BŁĘDÓW
+   =========================================== */
+
+.news-detail-loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    color: var(--color-text);
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 2rem auto;
+    max-width: 800px;
+    padding: 3rem;
+}
+
+.news-detail-loading .p-progress-spinner {
+    margin-bottom: 1rem;
+}
+
+.news-detail-error {
+    text-align: center;
+    padding: 3rem;
+    color: var(--color-danger);
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 2rem auto;
+    max-width: 800px;
+    border-top: 6px solid var(--color-danger);
+}
+
+.news-detail-error i {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-danger);
+}
+
+.news-detail-error h2 {
+    color: var(--color-text);
+    margin-bottom: 1rem;
+}
+
+.news-detail-error p {
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+}
+
+.news-detail-not-found {
+    text-align: center;
+    padding: 3rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 2rem auto;
+    max-width: 800px;
+    border-top: 6px solid var(--color-info);
+}
+
+.news-detail-not-found i {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-info);
+}
+
+.news-detail-not-found h2 {
+    color: var(--color-text);
+    margin-bottom: 1rem;
+}
+
+.news-detail-not-found p {
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+}
+
+/* ===========================================
+   RESPONSYWNOŚĆ
+   =========================================== */
+
+@media (max-width: 960px) {
+    .news-detail-page {
+        padding: 1.5rem 0;
+    }
+
+    .news-detail-container {
+        padding: 0 0.75rem;
+    }
+
+    .news-detail-card .p-card-content {
+        padding: 1.5rem;
+    }
+
+    .news-detail-header {
+        padding: 1.5rem;
+        margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+    }
+
+    .news-detail-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .news-detail-page {
+        padding: 1rem 0;
+    }
+
+    .news-detail-container {
+        padding: 0 0.5rem;
+    }
+
+    .news-detail-card .p-card-content {
+        padding: 1rem;
+    }
+
+    .news-detail-header {
+        padding: 1rem;
+        margin: -1rem -1rem 1rem -1rem;
+    }
+
+    .news-detail-title {
+        font-size: 1.75rem;
+    }
+
+    .news-detail-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .news-detail-actions {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .news-detail-actions .p-button {
+        flex: 1;
+        min-width: auto;
+    }
+
+    .news-detail-social {
+        padding: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .markdown-body {
+        font-size: 1rem;
+    }
+
+    .markdown-body h1 {
+        font-size: 1.75rem;
+    }
+
+    .markdown-body h2 {
+        font-size: 1.5rem;
+    }
+
+    .markdown-body h3 {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-detail-title {
+        font-size: 1.5rem;
+    }
+
+    .news-detail-social .p-button {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .news-detail-date {
+        font-size: 0.9rem;
+    }
+
+    .p-breadcrumb .p-breadcrumb-list {
+        padding: 0.5rem 0.75rem;
+    }
+}
