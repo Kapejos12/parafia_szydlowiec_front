@@ -1,5 +1,9 @@
+/* ===========================================
+   MEGA MENU - STYLE GŁÓWNE
+   =========================================== */
+
 .custom-megamenu {
-    background-color: transparent;
+    background-color: var(--color-accent);
     border: none;
     padding: 8px;
     width: 100%;
@@ -7,8 +11,81 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 3;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
+/* ===========================================
+   USUNIĘCIE BIAŁEJ POŚWIATY - NAPRAWA BACKGROUND
+   =========================================== */
+
+/* ===========================================
+   USUNIĘCIE BIAŁEJ POŚWIATY - WSZYSTKIE STANY
+   =========================================== */
+
+/* Bardzo agresywne usunięcie białej poświaty ze WSZYSTKICH możliwych stanów */
+.custom-megamenu .p-menuitem,
+.custom-megamenu .p-menuitem:hover,
+.custom-megamenu .p-menuitem:focus,
+.custom-megamenu .p-menuitem:active,
+.custom-megamenu .p-menuitem.p-highlight,
+.custom-megamenu .p-menuitem.p-focus,
+.custom-megamenu .p-menuitem.p-disabled,
+.custom-megamenu .p-menuitem .p-menuitem-content,
+.custom-megamenu .p-menuitem .p-menuitem-content:hover,
+.custom-megamenu .p-menuitem .p-menuitem-content:focus,
+.custom-megamenu .p-menuitem .p-menuitem-content:active {
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+/* WYJĄTEK: Elementy w submenu nie mają tła (chyba że hover) */
+.custom-megamenu .p-megamenu-grid .p-menuitem,
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content,
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content .p-menuitem-link {
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+/* Bardzo specyficzna reguła - element z otwartym submenu ZAWSZE ma tylko czerwone tło */
+.custom-megamenu .p-menuitem.p-highlight .p-menuitem-content .p-menuitem-link {
+    background: var(--color-primary);
+    color: white;
+    border-radius: 6px;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+/* Zapewnienie że element z otwartym submenu pozostaje czerwony nawet gdy inne elementy mają hover */
+.custom-megamenu .p-menuitem.p-highlight .p-menuitem-content .p-menuitem-link:not(:hover) {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+.custom-megamenu .p-menuitem:not(.p-highlight):not(.p-disabled) .p-menuitem-content:hover {
+    background: transparent;
+}
+
+/* Wszystkie linki bez efektów */
+.custom-megamenu .p-menuitem .p-menuitem-content .p-menuitem-link {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    text-shadow: none;
+    filter: none;
+}
+
+/* ===========================================
+   ELEMENTY MENU - DESKTOP
+   =========================================== */
 
 .custom-megamenu .p-menuitem-link {
     transition: all 0.3s ease-in-out;
@@ -19,65 +96,314 @@
     justify-content: center;
     z-index: 3;
     color: white;
+    border-radius: 6px;
+    margin: 0 4px;
+    box-shadow: none;
+    outline: none;
+    border: none;
 }
 
 .custom-megamenu .p-menuitem-text {
     color: white;
-    font-size: large;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .custom-megamenu .p-menuitem-link:hover {
-    background-color: var(--color-accent);
+    background-color: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+    border-radius: 6px;
+    box-shadow: none;
+    outline: none;
+    border: none;
 }
 
+/* Dodatkowa reguła dla usunięcia białej poświaty przy hover */
+.custom-megamenu .p-menuitem:hover .p-menuitem-content .p-menuitem-link {
+    box-shadow: none;
+    outline: none;
+    border: none;
+    background-color: var(--color-primary);
+    color: white;
+}
+
+/* Element z otwartym submenu - czerwone tło */
+.custom-megamenu .p-menuitem.p-menuitem-active>.p-menuitem-content>.p-menuitem-link {
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 6px;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Hover na elemencie z otwartym submenu - pozostaje czerwony */
+.custom-megamenu .p-menuitem.p-menuitem-active>.p-menuitem-content>.p-menuitem-link:hover {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: none;
+    outline: none;
+}
+
+/* Ikona submenu */
 .p-megamenu .p-menuitem>.p-menuitem-content .p-menuitem-link .p-submenu-icon {
     color: white;
+    margin-left: 8px;
 }
 
-.custom-megamenu .p-menuitem-link:hover {
-    color: white;
-    background-color: var(--color-accent);
-    transform: scale(1.05);
+/* ===========================================
+   LISTA GŁÓWNA MENU
+   =========================================== */
+
+.p-megamenu-root-list {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
     justify-content: center;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
 }
 
-.custom-megamenu .p-megamenu-grid .p-menuitem-content:active {
+/* ===========================================
+   SUBMENU / DROPDOWN
+   =========================================== */
+
+.custom-megamenu .p-megamenu-grid {
+    background-color: var(--color-accent);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    margin-top: 8px;
+}
+
+.custom-megamenu .p-megamenu-grid .p-menuitem-content {
+    background-color: transparent;
+}
+
+.custom-megamenu .p-megamenu-grid .p-menuitem-link {
+    color: white;
+    border-radius: 4px;
+    margin: 2px 0;
+    transform: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.custom-megamenu .p-megamenu-grid .p-menuitem-link:hover {
+    background-color: var(--color-primary);
+    color: white;
+    transform: translateX(4px);
+    box-shadow: none;
+    outline: none;
+}
+
+/* Dodatkowy selektor dla hover w submenu */
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content .p-menuitem-link {
     background-color: transparent;
     color: white;
 }
 
-.custom-megamenu .p-megamenu-grid .p-menuitem-content {
-    background-color: var(--color-accent);
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content .p-menuitem-link:hover {
+    background-color: var(--color-primary);
+    color: white;
+    transform: translateX(4px);
+    box-shadow: none;
+    outline: none;
+}
+
+/* ===========================================
+   MENU MOBILNE
+   =========================================== */
+
+/* Przycisk hamburger */
+.p-megamenu-button {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 8px;
+    transition: all 0.3s ease;
+}
+
+.p-megamenu-button:hover,
+.p-megamenu-button:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: white;
     color: white;
 }
 
-.p-megamenu-root-list {
-    color: white;
-    align-items: center;
-}
-
+/* Panel mobilny */
 @media (max-width: 960px) {
+    .custom-megamenu {
+        padding: 0;
+    }
+
+    /* Panel główny menu mobilnego */
     .p-megamenu-root-list {
         background-color: var(--color-accent);
+        flex-direction: column;
+        width: 100%;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+        padding: 1rem 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Elementy menu mobilnego */
+    .custom-megamenu .p-menuitem {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .custom-megamenu .p-menuitem:last-child {
+        border-bottom: none;
+    }
+
+    .custom-megamenu .p-menuitem-link {
+        width: 100%;
+        padding: 16px 24px;
+        justify-content: flex-start;
+        margin: 0;
+        border-radius: 0;
+        text-align: left;
+    }
+
+    .custom-megamenu .p-menuitem-link:hover {
+        background-color: var(--color-primary);
+        transform: none;
+        padding-left: 32px;
+    }
+
+    .custom-megamenu .p-menuitem-text {
+        font-size: 1.1rem;
+    }
+
+    /* Submenu mobilne */
+    .custom-megamenu .p-megamenu-grid {
+        position: static;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .custom-megamenu .p-megamenu-grid .p-menuitem-link {
+        padding: 12px 40px;
+        font-size: 0.95rem;
+        border-left: 3px solid transparent;
+    }
+
+    .custom-megamenu .p-megamenu-grid .p-menuitem-link:hover {
+        background-color: var(--color-primary);
+        border-left-color: white;
+        padding-left: 44px;
+        transform: none;
+    }
+
+    /* Panel ukryty domyślnie na mobile */
+    .p-megamenu .p-megamenu-root-list {
+        display: none;
+    }
+
+    /* Panel widoczny gdy aktywny */
+    .p-megamenu.p-megamenu-mobile-active .p-megamenu-root-list {
+        display: flex;
+    }
+
+    /* Overlay dla menu mobilnego */
+    .p-megamenu.p-megamenu-mobile-active::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: -1;
     }
 }
 
-.p-megamenu-button {
-    background-color: var(--color-accent);
+/* ===========================================
+   STANY AKTYWNE I FOCUS
+   =========================================== */
+
+.custom-megamenu .p-menuitem.p-menuitem-active>.p-menuitem-content>.p-menuitem-link {
+    background-color: rgba(255, 255, 255, 0.2);
     color: white;
 }
 
-.p-menuitem .p-menuitem-active .p-highlight {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.custom-megamenu .p-menuitem-link:focus {
+    outline: none;
+    box-shadow: none;
+    background-color: var(--color-primary);
+    color: white;
 }
 
-.fallback-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
+/* ===========================================
+   ANIMACJE I PRZEJŚCIA
+   =========================================== */
+
+.p-megamenu-root-list {
+    transition: all 0.3s ease-in-out;
+}
+
+.custom-megamenu .p-menuitem-link {
+    transition: all 0.3s ease-in-out;
+}
+
+.p-megamenu-button {
+    transition: all 0.3s ease-in-out;
+}
+
+/* ===========================================
+   DOSTĘPNOŚĆ
+   =========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .custom-megamenu .p-menuitem-link,
+    .p-megamenu-root-list,
+    .p-megamenu-button {
+        transition: none;
+    }
+
+    .custom-megamenu .p-menuitem-link:hover {
+        transform: none;
+    }
+}
+
+/* ===========================================
+   BARDZO MAŁE EKRANY
+   =========================================== */
+
+@media (max-width: 480px) {
+    .custom-megamenu .p-menuitem-link {
+        padding: 14px 20px;
+    }
+
+    .custom-megamenu .p-menuitem-text {
+        font-size: 1rem;
+    }
+
+    .custom-megamenu .p-megamenu-grid .p-menuitem-link {
+        padding: 10px 36px;
+        font-size: 0.9rem;
+    }
+
+    .p-megamenu-button {
+        padding: 6px;
+        margin: 6px;
+    }
 }
