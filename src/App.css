@@ -367,6 +367,12 @@
     transition: all 0.3s ease-in-out;
 }
 
+.p-menubar .p-menubar-submenu {
+    border: none !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
 /* ===========================================
    DOSTĘPNOŚĆ
    =========================================== */
@@ -406,4 +412,118 @@
         padding: 6px;
         margin: 6px;
     }
+}
+
+/* ===========================================
+   ELEGANCKA NAPRAWA BIAŁEGO PASKA
+   =========================================== */
+
+/* Usuń tylko białe tło, zachowaj styling */
+.custom-megamenu .p-megamenu-panel {
+    background: transparent !important;
+    border: none !important;
+    margin-top: 0 !important;
+}
+
+/* Przywróć ładny styling submenu */
+.custom-megamenu .p-megamenu-grid {
+    background-color: var(--color-accent) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2) !important;
+    padding: 1rem !important;
+    margin-top: 8px !important;
+    overflow: visible !important;
+}
+
+/* Usuń pseudoelementy które mogą powodować białe paski */
+.custom-megamenu .p-megamenu-panel::before,
+.custom-megamenu .p-megamenu-panel::after,
+.custom-megamenu .p-megamenu-submenu::before,
+.custom-megamenu .p-megamenu-submenu::after {
+    display: none !important;
+}
+
+/* Zachowaj transparentne tło dla kolumn */
+.custom-megamenu .p-megamenu-col-12,
+.custom-megamenu .p-megamenu-col-6,
+.custom-megamenu .p-megamenu-col-3,
+.custom-megamenu .p-megamenu-col-4 {
+    background: transparent !important;
+}
+
+/* Usuń białe separatory */
+.custom-megamenu .p-menuitem-separator,
+.custom-megamenu .p-divider {
+    display: none !important;
+}
+
+/* Alternatywne rozwiązanie - jeśli powyższe nie działa */
+.custom-megamenu .p-megamenu-submenu {
+    background: transparent !important;
+    margin-top: -1px !important;
+}
+
+.custom-megamenu .p-megamenu-submenu .p-megamenu-grid {
+    margin-top: 1px !important;
+}
+
+/* ===========================================
+   SUBMENU - HOVER EFFECT JAK W GŁÓWNYM MENU
+   =========================================== */
+
+/* RESET - Wszystkie elementy submenu mają transparentne tło domyślnie */
+.custom-megamenu .p-megamenu-grid .p-menuitem,
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content,
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content .p-menuitem-link {
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+    transition: all 0.3s ease-in-out !important;
+}
+
+/* HOVER - Czerwone tło tylko przy najechaniu */
+.custom-megamenu .p-megamenu-grid .p-menuitem:hover .p-menuitem-content .p-menuitem-link,
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content .p-menuitem-link:hover {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+    transform: translateX(4px) !important;
+    border-radius: 4px !important;
+}
+
+/* FOCUS - Czerwone tło przy focus (dostępność) */
+.custom-megamenu .p-megamenu-grid .p-menuitem .p-menuitem-content .p-menuitem-link:focus {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+    outline: none !important;
+}
+
+/* ACTIVE STATE - Usuń czerwone tło z aktywnych elementów */
+.custom-megamenu .p-megamenu-grid .p-menuitem.p-menuitem-active .p-menuitem-content .p-menuitem-link,
+.custom-megamenu .p-megamenu-grid .p-menuitem.p-highlight .p-menuitem-content .p-menuitem-link {
+    background: transparent !important;
+}
+
+/* ACTIVE HOVER - Czerwone tło przy hover na aktywnym elemencie */
+.custom-megamenu .p-megamenu-grid .p-menuitem.p-menuitem-active:hover .p-menuitem-content .p-menuitem-link,
+.custom-megamenu .p-megamenu-grid .p-menuitem.p-highlight:hover .p-menuitem-content .p-menuitem-link {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+}
+
+/* Dodatkowe zabezpieczenie - usuń wszystkie domyślne tła */
+.custom-megamenu .p-megamenu-grid .p-menuitem-link {
+    background-color: transparent !important;
+    color: white !important;
+    border-radius: 4px !important;
+    margin: 2px 0 !important;
+    padding: 12px 16px !important;
+}
+
+/* Hover z płynną animacją */
+.custom-megamenu .p-megamenu-grid .p-menuitem-link:hover {
+    background-color: var(--color-primary) !important;
+    color: white !important;
+    transform: translateX(4px) !important;
 }

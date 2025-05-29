@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category, Post } from "./types";
+import { Category, HistoryData, Post, Priest } from "./types";
 import { Sacrament } from "../pages/Office/ParishOffice.page";
 import { Patron } from "../pages/Parish/Patron/PatronPage";
 
@@ -35,4 +35,14 @@ export const fetchSacraments = async (): Promise<Sacrament[]> => {
 export const fetchPatron = async (slug: string): Promise<Patron> => {
     const response = await apiClient.get(`/api/patrons/slug/${slug}`);
     return response.data;
+}
+
+export const fetchHistoryData = async (slug: string): Promise<HistoryData> => {
+    const response = await apiClient.get(`/api/histories/slug/${slug}`);
+    return response.data;
+}
+
+export const fetchPriests = async (): Promise<Priest[]> => {
+    const response = await apiClient.get("/api/priests?populate=photo");
+    return response.data.data;
 }

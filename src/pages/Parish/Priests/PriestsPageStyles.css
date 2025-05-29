@@ -1,0 +1,677 @@
+/* ===========================
+   POZIOME KARTY KAPŁANÓW - STYLE
+   =========================== */
+
+.priests-page {
+    min-height: 100vh;
+    background-color: var(--color-background);
+    padding: 0;
+}
+
+.priests-main-container {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.priests-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* ===========================
+   BREADCRUMB
+   =========================== */
+
+.priests-breadcrumb {
+    background: white;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--color-element-bg);
+    font-size: 0.85rem;
+}
+
+.priests-breadcrumb a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.priests-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.priests-breadcrumb span {
+    color: var(--color-text-light);
+    margin: 0 0.5rem;
+}
+
+/* ===========================
+   SEKCJA WPROWADZAJĄCA
+   =========================== */
+
+.priests-intro-section {
+    background: linear-gradient(135deg, #F4E67C 0%, #F0D747 100%);
+    padding: 2rem;
+    position: relative;
+}
+
+.priests-intro-section h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+}
+
+.priests-intro-section p {
+    color: var(--color-text);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+}
+
+/* ===========================
+   SEKCJA FILTRÓW
+   =========================== */
+
+.priests-filters-section {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--color-element-bg);
+    background: #fafafa;
+}
+
+.priests-filters-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.priests-filters-left {
+    display: flex;
+    align-items: center;
+}
+
+.priests-results-info {
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+}
+
+.priests-filters {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.priests-filters .p-button {
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: var(--transition);
+    border: 1px solid var(--color-accent);
+    background: transparent;
+    color: var(--color-accent);
+}
+
+.priests-filters .p-button:not(.p-button-outlined) {
+    background: var(--color-accent);
+    color: white;
+}
+
+.priests-filters .p-button:hover {
+    background: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+    color: white;
+}
+
+/* ===========================
+   SIATKA KART KAPŁANÓW
+   =========================== */
+
+.priests-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+/* ===========================
+   POZIOMA KARTA KAPŁANA
+   =========================== */
+
+.priest-horizontal-card {
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--color-element-bg);
+    background: white;
+}
+
+.priest-horizontal-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: var(--color-primary);
+}
+
+.priest-horizontal-card .p-card-body {
+    padding: 0;
+}
+
+.priest-horizontal-card .p-card-content {
+    padding: 0;
+}
+
+/* ===========================
+   TREŚĆ POZIOMEJ KARTY
+   =========================== */
+
+.priest-horizontal-card-content {
+    display: flex;
+    align-items: stretch;
+    min-height: 160px;
+}
+
+/* ===========================
+   SEKCJA ZDJĘCIA (LEWA)
+   =========================== */
+
+.priest-image-section {
+    position: relative;
+    width: 140px;
+    min-width: 140px;
+    overflow: hidden;
+    background: var(--color-element-bg);
+}
+
+.priest-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.priest-horizontal-card:hover .priest-photo {
+    transform: scale(1.05);
+}
+
+.priest-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-element-bg);
+}
+
+.priest-photo-placeholder .pi-user {
+    font-size: 2.5rem;
+    color: var(--color-text-light);
+}
+
+/* Tag na zdjęciu */
+.priest-tag-overlay {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+}
+
+.priest-title-tag {
+    border-radius: 12px;
+    padding: 0.25rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.75rem;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--color-primary);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+/* ===========================
+   PIONOWY DIVIDER
+   =========================== */
+
+.priest-divider {
+    width: 4px;
+    background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+    flex-shrink: 0;
+}
+
+/* ===========================
+   SEKCJA INFORMACJI (PRAWA)
+   =========================== */
+
+.priest-info-section {
+    flex: 1;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 160px;
+}
+
+/* ===========================
+   IMIĘ I NAZWISKO
+   =========================== */
+
+.priest-full-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+}
+
+.priest-horizontal-card:hover .priest-full-name {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+
+/* ===========================
+   PODSTAWOWE INFORMACJE
+   =========================== */
+
+.priest-basic-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.priest-basic-info span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+}
+
+.priest-basic-info .pi {
+    font-size: 0.75rem;
+    color: var(--color-primary);
+}
+
+.priest-title {
+    color: var(--color-primary) !important;
+    font-weight: 600;
+}
+
+/* ===========================
+   OPIS
+   =========================== */
+
+.priest-description {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+/* ===========================
+   SPECJALIZACJA
+   =========================== */
+
+.priest-specialization {
+    color: var(--color-text);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: var(--color-background);
+    border-radius: 4px;
+    border-left: 3px solid var(--color-secondary);
+}
+
+.priest-specialization strong {
+    color: var(--color-primary);
+}
+
+/* ===========================
+   FOOTER KARTY
+   =========================== */
+
+.priest-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+}
+
+.priest-more-button {
+    border-radius: 6px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    background: var(--color-primary);
+    border: none;
+    transition: var(--transition);
+    color: white;
+}
+
+.priest-more-button:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(139, 28, 28, 0.3);
+}
+
+.priest-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.priest-status.active {
+    color: var(--color-success);
+}
+
+.priest-status.inactive {
+    color: var(--color-text-light);
+}
+
+.priest-status .pi {
+    font-size: 0.75rem;
+}
+
+/* ===========================
+   SIDEBAR
+   =========================== */
+
+.priests-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.priests-sidebar-widget {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.priests-sidebar-widget-header {
+    background: var(--color-primary);
+    color: white;
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.priests-sidebar-widget-content {
+    padding: 1.25rem;
+}
+
+/* ===========================
+   EMPTY STATE
+   =========================== */
+
+.priests-empty {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 8px;
+    color: var(--color-text-light);
+}
+
+.priests-empty .pi {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.priests-empty h3 {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.priests-empty p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+}
+
+/* ===========================
+   RESPONSYWNOŚĆ
+   =========================== */
+
+@media (max-width: 1024px) {
+    .priests-main-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .priests-horizontal-card-content {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .priest-image-section {
+        width: 100%;
+        height: 200px;
+        min-width: auto;
+    }
+
+    .priest-divider {
+        height: 4px;
+        width: 100%;
+    }
+
+    .priest-info-section {
+        min-height: auto;
+        padding: 1.25rem;
+    }
+
+    .priest-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .priest-more-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .priest-status {
+        justify-content: center;
+    }
+
+    .priests-intro-section {
+        padding: 1.5rem;
+    }
+
+    .priests-intro-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .priests-filters-section {
+        padding: 1rem;
+    }
+
+    .priests-filters-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .priests-cards-grid {
+        padding: 1rem;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .priests-main-container {
+        padding: 1rem 0.5rem;
+    }
+
+    .priest-info-section {
+        padding: 1rem;
+    }
+
+    .priest-full-name {
+        font-size: 1.2rem;
+    }
+
+    .priest-basic-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .priests-intro-section h1 {
+        font-size: 1.3rem;
+    }
+
+    .priests-filters {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .priests-filters .p-button {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+/* ===========================
+   ANIMACJE
+   =========================== */
+
+.priest-horizontal-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.priest-horizontal-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.priest-horizontal-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.priest-horizontal-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.priest-horizontal-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.priest-horizontal-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========================
+   SPECJALNE WARIANTY KART
+   =========================== */
+
+/* Proboszcz - specjalny styl */
+.priest-horizontal-card.parish-priest {
+    border-left: 5px solid var(--color-gold);
+    background: linear-gradient(135deg, #fff 0%, #fffbf0 100%);
+}
+
+.priest-horizontal-card.parish-priest .priest-divider {
+    background: var(--color-gold);
+}
+
+.priest-horizontal-card.parish-priest .priest-full-name {
+    color: var(--color-primary-dark);
+}
+
+/* Emeryt - stonowany styl */
+.priest-horizontal-card.retired {
+    opacity: 0.9;
+    border-style: dashed;
+}
+
+.priest-horizontal-card.retired .priest-divider {
+    background: var(--color-text-light);
+}
+
+/* ===========================
+   LOADING SKELETON
+   =========================== */
+
+.priest-horizontal-card .skeleton-image {
+    background: #f0f0f0;
+    border-radius: 0;
+}
+
+.priest-horizontal-card .skeleton-content .p-skeleton {
+    background: #f0f0f0;
+}
+
+/* ===========================
+   HOVER EFFECTS DODATKOWE
+   =========================== */
+
+.priest-horizontal-card:hover .priest-divider {
+    background: linear-gradient(180deg, var(--color-primary-light) 0%, var(--color-primary-dark) 100%);
+    transition: background 0.3s ease;
+}
+
+.priest-horizontal-card:hover .priest-tag-overlay .priest-title-tag {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+.priest-horizontal-card:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.priest-more-button:focus {
+    outline: 2px solid var(--color-primary-light);
+    outline-offset: 2px;
+}
+
+/* ===========================
+   PRINT STYLES
+   =========================== */
+
+@media print {
+    .priests-page {
+        background: white;
+    }
+
+    .priest-horizontal-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+        margin-bottom: 1rem;
+    }
+
+    .priest-more-button,
+    .priests-filters-section,
+    .priests-sidebar {
+        display: none;
+    }
+}
