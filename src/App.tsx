@@ -10,6 +10,7 @@ import ParishOffice from './pages/Office/ParishOffice.page'
 import PatronPage from './pages/Parish/Patron/PatronPage'
 import HistoryPage from './pages/Parish/Parish-History/HistoryPage'
 import { PriestsPage } from './pages/Parish/Priests/PriestsPage'
+import ChildProtectionStandards from './pages/Parish/Child-Security/ChildSecurity'
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="patron" element={<PatronPage />} />
         <Route path="historia" element={<HistoryPage />} />
         <Route path="duszpasterze" element={<PriestsPage />} />
+        <Route path="ochrona-dzieci" element={<ChildProtectionStandards />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
