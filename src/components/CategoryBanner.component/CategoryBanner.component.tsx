@@ -51,22 +51,37 @@ const CategoryBanner = ({
     const isCategoryMode = categories.length > 0 || selectedCategories.length > 0;
     const isStaticMode = Boolean(title);
 
+    // Załaduj dane liturgiczne raz przy montowaniu
     useEffect(() => {
-        // Użyj custom gradientu jeśli podany, w przeciwnym razie liturgiczny
         const liturgicalGradient = getCurrentLiturgicalGradient();
         const useDarkText = shouldUseDarkText();
         const seasonName = getCurrentLiturgicalSeasonName();
         const dateRange = getCurrentLiturgicalSeasonDateRange();
         const daysUntilEnd = getDaysUntilSeasonEnd();
 
-        setGradientStyle({
-            background: customGradient || liturgicalGradient
-        });
-        setTextColor(customTextColor || (useDarkText ? '#333333' : 'white'));
+        // Ustaw dane liturgiczne
         setCurrentSeason(seasonName);
         setSeasonDateRange(dateRange);
         setDaysLeft(daysUntilEnd);
-    }, [selectedCategories, customGradient, customTextColor]);
+
+        // Ustaw domyślne style tylko jeśli nie ma custom
+        if (!customGradient) {
+            setGradientStyle({ background: liturgicalGradient });
+        }
+        if (!customTextColor) {
+            setTextColor(useDarkText ? '#333333' : 'white');
+        }
+    }, []); // Wykonaj tylko raz
+
+    // Reaguj na zmiany custom styles
+    useEffect(() => {
+        if (customGradient) {
+            setGradientStyle({ background: customGradient });
+        }
+        if (customTextColor) {
+            setTextColor(customTextColor);
+        }
+    }, [customGradient, customTextColor]);
 
     // Funkcja do generowania tytułu
     const getTitle = () => {
