@@ -30,7 +30,7 @@ const HistoryPage: React.FC = () => {
     // Używamy hooka React Query do pobierania danych o historii
     const { data: historyData, isLoading, error } = useQuery({
         queryKey: ['history'],
-        queryFn: () => fetchHistoryData("historia-parafii"),
+        queryFn: () => fetchHistoryData(),
         staleTime: 5 * 60 * 1000,
         gcTime: 30 * 60 * 1000
     });
@@ -194,7 +194,6 @@ const HistoryPage: React.FC = () => {
                     <h1>
                         <i className="pi pi-history"></i> {historyData.title}
                     </h1>
-                    <p className="subtitle">{historyData.subtitle}</p>
                 </div>
 
                 <div className="history-content">
@@ -208,14 +207,14 @@ const HistoryPage: React.FC = () => {
                     <Divider className="section-divider" />
 
                     {/* Galeria zdjęć */}
-                    {historyData.pictures && historyData.pictures.length > 0 && (
+                    {historyData.photos && historyData.photos.length > 0 && (
                         <section className="gallery-section">
                             <h2 className="section-title">
                                 <i className="pi pi-images"></i> Galeria Historyczna
                             </h2>
                             <Card className="gallery-card">
                                 <Galleria
-                                    value={historyData.pictures}
+                                    value={historyData.photos}
                                     item={itemTemplate}
                                     thumbnail={thumbnailTemplate}
                                     caption={captionTemplate}

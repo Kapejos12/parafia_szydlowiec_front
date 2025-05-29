@@ -78,9 +78,13 @@ export interface GalleriaImage {
 
 export interface HistoryData {
     title: string;
-    subtitle: string;
     content: string;
-    pictures: Media[];
+    photos: Media[];
+}
+
+export interface ChildProtectionData {
+    title: string;
+    content: string;
 }
 
 export interface Priest {
