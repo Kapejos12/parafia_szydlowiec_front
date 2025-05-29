@@ -8,6 +8,9 @@ import NewsDetailComponent from './components/NewsDetail.component/NewsDetail.co
 import ContactPage from './pages/Contact/Contact.page'
 import ParishOffice from './pages/Office/ParishOffice.page'
 import PatronPage from './pages/Parish/Patron/PatronPage'
+import HistoryPage from './pages/Parish/Parish-History/HistoryPage'
+import { PriestsPage } from './pages/Parish/Priests/PriestsPage'
+
 
 
 function App() {
@@ -20,6 +23,8 @@ function App() {
         <Route path="kontakt" element={<ContactPage />} />
         <Route path="kancelaria" element={<ParishOffice />} />
         <Route path="patron" element={<PatronPage />} />
+        <Route path="historia" element={<HistoryPage />} />
+        <Route path="duszpasterze" element={<PriestsPage />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

@@ -75,3 +75,28 @@ export interface GalleriaImage {
     alt: string;
     title: string;
 }
+
+export interface HistoryData {
+    title: string;
+    subtitle: string;
+    content: string;
+    pictures: Media[];
+}
+
+export interface Priest {
+    name: string;
+    surname: string;
+    title: string;
+    description?: string;
+    photo: Media;
+    ordinationDate?: Date;
+    education?: string;
+    specialization?: string;
+    languages?: string;
+    quotations?: string;
+    hobbies?: string;
+    active: boolean;
+    email?: string;
+    phoneNumber?: string;
+    birthDate?: string;
+}

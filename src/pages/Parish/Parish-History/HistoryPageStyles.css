@@ -1,0 +1,488 @@
+.history-page {
+    min-height: 100vh;
+    padding: 2rem 0;
+    background-color: var(--color-background);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Nagłówek strony */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 {
+    color: var(--color-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.page-header h1 i {
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+
+.page-header .subtitle {
+    color: var(--color-text-light);
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+/* Kontener z zawartością */
+.history-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Karta z treścią */
+.content-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--color-secondary);
+}
+
+.content-card .p-card-content {
+    padding: 2rem;
+}
+
+/* Style dla komponentu Markdown */
+.markdown-wrapper {
+    line-height: 1.7;
+    color: var(--color-text);
+}
+
+.markdown-wrapper h1 {
+    color: var(--color-primary);
+    font-size: 2rem;
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--color-secondary);
+}
+
+.markdown-wrapper h1:first-child {
+    margin-top: 0;
+}
+
+.markdown-wrapper h2 {
+    color: var(--color-primary);
+    font-size: 1.6rem;
+    margin: 1.8rem 0 1rem 0;
+    padding-bottom: 0.3rem;
+    border-bottom: 2px solid var(--color-secondary-light);
+}
+
+.markdown-wrapper h3 {
+    color: var(--color-accent);
+    font-size: 1.3rem;
+    margin: 1.5rem 0 0.8rem 0;
+}
+
+.markdown-wrapper p {
+    margin-bottom: 1rem;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.markdown-wrapper ul,
+.markdown-wrapper ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+}
+
+.markdown-wrapper li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.markdown-wrapper strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.markdown-wrapper blockquote {
+    border-left: 3px solid var(--color-secondary);
+    padding-left: 1rem;
+    font-style: italic;
+    margin: 1rem 0;
+    color: var(--color-text-light);
+    background: var(--color-background);
+    padding: 1rem;
+    border-radius: 0 8px 8px 0;
+}
+
+.markdown-wrapper code {
+    background: var(--color-element-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+}
+
+.markdown-wrapper pre {
+    background: var(--color-element-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.markdown-wrapper pre code {
+    background: none;
+    padding: 0;
+}
+
+.markdown-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+}
+
+.markdown-wrapper th,
+.markdown-wrapper td {
+    border: 1px solid var(--color-secondary-light);
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.markdown-wrapper th {
+    background: var(--color-secondary-light);
+    font-weight: 600;
+}
+
+/* Style dla sekcji */
+.gallery-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section-title {
+    color: var(--color-primary);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-divider {
+    margin: 1rem 0;
+    border-top: 1px solid var(--color-secondary-light);
+}
+
+/* Karta galerii */
+.gallery-card {
+    box-shadow: var(--shadow);
+    border-radius: 10px;
+    overflow: hidden;
+    border-left: 4px solid var(--color-accent);
+}
+
+.gallery-card .p-card-content {
+    padding: 1.5rem;
+}
+
+/* Style dla galerii PrimeReact */
+.custom-galleria {
+    background: white;
+    border-radius: 12px;
+}
+
+.custom-galleria .p-galleria-content {
+    background: white;
+    border-radius: 12px;
+}
+
+.custom-galleria .p-galleria-item-wrapper {
+    background: white;
+}
+
+.custom-galleria .p-galleria-item-container {
+    position: relative;
+    background: white;
+}
+
+.custom-galleria .p-galleria-item img {
+    max-height: 500px;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.custom-galleria .p-galleria-thumbnail-wrapper {
+    background: var(--color-background);
+    padding: 1rem;
+    border-radius: 0 0 12px 12px;
+}
+
+.custom-galleria .p-galleria-thumbnail-container {
+    background: transparent;
+}
+
+.custom-galleria .p-galleria-thumbnail-item {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: var(--transition);
+}
+
+.custom-galleria .p-galleria-thumbnail-item:hover,
+.custom-galleria .p-galleria-thumbnail-item.p-galleria-thumbnail-item-current {
+    border-color: var(--color-primary);
+}
+
+.custom-galleria .p-galleria-thumbnail-item img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.custom-galleria .p-galleria-indicator-list {
+    margin: 1rem 0;
+}
+
+.custom-galleria .p-galleria-indicator button {
+    background: var(--color-secondary-light);
+    border: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 0.25rem;
+    transition: var(--transition);
+}
+
+.custom-galleria .p-galleria-indicator button:hover,
+.custom-galleria .p-galleria-indicator button.p-galleria-indicator-active {
+    background: var(--color-primary);
+}
+
+.custom-galleria .p-galleria-item-prev,
+.custom-galleria .p-galleria-item-next {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    margin: 1rem;
+    transition: var(--transition);
+}
+
+.custom-galleria .p-galleria-item-prev:hover,
+.custom-galleria .p-galleria-item-next:hover {
+    background: var(--color-primary);
+}
+
+.custom-galleria .p-galleria-item-prev:focus,
+.custom-galleria .p-galleria-item-next:focus {
+    box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.galleria-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+}
+
+.galleria-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    color: white;
+}
+
+.galleria-description {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.9;
+    line-height: 1.4;
+}
+
+/* Style dla stanów ładowania i błędów */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+}
+
+.loading-container p {
+    margin-top: 1rem;
+    color: var(--color-text-light);
+}
+
+
+
+/* Responsywność */
+@media (max-width: 960px) {
+    .page-header h1 {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .markdown-wrapper h1 {
+        font-size: 1.7rem;
+    }
+
+    .markdown-wrapper h2 {
+        font-size: 1.4rem;
+    }
+
+    .custom-galleria .p-galleria-item img {
+        max-height: 350px;
+    }
+
+    .custom-galleria .p-galleria-thumbnail-item img {
+        width: 60px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 768px) {
+    .history-page {
+        padding: 1.5rem 0;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .page-header h1 {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .page-header h1 i {
+        margin-right: 0;
+    }
+
+    .content-card .p-card-content {
+        padding: 1.5rem;
+    }
+
+    .gallery-card .p-card-content {
+        padding: 1rem;
+    }
+
+    .custom-galleria .p-galleria-item img {
+        max-height: 250px;
+    }
+
+    .custom-galleria .p-galleria-thumbnail-item img {
+        width: 50px;
+        height: 35px;
+    }
+
+    .galleria-caption {
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    .galleria-title {
+        font-size: 1rem;
+    }
+
+    .galleria-description {
+        font-size: 0.8rem;
+    }
+
+    .markdown-wrapper {
+        text-align: left;
+    }
+
+    .markdown-wrapper p {
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .page-header .subtitle {
+        font-size: 1rem;
+    }
+
+    .content-card .p-card-content {
+        padding: 1rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-image {
+        height: 180px;
+    }
+
+    .lightbox-image {
+        max-height: 60vh;
+    }
+
+    .custom-galleria .p-galleria-item img {
+        max-height: 200px;
+    }
+
+    .custom-galleria .p-galleria-thumbnail-wrapper {
+        padding: 0.5rem;
+    }
+
+    .custom-galleria .p-galleria-thumbnail-item img {
+        width: 40px;
+        height: 30px;
+    }
+
+    .markdown-wrapper h1 {
+        font-size: 1.5rem;
+    }
+
+    .markdown-wrapper h2 {
+        font-size: 1.3rem;
+    }
+
+    .markdown-wrapper h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Dark mode support - jeśli używasz */
+@media (prefers-color-scheme: dark) {
+    .custom-galleria .p-galleria-content {
+        background: var(--color-accent-dark);
+    }
+
+    .custom-galleria .p-galleria-item-wrapper {
+        background: var(--color-accent-dark);
+    }
+
+    .custom-galleria .p-galleria-item-container {
+        background: var(--color-accent-dark);
+    }
+
+    .galleria-title {
+        color: var(--color-secondary-light);
+    }
+}
