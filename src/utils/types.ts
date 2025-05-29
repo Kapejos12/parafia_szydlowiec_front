@@ -100,4 +100,5 @@ export interface Priest {
     phoneNumber?: string;
     birthDate?: string;
     position: number;
+
 }
