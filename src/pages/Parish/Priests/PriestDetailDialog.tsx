@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { Tag } from 'primereact/tag';
 import { Priest } from '../../../utils/types';
@@ -70,6 +70,51 @@ const formatDate = (dateString: string | Date | undefined) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
         return String(dateString);
+    }
+};
+
+const renderListField = (field: string | string[] | null | undefined): JSX.Element | string => {
+    if (!field) return '';
+
+    try {
+        let items: string[] = [];
+
+        // Jeśli to już jest array
+        if (Array.isArray(field)) {
+            items = field;
+        } else if (typeof field === 'string') {
+            // Sprawdź czy to JSON array
+            if (field.startsWith('[') && field.endsWith(']')) {
+                const parsed = JSON.parse(field);
+                if (Array.isArray(parsed)) {
+                    items = parsed;
+                }
+            } else {
+                // Jeśli to zwykły string, zwróć go
+                return field;
+            }
+        }
+
+        // Jeśli mamy więcej niż 1 element, renderuj jako listę
+        if (items.length > 1) {
+            return (
+                <div className="priest-list-items">
+                    {items.map((item, index) => (
+                        <span key={index} className="priest-list-item">
+                            {item}
+                        </span>
+                    ))}
+                </div>
+            );
+        } else if (items.length === 1) {
+            return items[0];
+        }
+
+        return String(field);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+        // Jeśli parsing się nie uda, zwróć oryginalny string
+        return String(field);
     }
 };
 
@@ -249,7 +294,9 @@ const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible
                                                 <i className="pi pi-star"></i>
                                                 Specjalizacje
                                             </span>
-                                            <span className="priest-info-value">{priest.specialization}</span>
+                                            <span className="priest-info-value">
+                                                {renderListField(priest.specialization)}
+                                            </span>
                                         </div>
                                     )}
 
@@ -259,7 +306,9 @@ const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible
                                                 <i className="pi pi-globe"></i>
                                                 Znajomość języków
                                             </span>
-                                            <span className="priest-info-value">{priest.languages}</span>
+                                            <span className="priest-info-value">
+                                                {renderListField(priest.languages)}
+                                            </span>
                                         </div>
                                     )}
                                 </div>
@@ -286,7 +335,9 @@ const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible
                                     <i className="pi pi-heart"></i>
                                     Zainteresowania i hobby
                                 </h3>
-                                <p className="priest-description-full">{priest.hobbies}</p>
+                                <div className="priest-hobbies-content">
+                                    {renderListField(priest.hobbies)}
+                                </div>
                             </div>
                         )}
 
