@@ -99,4 +99,5 @@ export interface Priest {
     email?: string;
     phoneNumber?: string;
     birthDate?: string;
+    position: number;
 }

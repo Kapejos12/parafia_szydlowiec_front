@@ -85,7 +85,7 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
             <div className="priest-image-section">
                 {imageUrl || priest.name === 'Tadeusz' ? (
                     <img
-                        src={imageUrl || 'https://via.placeholder.com/140x160/8B1C1C/FFFFFF?text=KS.+' + priest.name.charAt(0) + priest.surname.charAt(0)}
+                        src={imageUrl}
                         alt={`${priest.name} ${priest.surname}`}
                         className="priest-photo"
                     />
@@ -209,7 +209,7 @@ export const PriestsPage: React.FC = () => {
         staleTime: 5 * 60 * 1000,
     });
 
-    const priests = priestsData || [];
+    const priests = priestsData?.sort((p1, p2) => p1.position - p2.position) || [];
     const activePriests = priests.filter(priest => priest.active);
     const displayPriests = showOnlyActive ? activePriests : priests;
 
