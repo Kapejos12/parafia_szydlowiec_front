@@ -12,6 +12,7 @@ import HistoryPage from './pages/Parish/Parish-History/HistoryPage'
 import { PriestsPage } from './pages/Parish/Priests/PriestsPage'
 
 
+
 function App() {
 
   return (
