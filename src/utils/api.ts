@@ -32,9 +32,9 @@ export const fetchSacraments = async (): Promise<Sacrament[]> => {
     return response.data.data;
 }
 
-export const fetchPatron = async (slug: string): Promise<Patron> => {
-    const response = await apiClient.get(`/api/patrons/slug/${slug}`);
-    return response.data;
+export const fetchPatron = async (): Promise<Patron> => {
+    const response = await apiClient.get(`/api/patron`);
+    return response.data.data;
 }
 
 export const fetchHistoryData = async (): Promise<HistoryData> => {
