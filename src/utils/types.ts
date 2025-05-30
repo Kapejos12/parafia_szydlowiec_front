@@ -104,5 +104,43 @@ export interface Priest {
     phoneNumber?: string;
     birthDate?: string;
     position: number;
+}
 
+export interface Group {
+    id: number;
+    name: string;
+    description: string;
+    category: string;
+    leader?: string;
+    memberCount?: number;
+    meetingDay?: string;
+    meetingTime?: string;
+    meetingLocation?: string;
+    contactEmail?: string;
+    contactPhone?: string;
+    active: boolean;
+    establishedDate?: string | Date;
+    requirements?: string;
+    ageGroup?: string;
+    website?: string;
+    socialMedia?: {
+        facebook?: string;
+        instagram?: string;
+        youtube?: string;
+    };
+    activities?: string[];
+    goals?: string[];
+    nextMeeting?: string | Date;
+    createdAt?: string | Date;
+    updatedAt?: string | Date;
+}
+
+export interface PreMarriageCourse {
+    title: string;
+    subtitle: string;
+    content: string;
+    leader: string;
+    contactEmail: string;
+    contactPhone: string;
+    dates: string;
 }

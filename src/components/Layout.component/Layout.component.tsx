@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom"
 import HeaderComponent from "../Header.component/Header.component"
 import HeroComponent from "../Hero.component/Hero.component"
 import kosciol from '../../assets/kosciol.jpeg';
+import logo from '../../assets/header.png';
 import React, { useEffect, useState } from "react";
 import SidebarContent from "../SidebarContent.component/SidebarContent.component";
 import { Button } from 'primereact/button';
@@ -56,7 +57,7 @@ const LayoutComponent: React.FC = () => {
     return (
         <div>
             <HeaderComponent />
-            <HeroComponent backgroundImage={kosciol} title="Parafia Św Zygmunta w Szydłowcu" />
+            <HeroComponent backgroundImage={kosciol} imageUrl={logo} />
 
             {/* Przycisk przełączający sidebar (widoczny tylko na urządzeniach mobilnych) */}
             {isMobile && (
