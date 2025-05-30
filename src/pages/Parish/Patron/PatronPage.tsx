@@ -30,7 +30,7 @@ const PatronPage: React.FC = () => {
     // Używamy hooka React Query do pobierania danych o patronie
     const { data: patronData, isLoading, error } = useQuery({
         queryKey: ['patron'],
-        queryFn: () => fetchPatron("patron-sw-zygmunt"),
+        queryFn: () => fetchPatron(),
         staleTime: 5 * 60 * 1000,
         gcTime: 30 * 60 * 1000
     });
