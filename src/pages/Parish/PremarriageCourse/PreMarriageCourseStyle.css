@@ -1,0 +1,691 @@
+/* PreMarriageCourseStyles.css - BEM Methodology with Enhanced Styling */
+
+/* ========================================
+   PAGE CONTAINER
+======================================== */
+.pre-marriage-page {
+    min-height: 100vh;
+    background-color: var(--color-background);
+    padding: 2rem 1rem;
+}
+
+.pre-marriage-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(139, 28, 28, 0.15);
+    border: 2px solid var(--color-element-bg);
+    overflow: hidden;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   LOADING STATES
+======================================== */
+.pre-marriage-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    background-color: var(--color-background);
+}
+
+.pre-marriage-loading__content {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(139, 28, 28, 0.15);
+}
+
+.pre-marriage-loading__spinner {
+    font-size: 3rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.pre-marriage-loading__text {
+    color: var(--color-text-light);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* ========================================
+   ERROR STATES
+======================================== */
+.pre-marriage-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    background-color: var(--color-background);
+}
+
+.pre-marriage-error__content {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(220, 53, 69, 0.15);
+    border-left: 4px solid var(--color-danger);
+}
+
+.pre-marriage-error__icon {
+    font-size: 3rem;
+    color: var(--color-danger);
+    margin-bottom: 1rem;
+}
+
+.pre-marriage-error__text {
+    color: var(--color-text);
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* ========================================
+   HEADER SECTION
+======================================== */
+.pre-marriage-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.pre-marriage-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: headerShimmer 3s ease-in-out infinite;
+}
+
+@keyframes headerShimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.pre-marriage-header__icon {
+    position: relative;
+    z-index: 2;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    transition: var(--transition);
+}
+
+.pre-marriage-header:hover .pre-marriage-header__icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.pre-marriage-header__title-section {
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.pre-marriage-header__title {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    line-height: 1.2;
+}
+
+.pre-marriage-header__subtitle {
+    margin: 0;
+    font-size: 1.2rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+/* ========================================
+   DATES SECTION
+======================================== */
+.pre-marriage-dates {
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-secondary-light));
+    border-bottom: 1px solid var(--color-element-bg);
+    animation: slideInLeft 0.5s ease-out;
+    animation-delay: 0.1s;
+    animation-fill-mode: both;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.pre-marriage-dates__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.pre-marriage-dates__header i {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+}
+
+.pre-marriage-dates__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.pre-marriage-dates__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 2px;
+}
+
+.pre-marriage-dates__content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid var(--color-primary);
+}
+
+.pre-marriage-dates__content h1,
+.pre-marriage-dates__content h2,
+.pre-marriage-dates__content h3 {
+    color: var(--color-primary);
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.pre-marriage-dates__content p {
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.pre-marriage-dates__content ul,
+.pre-marriage-dates__content ol {
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.pre-marriage-dates__content li {
+    margin-bottom: 0.75rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-element-bg);
+    transition: var(--transition);
+}
+
+.pre-marriage-dates__content li:hover {
+    transform: translateX(8px);
+    color: var(--color-primary);
+}
+
+.pre-marriage-dates__content li:last-child {
+    border-bottom: none;
+}
+
+.pre-marriage-dates__content strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.pre-marriage-dates__content em {
+    color: var(--color-text-light);
+    font-style: italic;
+}
+
+.pre-marriage-dates__content blockquote {
+    border-left: 4px solid var(--color-primary);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--color-text-light);
+    background: var(--color-background);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+}
+
+/* ========================================
+   LEADER SECTION
+======================================== */
+.pre-marriage-leader {
+    padding: 2.5rem;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+    color: white;
+    border-bottom: 1px solid var(--color-element-bg);
+    animation: slideInLeft 0.5s ease-out;
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+}
+
+.pre-marriage-leader__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.pre-marriage-leader__header i {
+    font-size: 1.5rem;
+    color: var(--color-secondary);
+}
+
+.pre-marriage-leader__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--color-secondary);
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.pre-marriage-leader__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-secondary), white);
+    border-radius: 2px;
+}
+
+.pre-marriage-leader__name {
+    font-size: 1.2rem;
+    margin: 0;
+    font-weight: 500;
+    padding: 1.5rem 2rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    border-left: 4px solid var(--color-secondary);
+    backdrop-filter: blur(10px);
+}
+
+/* ========================================
+   CONTENT SECTION
+======================================== */
+.pre-marriage-content {
+    padding: 2.5rem;
+    background: var(--color-background);
+    animation: slideInLeft 0.5s ease-out;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
+}
+
+.pre-marriage-content__markdown {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid var(--color-secondary);
+}
+
+.pre-marriage-content__markdown h1,
+.pre-marriage-content__markdown h2,
+.pre-marriage-content__markdown h3 {
+    color: var(--color-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.pre-marriage-content__markdown h1::after,
+.pre-marriage-content__markdown h2::after,
+.pre-marriage-content__markdown h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    border-radius: 2px;
+}
+
+.pre-marriage-content__markdown h1:first-child,
+.pre-marriage-content__markdown h2:first-child,
+.pre-marriage-content__markdown h3:first-child {
+    margin-top: 0;
+}
+
+.pre-marriage-content__markdown p {
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+.pre-marriage-content__markdown ul,
+.pre-marriage-content__markdown ol {
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+}
+
+.pre-marriage-content__markdown li {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    background: var(--color-background);
+    border-radius: 8px;
+    border-left: 4px solid var(--color-element-bg);
+    transition: var(--transition);
+}
+
+.pre-marriage-content__markdown li:hover {
+    transform: translateX(8px);
+    border-left-color: var(--color-primary);
+    box-shadow: 0 2px 8px rgba(139, 28, 28, 0.1);
+}
+
+.pre-marriage-content__markdown blockquote {
+    border-left: 4px solid var(--color-primary);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--color-text-light);
+    background: var(--color-background);
+    border-radius: 12px;
+    position: relative;
+}
+
+.pre-marriage-content__markdown blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 3rem;
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.pre-marriage-content__markdown strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.pre-marriage-content__markdown a {
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-primary);
+    transition: var(--transition);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}
+
+.pre-marriage-content__markdown a:hover {
+    color: white;
+    background-color: var(--color-primary);
+    border-bottom-color: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 28, 28, 0.3);
+}
+
+/* ========================================
+   FOOTER SECTION
+======================================== */
+.pre-marriage-footer {
+    padding: 2.5rem;
+    background: white;
+    border-top: 3px solid var(--color-element-bg);
+    animation: slideInLeft 0.5s ease-out;
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+}
+
+.pre-marriage-footer__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.pre-marriage-footer__header i {
+    font-size: 1.5rem;
+    color: var(--color-info);
+}
+
+.pre-marriage-footer__title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+    position: relative;
+    padding-bottom: 0.75rem;
+}
+
+.pre-marriage-footer__title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-info), var(--color-primary));
+    border-radius: 2px;
+}
+
+.pre-marriage-footer__text {
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    padding: 1.5rem;
+    background: var(--color-background);
+    border-radius: 12px;
+    border-left: 4px solid var(--color-info);
+}
+
+/* ========================================
+   BUTTONS SECTION
+======================================== */
+.pre-marriage-buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.pre-marriage-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    min-width: 160px;
+    justify-content: center;
+    border: 2px solid;
+}
+
+.pre-marriage-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.pre-marriage-button--primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.pre-marriage-button--primary:hover {
+    background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+    box-shadow: 0 6px 20px rgba(139, 28, 28, 0.3);
+}
+
+.pre-marriage-button--secondary {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-dark));
+    border-color: var(--color-accent);
+    color: white;
+}
+
+.pre-marriage-button--secondary:hover {
+    background: linear-gradient(135deg, var(--color-accent-dark), var(--color-accent));
+    box-shadow: 0 6px 20px rgba(25, 44, 74, 0.3);
+}
+
+.pre-marriage-button i {
+    font-size: 1.1rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 768px) {
+    .pre-marriage-page {
+        padding: 1rem 0.5rem;
+    }
+
+    .pre-marriage-container {
+        border-radius: 16px;
+    }
+
+    .pre-marriage-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .pre-marriage-header__title {
+        font-size: 1.75rem;
+    }
+
+    .pre-marriage-header__subtitle {
+        font-size: 1.1rem;
+    }
+
+    .pre-marriage-header__icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+    }
+
+    .pre-marriage-dates,
+    .pre-marriage-leader,
+    .pre-marriage-content,
+    .pre-marriage-footer {
+        padding: 2rem 1.5rem;
+    }
+
+    .pre-marriage-dates__content,
+    .pre-marriage-content__markdown {
+        padding: 1.5rem;
+    }
+
+    .pre-marriage-buttons {
+        flex-direction: column;
+    }
+
+    .pre-marriage-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .pre-marriage-page {
+        padding: 0.5rem;
+    }
+
+    .pre-marriage-container {
+        border-radius: 12px;
+    }
+
+    .pre-marriage-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .pre-marriage-header__title {
+        font-size: 1.5rem;
+    }
+
+    .pre-marriage-header__subtitle {
+        font-size: 1rem;
+    }
+
+    .pre-marriage-header__icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+
+    .pre-marriage-dates,
+    .pre-marriage-leader,
+    .pre-marriage-content,
+    .pre-marriage-footer {
+        padding: 1.5rem 1rem;
+    }
+
+    .pre-marriage-dates__content,
+    .pre-marriage-content__markdown {
+        padding: 1rem;
+    }
+
+    .pre-marriage-dates__title,
+    .pre-marriage-leader__title,
+    .pre-marriage-footer__title {
+        font-size: 1.2rem;
+    }
+
+    .pre-marriage-button {
+        padding: 1.25rem;
+        font-size: 0.95rem;
+    }
+}

@@ -237,6 +237,7 @@ const HomePage = () => {
                     <CategoryBanner
                         categories={[]}
                         selectedCategories={selectedCategories}
+                        showLiturgicalInfo={true}
                     />
                 </div>
                 <div className="col-12 lg:col-10 lg:col-offset-1">
@@ -270,6 +271,7 @@ const HomePage = () => {
                     <CategoryBanner
                         categories={[]}
                         selectedCategories={selectedCategories}
+                        showLiturgicalInfo={true}
                     />
                 </div>
                 <div className="col-12 lg:col-10 lg:col-offset-1">

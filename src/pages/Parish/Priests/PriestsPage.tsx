@@ -335,24 +335,6 @@ export const PriestsPage: React.FC = () => {
 
                 {/* Sidebar */}
                 <div className="priests-sidebar">
-                    {/* Statystyki kapłanów */}
-                    <div className="priests-sidebar-widget">
-                        <div className="priests-sidebar-widget-header">
-                            Statystyki
-                        </div>
-                        <div className="priests-sidebar-widget-content">
-                            <p style={{ fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>
-                                <strong>Łączna liczba kapłanów:</strong> {priests.length}<br />
-                                <strong>Aktywni kapłani:</strong> {activePriests.length}<br />
-                                <strong>Emeryci:</strong> {priests.length - activePriests.length}<br /><br />
-
-                                <strong>Funkcje:</strong><br />
-                                • Proboszczowie: {priests.filter(p => p.title.toLowerCase().includes('parish priest') || p.title.toLowerCase().includes('pastor')).length}<br />
-                                • Wikariusze: {priests.filter(p => p.title.toLowerCase().includes('vicar')).length}<br />
-                                • Rezydenci: {priests.filter(p => p.title.toLowerCase().includes('resident')).length}
-                            </p>
-                        </div>
-                    </div>
 
                     {/* Informacje o kapłanach */}
                     <div className="priests-sidebar-widget">
@@ -378,10 +360,6 @@ export const PriestsPage: React.FC = () => {
                         </div>
                         <div className="priests-sidebar-widget-content">
                             <p style={{ fontSize: '0.9rem', lineHeight: '1.5', margin: 0 }}>
-                                <strong>Bezpośrednio:</strong><br />
-                                Kliknij "Zobacz więcej" przy wybranym kapłanie,
-                                aby zobaczyć jego dane kontaktowe.<br /><br />
-
                                 <strong>Przez kancelarię:</strong><br />
                                 Możesz również umówić się na spotkanie
                                 przez kancelarię parafialną.<br /><br />

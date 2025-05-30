@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Category, ChildProtectionData, HistoryData, Post, Priest } from "./types";
+import { Category, ChildProtectionData, Group, HistoryData, Post, PreMarriageCourse, Priest } from "./types";
 import { Sacrament } from "../pages/Office/ParishOffice.page";
 import { Patron } from "../pages/Parish/Patron/PatronPage";
 
@@ -49,5 +49,15 @@ export const fetchPriests = async (): Promise<Priest[]> => {
 
 export const fetchChildProtectionStandards = async (): Promise<ChildProtectionData> => {
     const response = await apiClient.get("/api/sod");
+    return response.data.data;
+}
+
+export const fetchGroups = async (): Promise<Group[]> => {
+    const response = await apiClient.get("/api/groups");
+    return response.data.data;
+}
+
+export const fetchPreMarriageCourse = async (): Promise<PreMarriageCourse> => {
+    const response = await apiClient.get("/api/premarriage-course");
     return response.data.data;
 }
