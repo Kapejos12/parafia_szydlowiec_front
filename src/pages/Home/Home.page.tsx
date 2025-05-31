@@ -289,6 +289,8 @@ const HomePage = () => {
                                     {renderResultsHeader()}
                                     <DataView
                                         value={filteredPosts}
+                                        sortField="creationDate"
+                                        sortOrder={-1}
                                         layout="grid"
                                         itemTemplate={itemTemplate}
                                         rows={rows}
