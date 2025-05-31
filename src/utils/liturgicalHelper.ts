@@ -102,7 +102,7 @@ const seasonConfigs: Record<LiturgicalSeason, Omit<LiturgicalSeasonInfo, 'season
 // Konfiguracja kolorów dla kategorii świąt
 const feastColorConfigs: Record<FeastCategory, FeastColorConfig> = {
     miriam: {
-        gradient: 'linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 25%, #42A5F5 75%, #1976D2 100%)',
+        gradient: 'linear-gradient(135deg, #1976D2 0%, #42A5F5 25%, #BBDEFB 75%, #E3F2FD 100%)',
         textColor: 'white',
         primaryColor: '#1976D2', // Niebieski maryjny
         secondaryColor: '#E3F2FD'
