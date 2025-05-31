@@ -109,7 +109,7 @@ const ParishOfficePage: React.FC = () => {
                                     </div>
                                     <div className="office-contact">
                                         <p><i className="pi pi-phone"></i> <strong>Telefon:</strong><a href="tel:+48574922900">+48 574 922 900</a></p>
-                                        <p><i className="pi pi-envelope"></i> <strong>Email:</strong> <a href="mailto:swzygmuntszydlowiec@interia.pl">swzygmuntszydlowiec@interia.pl</a></p>
+                                        <p><i className="pi pi-envelope"></i> <strong>Email:</strong> <a href="mailto:parafiaszydlowiec@op.pl">parafiaszydlowiec@op.pl</a></p>
                                         <p><i className="pi pi-map-marker"></i> <strong>Adres:</strong> <a href="https://maps.app.goo.gl/pKLYNJrhFLV9Xd9r8">ul. Zakościelna 13, 26-500 Szydłowiec</a></p>
                                     </div>
                                 </div>

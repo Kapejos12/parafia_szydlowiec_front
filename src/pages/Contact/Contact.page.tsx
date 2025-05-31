@@ -45,7 +45,12 @@ const ContactPage: React.FC = () => {
                                 <i className="pi pi-envelope"></i>
                             </div>
                             <h3>Email</h3>
-                            <a href='mailto:swzygmuntszydlowiec@interia.pl'>swzygmuntszydlowiec@interia.pl</a>
+                            <a href='mailto:parafiaszydlowiec@op.pl'>parafiaszydlowiec@op.pl</a>
+                        </div>
+
+                        <div className="info-card">
+                            <h3>Numer konta bankowego parafii</h3>
+                            <p>13 9129 0001 0099 0900 2380 0001</p>
                         </div>
                     </div>
                 </div>

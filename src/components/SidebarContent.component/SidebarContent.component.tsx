@@ -59,7 +59,14 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                     <div className="surface-100">
                         <h4>Niedziele i święta:</h4>
                         <p className="text-lg text-center shadow-1">
-                            7:00, 9:00, 10:30, 12:00, 18:00
+                            7:00, 9:00, 10:30, 12:00, 17:00
+                        </p>
+                    </div>
+                    <Divider />
+                    <div className="surface-100">
+                        <h4>Sobota (Msza niedzielna):</h4>
+                        <p className="text-lg text-center shadow-1">
+                            18:00
                         </p>
                     </div>
                     <Divider />
@@ -135,8 +142,8 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                         <div>
                             <h4>Godziny otwarcia:</h4>
                             <div className="shadow-1">
-                                <p className="mb-2"><b>Poniedziałek - Piątek: </b><span className="font-medium">09:00-10:00 <br /> oraz <br /> 16:00-17:30</span></p>
-                                <p><b>Sobota: </b><span className="font-medium"><br />9:00-10:30</span></p>
+                                <p className="mb-2"><b>Poniedziałek - Piątek: </b><span className="font-medium">09:00-10:00 <br /> oraz <br /> 16:00-17:00</span></p>
+                                <p><b>Sobota: </b><span className="font-medium"><br />9:00-10:00</span></p>
                             </div>
                         </div>
                     </div>
@@ -184,7 +191,7 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                         </p>
                         <p className="contact-item">
                             <i className="pi pi-envelope contact-icon"></i>
-                            <a href="mailto:swzygmuntszydlowiec@interia.pl"><span className="font-medium">Email: swzygmuntszydlowiec<br />@interia.pl</span></a>
+                            <a href="mailto:parafiaszydlowiec@op.pl"><span className="font-medium">Email: parafiaszydlowiec@op.pl</span></a>
                         </p>
                     </div>
                 </div>
