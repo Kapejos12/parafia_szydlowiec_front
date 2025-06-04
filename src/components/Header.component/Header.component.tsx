@@ -64,13 +64,13 @@ const HeaderComponent: React.FC = () => {
             ]
         },
         { label: "Kancelaria", url: '/kancelaria' },
-        { label: "Kontakt", url: '/kontakt' },
         {
             label: "Cmentarz",
             url: "https://szydlowiec.grobonet.com/grobonet/start.php",
             target: "_blank"
         },
         { label: "Wirtualny spacer", url: '/wirtualny-spacer' },
+        { label: "Kontakt", url: '/kontakt' }
     ];
 
     return (
