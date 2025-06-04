@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import React, { JSX, useEffect } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { Tag } from 'primereact/tag';
 import { Priest } from '../../../utils/types';
@@ -125,6 +125,31 @@ interface PriestDetailDialogProps {
 }
 
 const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible, onHide }) => {
+    // Zapobiegaj scrollowaniu body gdy dialog jest otwarty na mobile
+    useEffect(() => {
+        if (visible && window.innerWidth <= 960) {
+            // Zapisz aktualną pozycję scroll
+            const scrollY = window.scrollY;
+
+            // Zablokuj scroll na body
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.width = '100%';
+            document.body.style.overflow = 'hidden';
+
+            return () => {
+                // Przywróć scroll na body
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+                document.body.style.overflow = '';
+
+                // Przywróć pozycję scroll
+                window.scrollTo(0, scrollY);
+            };
+        }
+    }, [visible]);
+
     if (!priest) return null;
 
     const imageData = priest.photo;
@@ -152,8 +177,18 @@ const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible
             className="priest-detail-dialog"
             modal
             dismissableMask
-            style={{ width: '90vw', maxWidth: '900px' }}
-            contentStyle={{ padding: 0 }}
+            blockScroll={true} // Zablokuj scroll na body
+            style={{
+                width: window.innerWidth <= 768 ? '95vw' : '90vw',
+                maxWidth: window.innerWidth <= 768 ? 'none' : '900px',
+                height: window.innerWidth <= 768 ? '95vh' : 'auto',
+                maxHeight: window.innerWidth <= 768 ? '95vh' : '90vh'
+            }}
+            contentStyle={{
+                padding: 0,
+                // Usuń height i maxHeight - pozwól CSS na obsługę
+                overflow: window.innerWidth <= 768 ? 'auto' : 'visible'
+            }}
         >
             <div className="priest-dialog-content">
                 {/* Sekcja zdjęcia po lewej */}

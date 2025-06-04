@@ -2,8 +2,6 @@ import React from 'react';
 import { Panel } from 'primereact/panel';
 import { Button } from 'primereact/button';
 import { Divider } from 'primereact/divider';
-import { Calendar } from 'primereact/calendar';
-import { useNavigate } from 'react-router-dom';
 
 import './sidebar-styles.css';
 
@@ -12,7 +10,6 @@ interface SidebarContentProps {
 }
 
 const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
-    const navigate = useNavigate();
 
     // Custom panel header template with styled headers
     const customHeader = (title: string) => {
@@ -21,14 +18,6 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                 <span>{title}</span>
             </div>
         );
-    };
-
-    // Funkcja nawigacji która zamyka sidebar na urządzeniach mobilnych
-    const handleNavigate = (path: string) => {
-        navigate(path);
-        if (onClose) {
-            onClose();
-        }
     };
 
     return (
@@ -150,26 +139,25 @@ const SidebarContent: React.FC<SidebarContentProps> = ({ onClose }) => {
                 </div>
             </Panel>
 
-            {/* Kalendarz wydarzeń */}
+            {/* Liturgia */}
             <Panel
-                headerTemplate={() => customHeader("Kalendarz wydarzeń")}
+                headerTemplate={() => customHeader("Liturgia na dziś")}
                 className="mb-4 border-1 border-200"
                 toggleable
             >
                 <div className="flex-column align-items-center">
-                    <Calendar
-                        inline
-                        style={{ width: '100%' }}
-                        className="border-1 border-200 shadow-1 p-2 border-round"
-                    />
-                    <div className="event-button-container">
-                        <Button
-                            label="Zobacz wydarzenia"
-                            icon="pi pi-calendar"
-                            className="p-button-raised p-button-primary"
-                            onClick={() => handleNavigate('/wydarzenia')}
-                        />
-                    </div>
+                    <iframe src="https://opoka.org.pl/liturgia_iframe" scrolling="no" height="600" frameBorder="0"></iframe >
+                </div>
+            </Panel>
+
+            {/* Modlitwa w drodze */}
+            <Panel
+                headerTemplate={() => customHeader("Modlitwa w drodze")}
+                className="mb-4 border-1 border-200"
+                toggleable
+            >
+                <div className="flex-column align-items-center">
+                    <iframe src="https://modlitwawdrodze.pl/assets/embed/embed-auto.php" allowFullScreen={false} frameBorder="0" height="75" width="265"></iframe>
                 </div>
             </Panel>
 

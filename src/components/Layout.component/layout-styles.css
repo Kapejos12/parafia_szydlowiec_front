@@ -1,3 +1,14 @@
+/* Desktop - przyciski po prawej stronie */
+@media (min-width: 961px) {
+    .sidebar-toggle-container {
+        right: 30px;
+    }
+
+    .back-to-top {
+        right: 30px;
+    }
+}
+
 /* Style dla układu strony */
 .layout-container {
     display: flex;
@@ -9,6 +20,8 @@
     flex: 1;
     padding: 20px;
     transition: margin-right 0.3s ease;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Sidebar na desktopie */
@@ -45,7 +58,7 @@
 .sidebar-toggle-container {
     position: fixed;
     top: 80px;
-    right: 20px;
+    right: 30px;
     z-index: 1001;
 }
 
@@ -73,7 +86,7 @@
 .back-to-top {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    right: 30px;
     background-color: var(--color-primary-light);
     color: white;
     border: none;
@@ -97,7 +110,6 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-
 .back-to-top.visible {
     opacity: 1;
 }
@@ -106,6 +118,20 @@
 @media (max-width: 960px) {
     .main-content {
         width: 100%;
+        padding: 1rem;
+        padding-bottom: 7rem;
+        /* Dodatkowy padding dolny na mobilnych dla przycisków */
+        max-width: none;
+        margin: 0;
+    }
+
+    /* Przyciski bliżej prawej strony ale z minimalnym odstępem */
+    .sidebar-toggle-container {
+        right: 15px;
+    }
+
+    .back-to-top {
+        right: 15px;
     }
 
     /* Opcjonalnie, możemy dodać margin do głównej treści, 
@@ -113,5 +139,32 @@
     .main-content.shifted {
         margin-right: 0;
         /* Możesz dostosować, jeśli potrzebujesz innego zachowania */
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 0.75rem;
+        padding-bottom: 8rem;
+        /* Jeszcze więcej miejsca na tablet */
+    }
+
+    /* Na tabletach jeszcze mniej odstępu od krawędzi */
+    .sidebar-toggle-container {
+        right: 10px;
+    }
+
+    .back-to-top {
+        right: 10px;
+    }
+}
+
+/* Małe telefony */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 0.5rem;
+        padding-bottom: 9rem;
+        /* Największy margines na małych telefonach */
     }
 }

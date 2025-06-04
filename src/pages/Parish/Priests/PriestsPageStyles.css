@@ -383,6 +383,224 @@
 }
 
 /* ===========================
+   SEKCJA PARAFIAN
+   =========================== */
+
+.parishioners-section {
+    margin-top: 2rem;
+    border-top: 3px solid var(--color-element-bg);
+}
+
+.parishioners-header {
+    padding: 2rem 2rem 1rem 2rem;
+    background: linear-gradient(135deg, #E8F4FD 0%, #D1E7F7 100%);
+}
+
+.parishioners-title-section {
+    text-align: center;
+}
+
+.parishioners-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.parishioners-title .pi {
+    color: var(--color-primary);
+    font-size: 1.6rem;
+}
+
+.parishioners-subtitle {
+    color: var(--color-text);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ===========================
+   SIATKA PARAFIAN
+   =========================== */
+
+.parishioners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.parishioner-item {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--color-element-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.parishioner-item:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: var(--color-primary-light);
+    transform: translateY(-3px);
+}
+
+.parishioner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.parishioner-photo-section {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.parishioner-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-element-bg);
+    transition: transform 0.3s ease;
+}
+
+.parishioner-item:hover .parishioner-photo {
+    transform: scale(1.05);
+    border-color: var(--color-primary-light);
+}
+
+.parishioner-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--color-element-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--color-element-bg);
+}
+
+.parishioner-photo-placeholder .pi-user {
+    font-size: 2rem;
+    color: var(--color-text-light);
+}
+
+.parishioner-item:hover .parishioner-photo-placeholder {
+    border-color: var(--color-primary-light);
+    background: var(--color-primary-light);
+}
+
+.parishioner-item:hover .parishioner-photo-placeholder .pi-user {
+    color: white;
+}
+
+.parishioner-info {
+    width: 100%;
+}
+
+.parishioner-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.parishioner-item:hover .parishioner-name {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+
+.parishioner-label {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    font-weight: 500;
+}
+
+/* ===========================
+   EMPTY STATE PARAFIAN
+   =========================== */
+
+.parishioners-empty {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 8px;
+    color: var(--color-text-light);
+    margin: 2rem;
+}
+
+.parishioners-empty .pi {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.parishioners-empty h3 {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.parishioners-empty p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+}
+
+rishioner-achievements strong {
+    color: var(--color-primary);
+}
+
+.parishioner-description {
+    color: var(--color-text);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* ===========================
+   EMPTY STATE PARAFIAN
+   =========================== */
+
+.parishioners-empty {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 8px;
+    color: var(--color-text-light);
+    margin: 2rem;
+}
+
+.parishioners-empty .pi {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.parishioners-empty h3 {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+}
+
+.parishioners-empty p {
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+}
+
+/* ===========================
    SIDEBAR
    =========================== */
 
@@ -444,15 +662,111 @@
    RESPONSYWNOŚĆ
    =========================== */
 
-@media (max-width: 1024px) {
+@media (max-width: 960px) {
     .priests-main-container {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
+
+    .parishioners-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .priest-horizontal-card-content {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .priest-image-section {
+        width: 100%;
+        height: 250px;
+        /* Zwiększ wysokość na mobile */
+        min-width: auto;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Lepsze skalowanie zdjęć na mobile w listach */
+    .priest-photo {
+        object-fit: cover;
+        object-position: center 20%;
+        /* Skup się na górnej części zdjęcia */
+    }
+
+    .priest-divider {
+        height: 4px;
+        width: 100%;
+    }
+
+    .priest-info-section {
+        min-height: auto;
+        padding: 1.25rem;
+    }
+
+    .priest-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .priest-more-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .priest-status {
+        justify-content: center;
+    }
+
+    .priests-intro-section {
+        padding: 1.5rem;
+    }
+
+    .priests-intro-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .priests-filters-section {
+        padding: 1rem;
+    }
+
+    .priests-filters-top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .priests-cards-grid {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .parishioners-header {
+        padding: 1.5rem 1rem 1rem 1rem;
+    }
+
+    .parishioners-title {
+        font-size: 1.5rem;
+    }
+
+    .parishioners-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .parishioner-content {
+        padding: 1.25rem;
+    }
+
+    .parishioner-photo-section {
+        width: 70px;
+        height: 70px;
+    }
 }
 
 @media (max-width: 768px) {
-    .priests-horizontal-card-content {
+    .priest-horizontal-card-content {
         flex-direction: column;
         min-height: auto;
     }
@@ -509,6 +823,29 @@
         padding: 1rem;
         gap: 1rem;
     }
+
+    .parishioners-header {
+        padding: 1.5rem 1rem 1rem 1rem;
+    }
+
+    .parishioners-title {
+        font-size: 1.5rem;
+    }
+
+    .parishioners-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .parishioner-content {
+        padding: 1.25rem;
+    }
+
+    .parishioner-photo-section {
+        width: 70px;
+        height: 70px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -533,6 +870,12 @@
         font-size: 1.3rem;
     }
 
+    .parishioners-title {
+        font-size: 1.3rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
     .priests-filters {
         width: 100%;
         justify-content: center;
@@ -542,33 +885,56 @@
         flex: 1;
         min-width: 120px;
     }
+
+    .parishioners-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .parishioner-content {
+        padding: 1rem;
+    }
+
+    .parishioner-photo-section {
+        width: 60px;
+        height: 60px;
+    }
+
+    .parishioner-name {
+        font-size: 1rem;
+    }
 }
 
 /* ===========================
    ANIMACJE
    =========================== */
 
-.priest-horizontal-card {
+.priest-horizontal-card,
+.parishioner-item {
     animation: fadeInUp 0.6s ease-out;
 }
 
-.priest-horizontal-card:nth-child(1) {
+.priest-horizontal-card:nth-child(1),
+.parishioner-item:nth-child(1) {
     animation-delay: 0.1s;
 }
 
-.priest-horizontal-card:nth-child(2) {
+.priest-horizontal-card:nth-child(2),
+.parishioner-item:nth-child(2) {
     animation-delay: 0.2s;
 }
 
-.priest-horizontal-card:nth-child(3) {
+.priest-horizontal-card:nth-child(3),
+.parishioner-item:nth-child(3) {
     animation-delay: 0.3s;
 }
 
-.priest-horizontal-card:nth-child(4) {
+.priest-horizontal-card:nth-child(4),
+.parishioner-item:nth-child(4) {
     animation-delay: 0.4s;
 }
 
-.priest-horizontal-card:nth-child(5) {
+.priest-horizontal-card:nth-child(5),
+.parishioner-item:nth-child(5) {
     animation-delay: 0.5s;
 }
 
@@ -643,7 +1009,8 @@
    ACCESSIBILITY
    =========================== */
 
-.priest-horizontal-card:focus {
+.priest-horizontal-card:focus,
+.parishioner-item:focus {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
@@ -662,7 +1029,8 @@
         background: white;
     }
 
-    .priest-horizontal-card {
+    .priest-horizontal-card,
+    .parishioner-item {
         box-shadow: none;
         border: 1px solid #ccc;
         break-inside: avoid;

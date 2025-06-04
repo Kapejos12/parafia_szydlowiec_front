@@ -144,3 +144,20 @@ export interface PreMarriageCourse {
     contactPhone: string;
     dates: string;
 }
+
+// Typ dla osób z parafii
+export interface Parishioner {
+    id: number;
+    name: string;
+    surname: string;
+    position: string;
+    photo?: Media;
+}
+
+
+export interface Scene {
+    id: number;
+    name: string;
+    description: string;
+    panorama: string;
+}
