@@ -1,5 +1,5 @@
 /* ===========================
-   DIALOG SZCZEGÓŁÓW KAPŁANA
+   DIALOG SZCZEGÓŁÓW KAPŁANA - POPRAWKI MOBILE
    =========================== */
 
 .priest-detail-dialog {
@@ -17,7 +17,8 @@
 .priest-detail-dialog .p-dialog-content {
     padding: 0;
     border-radius: 0 0 12px 12px;
-    overflow: hidden;
+    overflow: visible;
+    /* Na desktop pozostaw normalny overflow, mobile będzie w media query */
 }
 
 /* ===========================
@@ -27,6 +28,10 @@
 .priest-dialog-header {
     background: var(--color-primary);
     color: white;
+    /* Ustaw jako sticky żeby header pozostał na górze podczas scrollowania */
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .priest-dialog-header-content {
@@ -65,6 +70,17 @@
     display: flex;
     min-height: 500px;
     background: white;
+    /* Na desktop normalny flex, na mobile będzie overflow */
+}
+
+/* Na desktop dostosuj proporcje */
+@media (min-width: 961px) {
+    .priest-dialog-content {
+        min-height: 600px;
+        /* Zwiększ minimalną wysokość */
+        max-height: 80vh;
+        /* Ogranicz maksymalną wysokość */
+    }
 }
 
 /* ===========================
@@ -73,17 +89,39 @@
 
 .priest-dialog-image-section {
     position: relative;
-    width: 300px;
-    min-width: 300px;
+    width: 320px;
+    /* Zwiększ szerokość z 300px */
+    min-width: 320px;
     background: var(--color-element-bg);
     overflow: hidden;
+}
+
+/* Na desktop dostosuj proporcje sekcji zdjęcia */
+@media (min-width: 961px) {
+    .priest-dialog-image-section {
+        width: 350px;
+        /* Jeszcze szersze na desktop */
+        min-width: 350px;
+        max-height: 80vh;
+        /* Ogranicz wysokość */
+    }
 }
 
 .priest-dialog-photo {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center top;
+    /* Priorytet dla górnej części zdjęcia (twarz) */
     transition: transform 0.3s ease;
+}
+
+/* Na desktop zachowaj normalne wyświetlanie zdjęć */
+@media (min-width: 961px) {
+    .priest-dialog-photo {
+        object-fit: cover;
+        object-position: center;
+    }
 }
 
 .priest-dialog-photo-placeholder {
@@ -142,8 +180,20 @@
     padding: 2rem;
     display: flex;
     flex-direction: column;
+    /* Na desktop przywróć scroll */
     overflow-y: auto;
     max-height: 600px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Na desktop dostosuj sekcję informacji */
+@media (min-width: 961px) {
+    .priest-dialog-info-section {
+        max-height: 80vh;
+        /* Dostosuj do wysokości dialogu */
+        min-width: 450px;
+        /* Minimalna szerokość dla lepszej czytelności */
+    }
 }
 
 /* ===========================
@@ -194,6 +244,19 @@
     border-left: 4px solid var(--color-primary);
 }
 
+/* Na desktop - kompaktowsze bloki */
+@media (min-width: 961px) {
+    .priest-dialog-details {
+        gap: 1.5rem;
+        /* Mniejsze odstępy */
+    }
+
+    .priest-info-block {
+        padding: 1.25rem;
+        /* Mniejszy padding */
+    }
+}
+
 .priest-info-block-title {
     display: flex;
     align-items: center;
@@ -216,6 +279,20 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
+}
+
+/* Na desktop - dwukolumnowa siatka dla lepszego wykorzystania przestrzeni */
+@media (min-width: 961px) {
+    .priest-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem 2rem;
+    }
+
+    /* Niektóre elementy na pełną szerokość */
+    .priest-info-item:first-child,
+    .priest-info-item:last-child {
+        grid-column: 1 / -1;
+    }
 }
 
 .priest-info-item {
@@ -425,33 +502,68 @@
 }
 
 /* ===========================
-   RESPONSYWNOŚĆ
+   RESPONSYWNOŚĆ - POPRAWKI MOBILE
    =========================== */
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
     .priest-detail-dialog {
-        margin: 1rem;
+        margin: 0.5rem;
+        /* Zwiększ wysokość dialogu na mobile */
+        height: calc(100vh - 1rem);
+        max-height: calc(100vh - 1rem);
+    }
+
+    .priest-detail-dialog .p-dialog-content {
+        /* Na mobile ustaw scrollowanie tutaj zamiast w .priest-dialog-info-section */
+        max-height: calc(100vh - 5rem);
+        height: calc(100vh - 5rem);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .priest-dialog-content {
         flex-direction: column;
         min-height: auto;
+        /* Na mobile usuń ograniczenia wysokości */
+        height: auto;
+        /* Pozwól na naturalną wysokość treści */
+        overflow: visible;
     }
 
     .priest-dialog-image-section {
         width: 100%;
-        height: 250px;
+        height: 300px;
+        /* Zwiększ wysokość z 250px do 300px */
         min-width: auto;
+        /* Zrób sekcję zdjęcia flex-shrink: 0 żeby nie kurczyła się */
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Alternatywnie dla mobile - pokazuj całe zdjęcie */
+    .priest-dialog-photo {
+        object-fit: contain !important;
+        /* Pokaż całe zdjęcie bez obcinania */
+        object-position: center !important;
+        background: var(--color-element-bg);
+        /* Tło dla pustych obszarów */
     }
 
     .priest-dialog-divider {
         height: 4px;
         width: 100%;
+        flex-shrink: 0;
     }
 
     .priest-dialog-info-section {
         padding: 1.5rem;
-        max-height: none;
+        /* Na mobile usuń overflow - scroll obsługuje .p-dialog-content */
+        overflow: visible !important;
+        /* Usuń ograniczenia wysokości */
+        flex: none;
+        min-height: auto;
+        max-height: none !important;
     }
 
     .priest-dialog-full-name {
@@ -481,23 +593,68 @@
     }
 }
 
+/* ===========================
+   DODATKOWE KLASY DLA RÓŻNYCH TRYBÓW WYŚWIETLANIA ZDJĘĆ
+   =========================== */
+
+/* Klasa dla pokazania całego zdjęcia bez obcinania */
+.priest-dialog-photo.full-image {
+    object-fit: contain;
+    object-position: center;
+    background: var(--color-element-bg);
+}
+
+/* Klasa dla skupienia się na twarzy */
+.priest-dialog-photo.face-focus {
+    object-fit: cover;
+    object-position: center 15%;
+}
+
+/* Dodatkowe opcje skalowania na bardzo małych ekranach */
 @media (max-width: 480px) {
-    .priest-dialog-info-section {
-        padding: 1rem;
+    .priest-dialog-image-section {
+        height: 280px;
+        /* Jeszcze więcej miejsca na bardzo małych ekranach */
     }
 
-    .priest-info-block {
-        padding: 1rem;
+    /* Na bardzo małych ekranach pokaż całe zdjęcie */
+    .priest-dialog-photo {
+        object-fit: contain !important;
+        background: #f8f9fa !important;
     }
 
-    .priest-dialog-details {
-        gap: 1.5rem;
+    /* Większe zdjęcia w kartach na bardzo małych ekranach */
+    .priest-image-section {
+        height: 220px;
     }
+}
 
-    .priest-dialog-name-section {
-        margin-bottom: 1.5rem;
-        padding-bottom: 1rem;
-    }
+.priest-detail-dialog {
+    margin: 0.25rem;
+    height: calc(100vh - 0.5rem);
+    max-height: calc(100vh - 0.5rem);
+}
+
+.priest-detail-dialog .p-dialog-content {
+    max-height: calc(100vh - 4rem);
+    height: calc(100vh - 4rem);
+}
+
+.priest-dialog-info-section {
+    padding: 1rem;
+}
+
+.priest-info-block {
+    padding: 1rem;
+}
+
+.priest-dialog-details {
+    gap: 1.5rem;
+}
+
+.priest-dialog-name-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
 }
 
 /* ===========================
@@ -540,20 +697,72 @@
    SCROLLBAR STYLIZACJA
    =========================== */
 
-.priest-dialog-info-section::-webkit-scrollbar {
-    width: 6px;
+/* Scrollbar dla desktop */
+@media (min-width: 961px) {
+    .priest-dialog-info-section::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .priest-dialog-info-section::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .priest-dialog-info-section::-webkit-scrollbar-thumb {
+        background: var(--color-primary);
+        border-radius: 3px;
+    }
+
+    .priest-dialog-info-section::-webkit-scrollbar-thumb:hover {
+        background: var(--color-primary-dark);
+    }
 }
 
-.priest-dialog-info-section::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
+/* Scrollbar dla mobile */
+@media (max-width: 960px) {
+    .priest-detail-dialog .p-dialog-content::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .priest-detail-dialog .p-dialog-content::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .priest-detail-dialog .p-dialog-content::-webkit-scrollbar-thumb {
+        background: var(--color-primary);
+        border-radius: 3px;
+    }
+
+    .priest-detail-dialog .p-dialog-content::-webkit-scrollbar-thumb:hover {
+        background: var(--color-primary-dark);
+    }
 }
 
-.priest-dialog-info-section::-webkit-scrollbar-thumb {
-    background: var(--color-primary);
-    border-radius: 3px;
+/* ===========================
+   DODATKOWE POPRAWKI DLA TOUCH DEVICES
+   =========================== */
+
+/* Zapobiegaj zoom-in na iOS podczas kliknięcia w input/button */
+@media screen and (max-width: 768px) {
+
+    .priest-detail-dialog input,
+    .priest-detail-dialog button,
+    .priest-detail-dialog textarea,
+    .priest-detail-dialog select {
+        font-size: 16px !important;
+    }
 }
 
-.priest-dialog-info-section::-webkit-scrollbar-thumb:hover {
-    background: var(--color-primary-dark);
+/* Popraw touch scrolling dla całego dialogu */
+.priest-detail-dialog {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+}
+
+/* Dodaj padding na dole dla mobile żeby ostatnia treść była widoczna */
+@media (max-width: 768px) {
+    .priest-dialog-details {
+        padding-bottom: 2rem;
+    }
 }

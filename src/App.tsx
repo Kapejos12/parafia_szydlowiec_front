@@ -13,6 +13,7 @@ import { PriestsPage } from './pages/Parish/Priests/PriestsPage'
 import ChildProtectionStandards from './pages/Parish/Child-Security/ChildSecurity'
 import { GroupsPage } from './pages/Parish/Parish-Groups/GroupsPage'
 import PreMarriageCourseComponent from './pages/Parish/PremarriageCourse/PreMarriageCoursePage'
+import VirtualTour360 from './pages/VirtualTour/VirtualTour'
 
 
 
@@ -31,6 +32,7 @@ function App() {
         <Route path="ochrona-dzieci" element={<ChildProtectionStandards />} />
         <Route path="grupy-parafialne" element={<GroupsPage />} />
         <Route path="kurs-przedmalzenski" element={<PreMarriageCourseComponent />} />
+        <Route path="wirtualny-spacer" element={<VirtualTour360 />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

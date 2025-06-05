@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPriests } from "../../../utils/api";
+import { fetchParisioners, fetchPriests } from "../../../utils/api";
 import { Button } from "primereact/button";
 import { Card } from "primereact/card";
 import { Skeleton } from "primereact/skeleton";
 import { useState } from "react";
-import { Priest } from "../../../utils/types";
+import { Parishioner, Priest } from "../../../utils/types";
 import { Tag } from "primereact/tag";
 import CategoryBanner from "../../../components/CategoryBanner.component/CategoryBanner.component";
 import PriestDetailDialog from "./PriestDetailDialog";
@@ -78,14 +78,11 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
         return text.substring(0, maxLength) + '...';
     };
 
-    // Treść karty z poziomym layoutem
     const cardContent = (
         <div className="priest-horizontal-card-content">
-            {/* Sekcja zdjęcia po lewej */}
             <div className="priest-image-section">
                 {imageUrl || priest.name === 'Tadeusz' ? (
                     <img
-
                         src={imageUrl}
                         alt={`${priest.name} ${priest.surname}`}
                         className="priest-photo"
@@ -96,7 +93,6 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
                     </div>
                 )}
 
-                {/* Tag na zdjęciu */}
                 <div className="priest-tag-overlay">
                     <Tag
                         value={getTitleInPolish(priest.title)}
@@ -106,17 +102,13 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
                 </div>
             </div>
 
-            {/* Pionowy divider */}
             <div className="priest-divider"></div>
 
-            {/* Treść po prawej */}
             <div className="priest-info-section">
-                {/* Imię i nazwisko */}
                 <h3 className="priest-full-name">
                     {priest.name} {priest.surname}
                 </h3>
 
-                {/* Podstawowe informacje */}
                 <div className="priest-basic-info">
                     <span className="priest-title">
                         <i className="pi pi-crown"></i>
@@ -138,21 +130,18 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
                     )}
                 </div>
 
-                {/* Opis */}
                 {priest.description && (
                     <p className="priest-description">
                         {truncateText(priest.description, 120)}
                     </p>
                 )}
 
-                {/* Specjalizacja */}
                 {priest.specialization && (
                     <div className="priest-specialization">
                         <strong>Specjalizacja:</strong> {priest.specialization}
                     </div>
                 )}
 
-                {/* Przycisk i status */}
                 <div className="priest-card-footer">
                     <Button
                         label="Zobacz więcej"
@@ -199,28 +188,76 @@ const PriestCardSkeleton: React.FC = () => (
     </Card>
 );
 
+// Komponent dla listy parafian
+const ParishionerItem: React.FC<{ parishioner: Parishioner }> = ({ parishioner }) => {
+    const imageData = parishioner.photo;
+    const imageUrl = getImageUrl(
+        imageData?.formats?.medium?.url ||
+        imageData?.formats?.small?.url ||
+        imageData?.url || ''
+    );
+
+    return (
+        <div className="parishioner-item">
+            <div className="parishioner-content">
+                {/* Zdjęcie (opcjonalne) */}
+                {imageUrl ? (
+                    <div className="parishioner-photo-section">
+                        <img
+                            src={imageUrl}
+                            alt={`${parishioner.name} ${parishioner.surname}`}
+                            className="parishioner-photo"
+                        />
+                    </div>
+                ) : (
+                    <div className="parishioner-photo-section">
+                        <div className="parishioner-photo-placeholder">
+                            <i className="pi pi-user"></i>
+                        </div>
+                    </div>
+                )}
+
+                {/* Imię i nazwisko */}
+                <div className="parishioner-info">
+                    <h4 className="parishioner-name">
+                        {parishioner.name} {parishioner.surname}
+                    </h4>
+                    <span className="parishioner-label">{parishioner.position}</span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 export const PriestsPage: React.FC = () => {
     const [showOnlyActive, setShowOnlyActive] = useState(true);
     const [selectedPriest, setSelectedPriest] = useState<Priest | null>(null);
     const [dialogVisible, setDialogVisible] = useState(false);
 
-    const { data: priestsData, isLoading, error } = useQuery({
+    const { data: priestsData, isLoading: isLoadingPriests, error: errorPriests } = useQuery({
         queryKey: ['priests'],
         queryFn: fetchPriests,
         staleTime: 5 * 60 * 1000,
     });
 
+    const { data: parishionersData, isLoading: isLoadingParishioners, error: errorParishioners } = useQuery({
+        queryKey: ['parishioners'],
+        queryFn: fetchParisioners,
+        staleTime: 5 * 60 * 1000,
+    });
 
     const priests = priestsData?.sort((p1, p2) => p1.position - p2.position) || [];
     const activePriests = priests.filter(priest => priest.active);
     const displayPriests = showOnlyActive ? activePriests : priests;
+
+    const parishioners = parishionersData || [];
 
     const handlePriestClick = (priest: Priest) => {
         setSelectedPriest(priest);
         setDialogVisible(true);
     };
 
-    if (isLoading) {
+    if (isLoadingPriests) {
         return (
             <div className="priests-page">
                 <div className="priests-main-container">
@@ -254,7 +291,32 @@ export const PriestsPage: React.FC = () => {
         );
     }
 
-    if (error) {
+    if (isLoadingParishioners) {
+        return (
+            <div className="parishioners-section">
+                <div className="parishioners-header">
+                    <div className="parishioners-title-section">
+                        <Skeleton height="2rem" className="mb-2" />
+                        <Skeleton height="1rem" width="70%" />
+
+                        <div className="parishioners-subtitle">
+                            {[...Array(4)].map((_, i) => (
+                                <PriestCardSkeleton key={i} />
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="priests-sidebar">
+                        <Skeleton height="200px" />
+                        <Skeleton height="150px" />
+                        <Skeleton height="180px" />
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (errorPriests) {
         return (
             <div className="priests-page">
                 <div className="priests-main-container">
@@ -269,12 +331,28 @@ export const PriestsPage: React.FC = () => {
         );
     }
 
+    if (errorParishioners) {
+        return (
+            <div className="parishioners-section">
+                <div className="parishioners-header">
+                    <div className="parishioners-title-section">
+                        <h2 className="parishioners-title">
+                            <i className="pi pi-heart"></i>
+                            Pochodzą z naszej parafii
+                        </h2>
+                        <p className="parishioners-subtitle">
+                            Nie udało się załadować informacji o osobach konsekrowanych z naszej parafii. Spróbuj ponownie później.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="priests-page">
             <div className="priests-main-container">
-                {/* Główna treść */}
                 <div className="priests-content">
-                    {/* Banner z dynamicznymi kolorami liturgicznymi */}
                     <CategoryBanner
                         title="Nasi Kapłani"
                         description="Poznaj kapłanów parafii Św. Zygmunta w Szydłowcu, którzy każdego dnia służą wspólnocie wierzących swoją modlitwą, posługą duszpasterską i świadectwem życia chrześcijańskiego."
@@ -283,7 +361,7 @@ export const PriestsPage: React.FC = () => {
                         showLiturgicalInfo={true}
                     />
 
-                    {/* Filtry */}
+                    {/* Sekcja Kapłanów */}
                     <div className="priests-filters-section">
                         <div className="priests-filters-top">
                             <div className="priests-filters-left">
@@ -312,7 +390,6 @@ export const PriestsPage: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Siatka poziomych kart kapłanów */}
                     <div className="priests-cards-grid">
                         {displayPriests.map((priest, index) => (
                             <PriestHorizontalCard
@@ -323,7 +400,6 @@ export const PriestsPage: React.FC = () => {
                         ))}
                     </div>
 
-                    {/* Empty state */}
                     {displayPriests.length === 0 && (
                         <div className="priests-empty">
                             <i className="pi pi-info-circle"></i>
@@ -331,12 +407,42 @@ export const PriestsPage: React.FC = () => {
                             <p>W wybranej kategorii nie ma kapłanów do wyświetlenia.</p>
                         </div>
                     )}
+
+                    {/* Nowa sekcja - Parafianie */}
+                    <div className="parishioners-section">
+                        <div className="parishioners-header">
+                            <div className="parishioners-title-section">
+                                <h2 className="parishioners-title">
+                                    <i className="pi pi-heart"></i>
+                                    Osoby konsekrowane pochodzące z naszej parafii
+                                </h2>
+                                <p className="parishioners-subtitle">
+                                    Poznaj osoby konsekrowane pochodzące z naszej parafii, które są częścią naszej wspólnoty wierzących.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Lista parafian w siatce */}
+                        <div className="parishioners-grid">
+                            {parishioners.map(parishioner => (
+                                <ParishionerItem
+                                    key={parishioner.id}
+                                    parishioner={parishioner}
+                                />
+                            ))}
+                        </div>
+
+                        {parishioners.length === 0 && (
+                            <div className="parishioners-empty">
+                                <i className="pi pi-info-circle"></i>
+                                <h3>Brak parafian</h3>
+                                <p>Nie ma jeszcze żadnych parafian do wyświetlenia.</p>
+                            </div>
+                        )}
+                    </div>
                 </div>
 
-                {/* Sidebar */}
                 <div className="priests-sidebar">
-
-                    {/* Informacje o kapłanach */}
                     <div className="priests-sidebar-widget">
                         <div className="priests-sidebar-widget-header">
                             O naszych kapłanach
@@ -353,7 +459,6 @@ export const PriestsPage: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Kontakt z kapłanami */}
                     <div className="priests-sidebar-widget">
                         <div className="priests-sidebar-widget-header">
                             Jak skontaktować się z kapłanem?
@@ -373,7 +478,6 @@ export const PriestsPage: React.FC = () => {
                 </div>
             </div>
 
-            {/* Dialog szczegółów kapłana */}
             <PriestDetailDialog
                 priest={selectedPriest}
                 visible={dialogVisible}
