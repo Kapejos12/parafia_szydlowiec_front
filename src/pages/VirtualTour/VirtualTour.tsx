@@ -1,40 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import './VirtualTourStyles.css';
-
-// Importuj swoje zdjęcia sferyczne
-import panorama1 from '../../assets/entrance.jpg';
-import panorama2 from '../../assets/middle.jpg';
-import panorama3 from '../../assets/altar.jpg';
-import panorama4 from '../../assets/altar2.jpg';
+import React, { useEffect, useRef, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchPanoramas } from '../../utils/api';
 import { Scene } from '../../utils/types';
-
-// Konfiguracja scen
-const scenes: Scene[] = [
-    {
-        id: 1,
-        name: 'Wejście',
-        description: 'Główne wejście do budynku',
-        panorama: panorama1
-    },
-    {
-        id: 2,
-        name: 'Środek',
-        description: 'Centralna część budynku',
-        panorama: panorama2
-    },
-    {
-        id: 3,
-        name: 'Ołtarz',
-        description: 'Główny ołtarz',
-        panorama: panorama3
-    },
-    {
-        id: 4,
-        name: 'Ołtarz - widok 2',
-        description: 'Drugi widok na ołtarz',
-        panorama: panorama4
-    }
-];
+import './VirtualTourStyles.css';
 
 declare global {
     interface Window {
@@ -43,34 +11,84 @@ declare global {
     }
 }
 
+const STRAPI_URL = import.meta.env.VITE_NODE_ENV === "production"
+    ? import.meta.env.VITE_PRODUCTION_API_BASE_URL
+    : import.meta.env.VITE_DEVELOPMENT_API_BASE_URL;
+
+const getImageUrl = (url: string) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    return `${STRAPI_URL}${url}`;
+};
+
 export default function VirtualTour360() {
     const aframeContainerRef = useRef<HTMLDivElement>(null);
-    const [currentScene, setCurrentScene] = useState<Scene>(scenes[0]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [currentScene, setCurrentScene] = useState<Scene | null>(null);
+    const [isSceneLoading, setIsSceneLoading] = useState(false);
     const [aframeLoaded, setAframeLoaded] = useState(false);
+
+    // Pobieranie danych panoram
+    const { data: panoramas, isLoading: isPanoramasLoading, error } = useQuery({
+        queryKey: ['panoramas'],
+        queryFn: fetchPanoramas,
+        staleTime: 5 * 60 * 1000,
+    });
+
+    // Tworzenie scen na podstawie danych z API
+    const scenes: Scene[] = React.useMemo(() => {
+        if (!panoramas || !panoramas[0]?.photos || panoramas[0].photos.length === 0) {
+            return [];
+        }
+
+        return [
+            {
+                id: 1,
+                name: 'Wejście',
+                description: 'Główne wejście do budynku',
+                panorama: getImageUrl(panoramas[0].photos[0].url)
+            },
+            {
+                id: 2,
+                name: 'Środek',
+                description: 'Centralna część budynku',
+                panorama: getImageUrl(panoramas[0].photos[1]?.url || panoramas[0].photos[0].url)
+            },
+            {
+                id: 3,
+                name: 'Ołtarz',
+                description: 'Główny ołtarz',
+                panorama: getImageUrl(panoramas[0].photos[2]?.url || panoramas[0].photos[0].url)
+            },
+            {
+                id: 4,
+                name: 'Ołtarz Św. Stanisława',
+                description: 'Widok na ołtarz Św. Stanisława',
+                panorama: getImageUrl(panoramas[0].photos[3]?.url || panoramas[0].photos[0].url)
+            }
+        ];
+    }, [panoramas]);
+
+    // Ustawienie domyślnej sceny po załadowaniu danych
+    useEffect(() => {
+        if (scenes.length > 0 && !currentScene) {
+            setCurrentScene(scenes[0]);
+        }
+    }, [scenes, currentScene]);
 
     // Ładowanie A-Frame
     useEffect(() => {
         if (window.AFRAME) {
             setAframeLoaded(true);
-            setIsLoading(false);
             return;
         }
 
         const script = document.createElement('script');
         script.src = 'https://aframe.io/releases/1.4.0/aframe.min.js';
         script.onload = () => {
-            console.log('✅ A-Frame załadowany pomyślnie');
             setAframeLoaded(true);
-
-            setTimeout(() => {
-                setIsLoading(false);
-                initializeScene();
-            }, 500);
         };
         script.onerror = () => {
             console.error('❌ Nie udało się załadować A-Frame');
-            setIsLoading(false);
         };
         document.head.appendChild(script);
 
@@ -82,8 +100,8 @@ export default function VirtualTour360() {
     }, []);
 
     // Inicjalizacja sceny A-Frame
-    const initializeScene = () => {
-        if (!aframeContainerRef.current || !window.AFRAME) return;
+    const initializeScene = React.useCallback(() => {
+        if (!aframeContainerRef.current || !window.AFRAME || !currentScene) return;
 
         // Wyczyść kontener
         aframeContainerRef.current.innerHTML = '';
@@ -95,22 +113,39 @@ export default function VirtualTour360() {
         aScene.setAttribute('vr-mode-ui', 'enabled: false');
         aScene.setAttribute('device-orientation-permission-ui', 'enabled: false');
 
+        // Event listener dla załadowania sceny
+        aScene.addEventListener('loaded', () => {
+            setTimeout(() => {
+                setIsSceneLoading(false);
+            }, 500);
+        });
+
         // Dodaj assets
         const assets = document.createElement('a-assets');
-        scenes.forEach((scene) => {
-            const img = document.createElement('img');
-            img.id = `panorama${scene.id}`;
-            img.src = scene.panorama;
-            img.crossOrigin = 'anonymous';
-            assets.appendChild(img);
-        });
+        const img = document.createElement('img');
+        img.id = `panorama${currentScene.id}`;
+        img.src = currentScene.panorama;
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            setIsSceneLoading(false);
+        };
+        img.onerror = () => {
+            setIsSceneLoading(false);
+        };
+        assets.appendChild(img);
         aScene.appendChild(assets);
 
         // Dodaj sky (panorama)
         const sky = document.createElement('a-sky');
         sky.id = 'panorama-sky';
         sky.setAttribute('src', `#panorama${currentScene.id}`);
-        sky.setAttribute('rotation', '0 -130 0');
+        sky.setAttribute('rotation', '3 0 2');
+
+        // Event listener dla sky
+        sky.addEventListener('materialtextureloaded', () => {
+            setIsSceneLoading(false);
+        });
+
         aScene.appendChild(sky);
 
         // Dodaj kamerę z kontrolkami - ulepszone dla mobile
@@ -118,51 +153,64 @@ export default function VirtualTour360() {
         cameraRig.id = 'cameraRig';
 
         const camera = document.createElement('a-camera');
-        camera.setAttribute('look-controls', 'enabled: true; touchEnabled: true; magicWindowTrackingEnabled: true; pointerLockEnabled: false');
-        camera.setAttribute('wasd-controls', 'enabled: false');
-        camera.setAttribute('position', '0 0 0');
-        camera.setAttribute('fov', '80');
 
-        // Dodaj responsywne ustawienia FOV
+        // Responsywne ustawienia dla mobile
         const isMobile = window.innerWidth <= 768;
         if (isMobile) {
             camera.setAttribute('fov', '90');
             camera.setAttribute('look-controls', 'enabled: true; touchEnabled: true; magicWindowTrackingEnabled: true; pointerLockEnabled: false; reverseDragDirection: false');
+        } else {
+            camera.setAttribute('fov', '80');
+            camera.setAttribute('look-controls', 'enabled: true; touchEnabled: true; magicWindowTrackingEnabled: true; pointerLockEnabled: false');
         }
+
+        camera.setAttribute('wasd-controls', 'enabled: false');
+        camera.setAttribute('position', '3 0 2');
 
         cameraRig.appendChild(camera);
         aScene.appendChild(cameraRig);
 
         aframeContainerRef.current.appendChild(aScene);
-        console.log('🎬 Scena A-Frame zainicjalizowana dla:', currentScene.name);
-    };
+
+        // Fallback timer - jeśli nic nie zadziała w 3 sekundy
+        const fallbackTimer = setTimeout(() => {
+            setIsSceneLoading(false);
+        }, 3000);
+
+        // Cleanup timer jeśli component się unmountuje
+        return () => clearTimeout(fallbackTimer);
+    }, [currentScene]);
+
+    // Reinicjalizuj scenę po zmianie currentScene lub załadowaniu A-Frame
+    useEffect(() => {
+        if (aframeLoaded && currentScene && !isPanoramasLoading) {
+            setIsSceneLoading(true);
+            setTimeout(() => {
+                initializeScene();
+            }, 100);
+        }
+    }, [currentScene, aframeLoaded, isPanoramasLoading, initializeScene]);
+
+    // Proste rozwiązanie - backup timer
+    useEffect(() => {
+        if (isSceneLoading && currentScene) {
+            const simpleTimer = setTimeout(() => {
+                setIsSceneLoading(false);
+            }, 1500);
+
+            return () => clearTimeout(simpleTimer);
+        }
+    }, [isSceneLoading, currentScene]);
 
     // Zmiana sceny
-    const changeScene = (newScene: Scene) => {
-        setIsLoading(true);
-        console.log('🔄 Zmiana sceny na:', newScene.name);
-
-        setTimeout(() => {
-            setCurrentScene(newScene);
-            setIsLoading(false);
-            initializeScene();
-        }, 500);
-    };
-
     const handleSceneChange = (sceneId: number) => {
+        if (isSceneLoading) return;
+
         const newScene = scenes.find(s => s.id === sceneId);
-        if (newScene) {
-            changeScene(newScene);
+        if (newScene && newScene.id !== currentScene?.id) {
+            setCurrentScene(newScene);
         }
     };
-
-    // Reinicjalizuj scenę po zmianie currentScene
-    useEffect(() => {
-        if (aframeLoaded && !isLoading) {
-            initializeScene();
-        }
-    }, [currentScene, aframeLoaded]);
-
     if (!aframeLoaded) {
         return (
             <div className="virtual-tour-container">
@@ -174,6 +222,65 @@ export default function VirtualTour360() {
                         </p>
                         <p className="text-secondary text-small mt-4">
                             Framework do panoram 360°
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Loading state - ładowanie panoram
+    if (isPanoramasLoading) {
+        return (
+            <div className="virtual-tour-container">
+                <div className="loading-overlay">
+                    <div className="loading-content">
+                        <div className="loading-spinner"></div>
+                        <p className="text-primary font-semibold">
+                            Ładowanie panoram...
+                        </p>
+                        <p className="text-secondary text-small mt-4">
+                            Pobieranie zdjęć sferycznych
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Error state
+    if (error) {
+        return (
+            <div className="virtual-tour-container">
+                <div className="error-container">
+                    <div className="error-content">
+                        <div className="error-icon">❌</div>
+                        <h2 className="error-title">Błąd ładowania wirtualnego spaceru</h2>
+                        <p className="error-message">
+                            Nie udało się załadować panoram 360°. Sprawdź połączenie internetowe i spróbuj ponownie.
+                        </p>
+                        <button
+                            className="error-retry-button"
+                            onClick={() => window.location.reload()}
+                        >
+                            🔄 Spróbuj ponownie
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Brak danych
+    if (!scenes.length) {
+        return (
+            <div className="virtual-tour-container">
+                <div className="error-container">
+                    <div className="error-content">
+                        <div className="error-icon">📷</div>
+                        <h2 className="error-title">Brak dostępnych panoram</h2>
+                        <p className="error-message">
+                            Aktualnie nie ma dostępnych zdjęć panoramicznych do wyświetlenia.
                         </p>
                     </div>
                 </div>
@@ -266,21 +373,21 @@ export default function VirtualTour360() {
                                 <button
                                     key={scene.id}
                                     onClick={() => handleSceneChange(scene.id)}
-                                    className={`nav-button ${scene.id === currentScene.id ? 'active' : ''}`}
-                                    disabled={isLoading}
+                                    className={`nav-button ${scene.id === currentScene?.id ? 'active' : ''}`}
+                                    disabled={isSceneLoading}
                                 >
                                     <div className="nav-button-content">
                                         <div className="nav-button-title">{scene.name}</div>
                                         <div className="nav-button-description">{scene.description}</div>
-                                        {isLoading && scene.id === currentScene.id && (
+                                        {isSceneLoading && scene.id === currentScene?.id && (
                                             <div className="status-indicator text-small">
-                                                <div className="loading-spinner" style={{ width: '16px', height: '16px', border: '2px solid transparent', borderBottom: '2px solid var(--color-accent)' }}></div>
+                                                <div className="loading-spinner-small"></div>
                                                 <span className="text-secondary">Ładowanie...</span>
                                             </div>
                                         )}
                                     </div>
                                     <div className="nav-button-icon">
-                                        {scene.id === currentScene.id ? '📍' : '📷'}
+                                        {scene.id === currentScene?.id ? '📍' : '📷'}
                                     </div>
                                 </button>
                             ))}
@@ -294,15 +401,15 @@ export default function VirtualTour360() {
                                 <div className="status-item">
                                     <span className="text-secondary">Aktywna scena:</span>
                                     <span className="text-primary font-semibold">
-                                        {currentScene.name}
+                                        {currentScene?.name || 'Brak'}
                                     </span>
                                 </div>
                                 <div className="status-item">
                                     <span className="text-secondary">Status:</span>
                                     <div className="status-indicator">
-                                        <div className={`status-dot ${isLoading ? 'loading' : 'ready'}`}></div>
+                                        <div className={`status-dot ${isSceneLoading ? 'loading' : 'ready'}`}></div>
                                         <span className="text-primary font-semibold">
-                                            {isLoading ? 'Ładowanie' : 'Gotowe'}
+                                            {isSceneLoading ? 'Ładowanie' : 'Gotowe'}
                                         </span>
                                     </div>
                                 </div>
@@ -321,10 +428,10 @@ export default function VirtualTour360() {
                 <div className="glass-panel panorama-panel">
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="panel-title">
-                            🏛️ Wirtualny Spacer - {currentScene.name}
+                            🏛️ Wirtualny Spacer - {currentScene?.name || 'Ładowanie...'}
                         </h2>
                         <div className="text-small text-secondary">
-                            {currentScene.description}
+                            {currentScene?.description || ''}
                         </div>
                     </div>
 
@@ -335,7 +442,7 @@ export default function VirtualTour360() {
                         />
 
                         {/* Loading Overlay */}
-                        {isLoading && (
+                        {isSceneLoading && (
                             <div className="loading-overlay">
                                 <div className="loading-content">
                                     <div className="loading-spinner"></div>
@@ -343,7 +450,7 @@ export default function VirtualTour360() {
                                         Ładowanie panoramy...
                                     </p>
                                     <p className="text-secondary text-small mt-4">
-                                        {currentScene.name}
+                                        {currentScene?.name || ''}
                                     </p>
                                 </div>
                             </div>

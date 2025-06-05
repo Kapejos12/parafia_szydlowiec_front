@@ -47,10 +47,43 @@ const ContactPage: React.FC = () => {
                             <h3>Email</h3>
                             <a href='mailto:parafiaszydlowiec@op.pl'>parafiaszydlowiec@op.pl</a>
                         </div>
+                    </div>
+                </div>
 
-                        <div className="info-card">
-                            <h3>Numer konta bankowego parafii</h3>
-                            <p>13 9129 0001 0099 0900 2380 0001</p>
+                {/* Sekcja z informacjami o darowiznych */}
+                <div className="donation-section">
+                    <div className="donation-card">
+                        <div className="donation-header">
+                            <h3>Możesz złożyć dobrowolną ofiarę na funkcjonowanie naszej parafii i na utrzymanie świątyni.</h3>
+                        </div>
+
+                        <div className="donation-content">
+                            <p>Możesz to zrobić bezgotówkowo, na różne sposoby:</p>
+
+                            <div className="donation-method">
+                                <h4>1 sposób:</h4>
+                                <p>Zrób przelew na konto bankowe parafii</p>
+                                <div className="parish-info">
+                                    <p>Parafia Rzymsko - Katolicka</p>
+                                    <p>p.w. Św. Zygmunta</p>
+                                    <p>ul. Zakoielna 13, 26-500 Szydłowiec</p>
+                                </div>
+                                <div className="account-number">
+                                    <strong>13 9129 0001 0099 0900 2380 0001</strong>
+                                </div>
+                                <div className="transfer-title">
+                                    <strong>Tytuł: Darowizna na cele kultu religijnego</strong>
+                                </div>
+                            </div>
+
+                            <div className="donation-method">
+                                <h4>2 sposób:</h4>
+                                <p>Zrób stałą dyspozycję przelewu określonej kwoty na cele kultu religijnego.</p>
+                            </div>
+
+                            <div className="donation-footer">
+                                <p><em>Bóg zapłać za wszystkie, nawet najdrobniejsze, ofiary na rzecz naszej parafii.</em></p>
+                            </div>
                         </div>
                     </div>
                 </div>

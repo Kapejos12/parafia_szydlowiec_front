@@ -66,6 +66,7 @@ body {
 /* Sekcja informacji kontaktowych */
 .contact-info-section {
     margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 .contact-info-row {
@@ -123,6 +124,125 @@ body {
     line-height: 1.5;
 }
 
+/* Sekcja darowizn */
+.donation-section {
+    margin-top: 2rem;
+}
+
+.donation-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 2px solid var(--color-primary);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.donation-header {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.donation-header h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.donation-content {
+    padding: 2.5rem;
+}
+
+.donation-content>p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.donation-method {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--color-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.donation-method h4 {
+    color: var(--color-primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.donation-method>p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--color-text);
+}
+
+.parish-info {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border: 1px solid #e9ecef;
+}
+
+.parish-info p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.4;
+}
+
+.parish-info p:last-child {
+    margin-bottom: 0;
+}
+
+.account-number {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin: 1.5rem 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.transfer-title {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #ffeaa7;
+    font-size: 1.1rem;
+}
+
+.donation-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e9ecef;
+}
+
+.donation-footer p {
+    font-size: 1.2rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-style: italic;
+}
+
 /* Responsywność */
 @media (max-width: 960px) {
     .contact-info-row {
@@ -139,6 +259,23 @@ body {
 
     .map-container {
         height: 350px;
+    }
+
+    .donation-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .donation-content {
+        padding: 2rem;
+    }
+
+    .donation-method {
+        padding: 1.5rem;
+    }
+
+    .account-number {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
     }
 }
 
@@ -163,5 +300,39 @@ body {
 
     .info-card {
         padding: 1.2rem;
+    }
+
+    .donation-header {
+        padding: 1.5rem;
+    }
+
+    .donation-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .donation-content {
+        padding: 1.5rem;
+    }
+
+    .donation-method {
+        padding: 1.2rem;
+    }
+
+    .donation-method h4 {
+        font-size: 1.2rem;
+    }
+
+    .account-number {
+        font-size: 1rem;
+        letter-spacing: 1px;
+        padding: 1.2rem;
+    }
+
+    .parish-info {
+        padding: 1.2rem;
+    }
+
+    .donation-footer p {
+        font-size: 1.1rem;
     }
 }

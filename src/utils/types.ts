@@ -161,3 +161,7 @@ export interface Scene {
     description: string;
     panorama: string;
 }
+
+export interface Panorama {
+    photos: Media[];
+}
