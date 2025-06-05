@@ -116,63 +116,14 @@ const GroupDetailDialog: React.FC<GroupDetailDialogProps> = ({ group, visible, o
                                 </span>
                             </div>
                         )}
-
-                        {group.nextMeeting && (
-                            <div className="group-dialog__info-item">
-                                <i className="pi pi-arrow-right group-dialog__info-icon group-dialog__info-icon--success"></i>
-                                <span className="group-dialog__info-text">
-                                    <strong>Następne spotkanie:</strong> {new Date(group.nextMeeting).toLocaleDateString('pl-PL')}
-                                </span>
-                            </div>
-                        )}
                     </div>
                 </div>
 
-                {/* Cele grupy */}
-                {group.goals && group.goals.length > 0 && (
-                    <div className="group-dialog__section">
-                        <h3 className="group-dialog__section-title">Cele i misja</h3>
-                        <ul className="group-dialog__goals-list">
-                            {group.goals.map((goal, index) => (
-                                <li key={index} className="group-dialog__goal-item">
-                                    <i className="pi pi-check group-dialog__goal-icon"></i>
-                                    <span className="group-dialog__goal-text">{goal}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {/* Działania
-                {group.activities && group.activities.length > 0 && (
-                    <div className="group-dialog__section">
-                        <h3 className="group-dialog__section-title">Główne działania</h3>
-                        <div className="group-dialog__activities">
-                            {group.activities.map((activity, index) => (
-                                <div key={index} className={`group-dialog__activity-tag group-dialog__activity-tag--${categoryClass}`}>
-                                    {activity}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )} */}
-
-                {/* Wymagania */}
-                {group.requirements && (
-                    <div className="group-dialog__section">
-                        <h3 className="group-dialog__section-title">Wymagania</h3>
-                        <div className="group-dialog__requirements">
-                            <i className="pi pi-info-circle group-dialog__requirements-icon"></i>
-                            <span className="group-dialog__requirements-text">{group.requirements}</span>
-                        </div>
-                    </div>
-                )}
-
                 {/* Kontakt */}
-                <div className="group-dialog__section">
-                    <h3 className="group-dialog__section-title">Kontakt</h3>
-                    <div className="group-dialog__contact-grid">
-                        {group.contactEmail && (
+                {group.contactEmail && (
+                    <div className="group-dialog__section">
+                        <h3 className="group-dialog__section-title">Kontakt</h3>
+                        <div className="group-dialog__contact-grid">
                             <div className="group-dialog__contact-item">
                                 <i className="pi pi-envelope group-dialog__contact-icon group-dialog__contact-icon--email"></i>
                                 <a
@@ -182,74 +133,35 @@ const GroupDetailDialog: React.FC<GroupDetailDialogProps> = ({ group, visible, o
                                     {group.contactEmail}
                                 </a>
                             </div>
-                        )}
 
-                        {group.contactPhone && (
-                            <div className="group-dialog__contact-item">
-                                <i className="pi pi-phone group-dialog__contact-icon group-dialog__contact-icon--phone"></i>
-                                <a
-                                    href={`tel:${group.contactPhone}`}
-                                    className="group-dialog__contact-link"
-                                >
-                                    {group.contactPhone}
-                                </a>
-                            </div>
-                        )}
-
-                        {group.website && (
-                            <div className="group-dialog__contact-item">
-                                <i className="pi pi-globe group-dialog__contact-icon group-dialog__contact-icon--website"></i>
-                                <a
-                                    href={group.website}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group-dialog__contact-link"
-                                >
-                                    Strona internetowa
-                                </a>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Social media */}
-                    {group.socialMedia && (
-                        <div className="group-dialog__social-media">
-                            {group.socialMedia.facebook && (
-                                <a
-                                    href={group.socialMedia.facebook}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group-dialog__social-link group-dialog__social-link--facebook"
-                                >
-                                    <i className="pi pi-facebook"></i>
-                                    <span>Facebook</span>
-                                </a>
+                            {group.contactPhone && (
+                                <div className="group-dialog__contact-item">
+                                    <i className="pi pi-phone group-dialog__contact-icon group-dialog__contact-icon--phone"></i>
+                                    <a
+                                        href={`tel:${group.contactPhone}`}
+                                        className="group-dialog__contact-link"
+                                    >
+                                        {group.contactPhone}
+                                    </a>
+                                </div>
                             )}
-                            {group.socialMedia.instagram && (
-                                <a
-                                    href={group.socialMedia.instagram}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group-dialog__social-link group-dialog__social-link--instagram"
-                                >
-                                    <i className="pi pi-instagram"></i>
-                                    <span>Instagram</span>
-                                </a>
-                            )}
-                            {group.socialMedia.youtube && (
-                                <a
-                                    href={group.socialMedia.youtube}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group-dialog__social-link group-dialog__social-link--youtube"
-                                >
-                                    <i className="pi pi-youtube"></i>
-                                    <span>YouTube</span>
-                                </a>
+
+                            {group.website && (
+                                <div className="group-dialog__contact-item">
+                                    <i className="pi pi-globe group-dialog__contact-icon group-dialog__contact-icon--website"></i>
+                                    <a
+                                        href={group.website}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group-dialog__contact-link"
+                                    >
+                                        Strona internetowa
+                                    </a>
+                                </div>
                             )}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
 
                 {/* Akcje */}
                 <div className="group-dialog__actions">
