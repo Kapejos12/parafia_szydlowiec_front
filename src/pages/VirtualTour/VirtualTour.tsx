@@ -346,18 +346,6 @@ export default function VirtualTour360() {
                                 <li>• <strong>Eksploracja</strong> - poświęć czas na oglądanie detali</li>
                             </ul>
                         </div>
-
-                        <div className="status-section">
-                            <h3 className="section-title">
-                                🔧 Informacje techniczne
-                            </h3>
-                            <div className="text-xs text-secondary">
-                                <p><strong>Format:</strong> Panoramy equirectangular 360°</p>
-                                <p><strong>Technologia:</strong> A-Frame WebXR + React</p>
-                                <p><strong>Kompatybilność:</strong> Wszystkie nowoczesne przeglądarki</p>
-                                <p><strong>Rozdzielczość:</strong> Najlepiej 4K+ dla optymalnej jakości</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -391,35 +379,6 @@ export default function VirtualTour360() {
                                     </div>
                                 </button>
                             ))}
-                        </div>
-
-                        <div className="status-section">
-                            <h3 className="section-title">
-                                ℹ️ Aktualny status
-                            </h3>
-                            <div className="text-small">
-                                <div className="status-item">
-                                    <span className="text-secondary">Aktywna scena:</span>
-                                    <span className="text-primary font-semibold">
-                                        {currentScene?.name || 'Brak'}
-                                    </span>
-                                </div>
-                                <div className="status-item">
-                                    <span className="text-secondary">Status:</span>
-                                    <div className="status-indicator">
-                                        <div className={`status-dot ${isSceneLoading ? 'loading' : 'ready'}`}></div>
-                                        <span className="text-primary font-semibold">
-                                            {isSceneLoading ? 'Ładowanie' : 'Gotowe'}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="status-item">
-                                    <span className="text-secondary">Dostępne sceny:</span>
-                                    <span className="text-primary font-semibold">
-                                        {scenes.length}
-                                    </span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
