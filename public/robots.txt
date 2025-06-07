@@ -1,0 +1,47 @@
+# Robots.txt dla parafia-szydlowiec.pl
+User-agent: *
+Allow: /
+
+# Pozwalanie na indeksowanie wszystkich głównych podstron
+Allow: /patron
+Allow: /historia
+Allow: /ochrona-dzieci
+Allow: /duszpasterze
+Allow: /grupy-parafialne
+Allow: /kurs-przedmalzenski
+Allow: /kancelaria
+Allow: /wirtualny-spacer
+Allow: /kontakt
+
+# Blokowanie obszarów administracyjnych (jeśli istnieją)
+Disallow: /admin/
+Disallow: /wp-admin/
+Disallow: /login/
+Disallow: /dashboard/
+
+# Blokowanie plików technicznych React
+Disallow: /static/js/
+Disallow: /static/css/
+Disallow: /*.map$
+Disallow: /build/
+Disallow: /node_modules/
+
+# Pozwalanie na zasoby multimedialne
+Allow: /static/images/
+Allow: /static/media/
+Allow: /images/
+Allow: /favicon.ico
+Allow: /manifest.json
+
+# Sitemap
+Sitemap: https://parafia-szydlowiec.pl/sitemap.xml
+
+# Ustawienia crawl delay
+Crawl-delay: 1
+
+# Główne wyszukiwarki
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
