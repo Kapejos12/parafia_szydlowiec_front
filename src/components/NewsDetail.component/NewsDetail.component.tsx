@@ -121,18 +121,18 @@ const NewsDetailComponent: React.FC = () => {
         );
     };
 
-    // Funkcje udostępniania
-    const shareOnFacebook = () => {
-        const url = encodeURIComponent(window.location.href);
-        const title = encodeURIComponent(news?.title || '');
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`, '_blank');
-    };
+    // // Funkcje udostępniania
+    // const shareOnFacebook = () => {
+    //     const url = encodeURIComponent(window.location.href);
+    //     const title = encodeURIComponent(news?.title || '');
+    //     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${title}`, '_blank');
+    // };
 
-    const shareByEmail = () => {
-        const subject = encodeURIComponent(`Sprawdź tę aktualność: ${news?.title || ''}`);
-        const body = encodeURIComponent(`Przeczytaj tę interesującą aktualność: ${window.location.href}`);
-        window.location.href = `mailto:?subject=${subject}&body=${body}`;
-    };
+    // const shareByEmail = () => {
+    //     const subject = encodeURIComponent(`Sprawdź tę aktualność: ${news?.title || ''}`);
+    //     const body = encodeURIComponent(`Przeczytaj tę interesującą aktualność: ${window.location.href}`);
+    //     window.location.href = `mailto:?subject=${subject}&body=${body}`;
+    // };
 
     // Obsługa stanu ładowania
     if (isLoading) {
@@ -213,7 +213,7 @@ const NewsDetailComponent: React.FC = () => {
                                 <i className="pi pi-calendar"></i>
                                 <span>{formatDate(news.createdAt)}</span>
                             </div>
-                            <div className="news-detail-actions">
+                            {/* <div className="news-detail-actions">
                                 <Button
                                     icon="pi pi-share-alt"
                                     className="p-button-rounded p-button-outlined"
@@ -226,7 +226,7 @@ const NewsDetailComponent: React.FC = () => {
                                     tooltip="Dodaj do ulubionych"
                                     tooltipOptions={{ position: 'bottom' }}
                                 />
-                            </div>
+                            </div> */}
                         </div>
                         <h1 className="news-detail-title">{news.title}</h1>
                     </div>
@@ -269,7 +269,7 @@ const NewsDetailComponent: React.FC = () => {
                     )}
 
                     {/* Przyciski społecznościowe */}
-                    <div className="news-detail-social">
+                    {/* <div className="news-detail-social">
                         <Button
                             icon="pi pi-facebook"
                             className="p-button-rounded p-button-info"
@@ -291,7 +291,7 @@ const NewsDetailComponent: React.FC = () => {
                             tooltipOptions={{ position: 'top' }}
                             onClick={() => window.print()}
                         />
-                    </div>
+                    </div> */}
                 </Card>
             </div>
         </div>
