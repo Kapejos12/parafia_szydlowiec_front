@@ -66,7 +66,7 @@ const ContactPage: React.FC = () => {
                                 <div className="parish-info">
                                     <p>Parafia Rzymsko - Katolicka</p>
                                     <p>p.w. Św. Zygmunta</p>
-                                    <p>ul. Zakoielna 13, 26-500 Szydłowiec</p>
+                                    <p>ul. Zakościelna 13, 26-500 Szydłowiec</p>
                                 </div>
                                 <div className="account-number">
                                     <strong>13 9129 0001 0099 0900 2380 0001</strong>
