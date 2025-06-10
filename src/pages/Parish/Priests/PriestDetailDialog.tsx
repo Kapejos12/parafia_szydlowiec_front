@@ -24,7 +24,7 @@ const getTitleInPolish = (title: string) => {
         'Associate Pastor': 'Wikariusz',
         'Retired': 'Emeryt'
     };
-    return titles[title] || title;
+    return titles[title] || title + " ";
 };
 
 const getTitleColor = (title: string) => {
@@ -231,6 +231,7 @@ const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible
                         <div className="priest-dialog-title">
                             <i className="pi pi-crown"></i>
                             {getTitleInPolish(priest.title)}
+                            {priest.additionalInfo != null || priest.additionalInfo != "" ? priest.additionalInfo : ""}
                         </div>
                     </div>
 
@@ -279,7 +280,9 @@ const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible
                                         <i className="pi pi-briefcase"></i>
                                         Funkcja w parafii
                                     </span>
-                                    <span className="priest-info-value">{getTitleInPolish(priest.title)}</span>
+                                    <span className="priest-info-value">
+                                        {getTitleInPolish(priest.title)}
+                                    </span>
                                 </div>
 
                                 <div className="priest-info-item">

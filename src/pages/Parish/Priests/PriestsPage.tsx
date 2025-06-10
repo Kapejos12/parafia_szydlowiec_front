@@ -30,7 +30,7 @@ const getTitleInPolish = (title: string) => {
         'Associate Pastor': 'Wikariusz',
         'Retired': 'Emeryt'
     };
-    return titles[title] || title;
+    return titles[title] || title + " ";
 };
 
 const getTitleColor = (title: string) => {
@@ -113,6 +113,7 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
                     <span className="priest-title">
                         <i className="pi pi-crown"></i>
                         {getTitleInPolish(priest.title)}
+                        {priest.additionalInfo != null || priest.additionalInfo !== "" ? priest.additionalInfo : null}
                     </span>
 
                     {age && (

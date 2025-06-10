@@ -104,6 +104,7 @@ export interface Priest {
     phoneNumber?: string;
     birthDate?: string;
     position: number;
+    additionalInfo: string;
 }
 
 export interface Group {
