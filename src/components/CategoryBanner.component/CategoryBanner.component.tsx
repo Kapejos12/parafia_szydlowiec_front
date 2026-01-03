@@ -73,72 +73,84 @@ const CategoryBanner = ({
     const isCategoryMode = categories.length > 0 || selectedCategories.length > 0;
     const isStaticMode = Boolean(title);
 
-    // Załaduj dane liturgiczne raz przy montowaniu
+    // Załaduj i odświeżaj dane liturgiczne
     useEffect(() => {
-        const today = new Date();
+        const updateLiturgicalData = () => {
+            const today = new Date();
 
-        // Dane podstawowe
-        const liturgicalGradient = getCurrentLiturgicalGradient();
-        const useDarkText = shouldUseDarkText();
-        const seasonName = getCurrentLiturgicalSeasonName();
-        const dateRange = getCurrentLiturgicalSeasonDateRange();
-        const daysUntilEnd = getDaysUntilSeasonEnd();
+            // Dane podstawowe okresu liturgicznego
+            const liturgicalGradient = getCurrentLiturgicalGradient(today);
+            const useDarkText = shouldUseDarkText(today);
+            const seasonName = getCurrentLiturgicalSeasonName(today);
+            const dateRange = getCurrentLiturgicalSeasonDateRange(today);
+            const daysUntilEnd = getDaysUntilSeasonEnd(today);
 
-        // Dane świąt
-        const feastsToday = getFeastsForDate(today);
-        const mainFeast = getPrimaryFeastForDate(today);
-        const upcomingFeast = getNextFeast(today);
-        const isTodayFeast = isLiturgicalFeast(today);
+            // Dane świąt
+            const feastsToday = getFeastsForDate(today);
+            const mainFeast = getPrimaryFeastForDate(today);
+            const upcomingFeast = getNextFeast(today);
+            const isTodayFeast = isLiturgicalFeast(today);
 
-        // Ustaw dane liturgiczne
-        setCurrentSeason(seasonName);
-        setSeasonDateRange(dateRange);
-        setDaysLeft(daysUntilEnd);
+            // Ustaw dane liturgiczne
+            setCurrentSeason(seasonName);
+            setSeasonDateRange(dateRange);
+            setDaysLeft(daysUntilEnd);
 
-        // Ustaw dane świąt
-        setTodayFeasts(feastsToday);
-        setPrimaryFeast(mainFeast);
-        setNextFeast(upcomingFeast);
-        setIsFeastDay(isTodayFeast);
+            // Ustaw dane świąt
+            setTodayFeasts(feastsToday);
+            setPrimaryFeast(mainFeast);
+            setNextFeast(upcomingFeast);
+            setIsFeastDay(isTodayFeast);
 
-        // Ustaw style tylko jeśli nie ma custom
-        if (!customGradient) {
-            let finalGradient: string;
-            let finalTextColor: string;
-
-            if (preferFeastColors && isTodayFeast && mainFeast) {
-                // Użyj kolorów święta
-                if (mainFeast.rank === 'solemnity') {
-                    finalGradient = getFeastRankGradient(mainFeast);
-                    finalTextColor = getFeastRankTextColor(mainFeast) === 'dark' ? '#333333' : 'white';
-                } else {
-                    finalGradient = getFeastGradient(mainFeast);
-                    finalTextColor = getFeastTextColor(mainFeast) === 'dark' ? '#333333' : 'white';
-                }
+            // Logika ustawiania gradientu i kolorów tekstu
+            if (customGradient) {
+                // Użyj custom gradientu jeśli podany
+                setGradientStyle({ background: customGradient });
             } else {
-                // Użyj kolorów okresu liturgicznego
-                finalGradient = liturgicalGradient;
-                finalTextColor = useDarkText ? '#333333' : 'white';
+                // Automatyczne kolory na podstawie świąt lub okresu liturgicznego
+                let finalGradient: string;
+                let finalTextColor: string;
+
+                if (preferFeastColors && isTodayFeast && mainFeast) {
+                    // Użyj kolorów święta
+                    if (mainFeast.rank === 'solemnity') {
+                        finalGradient = getFeastRankGradient(mainFeast);
+                        finalTextColor = getFeastRankTextColor(mainFeast) === 'dark' ? '#333333' : 'white';
+                    } else {
+                        finalGradient = getFeastGradient(mainFeast);
+                        finalTextColor = getFeastTextColor(mainFeast) === 'dark' ? '#333333' : 'white';
+                    }
+                } else {
+                    // Użyj kolorów okresu liturgicznego
+                    finalGradient = liturgicalGradient;
+                    finalTextColor = useDarkText ? '#333333' : 'white';
+                }
+
+                setGradientStyle({ background: finalGradient });
+
+                // Ustaw kolor tekstu tylko jeśli nie ma custom
+                if (!customTextColor) {
+                    setTextColor(finalTextColor);
+                }
             }
 
-            setGradientStyle({ background: finalGradient });
-            if (!customTextColor) {
-                setTextColor(finalTextColor);
+            // Ustaw custom kolor tekstu jeśli podany
+            if (customTextColor) {
+                setTextColor(customTextColor);
             }
-        } else if (!customTextColor) {
-            setTextColor(useDarkText ? '#333333' : 'white');
-        }
-    }, []); // Wykonaj tylko raz
+        };
 
-    // Reaguj na zmiany custom styles
-    useEffect(() => {
-        if (customGradient) {
-            setGradientStyle({ background: customGradient });
-        }
-        if (customTextColor) {
-            setTextColor(customTextColor);
-        }
-    }, [customGradient, customTextColor]);
+        // Wykonaj natychmiast przy montowaniu
+        updateLiturgicalData();
+
+        // Odświeżaj co godzinę (aby złapać zmianę dnia o północy)
+        const interval = setInterval(() => {
+            updateLiturgicalData();
+        }, 60 * 60 * 1000); // 60 minut
+
+        // Wyczyść interval przy odmontowaniu
+        return () => clearInterval(interval);
+    }, [customGradient, customTextColor, preferFeastColors, showFeastInfo]);
 
     // Funkcja do generowania tytułu
     const getTitle = () => {
@@ -182,7 +194,7 @@ const CategoryBanner = ({
     // Funkcja do získania ikony dla kategorii święta
     const getFeastCategoryIcon = (category: string): string => {
         switch (category) {
-            case 'marian': return '🌟';
+            case 'miriam': return '🌟'; // ✅ POPRAWIONE z 'marian' na 'miriam'
             case 'triduum': return '✝️';
             case 'solemnity': return '👑';
             case 'feast': return '🎉';
@@ -202,6 +214,20 @@ const CategoryBanner = ({
             case 'optional-memorial': return '🕊️';
             case 'special': return '🔔';
             default: return '📅';
+        }
+    };
+
+    /**
+     * Funkcja do określenia etykiety dla rangi święta
+     */
+    const getFeastRankLabel = (rank: string): string => {
+        switch (rank) {
+            case 'solemnity': return 'Następna uroczystość';
+            case 'feast': return 'Następne święto';
+            case 'memorial': return 'Następne wspomnienie';
+            case 'optional-memorial': return 'Następne wspomnienie dowolne';
+            case 'special': return 'Następny dzień specjalny';
+            default: return 'Następne święto';
         }
     };
 
@@ -249,7 +275,7 @@ const CategoryBanner = ({
                 {/* Informacje o świętach na dziś */}
                 {showFeastInfo && isFeastDay && todayFeasts.length > 0 && (
                     <div
-                        className="mb-3 p-3 border-round-lg"
+                        className="mb-3 p-3 border-round-lg mt-3"
                         style={{
                             backgroundColor: 'rgba(255, 255, 255, 0.1)',
                             backdropFilter: 'blur(10px)',
@@ -325,7 +351,7 @@ const CategoryBanner = ({
                         >
                             <span>{getFeastRankIcon(nextFeast.rank)}</span>
                             <span>
-                                Następne święto: <strong>{nextFeast.name}</strong>
+                                {getFeastRankLabel(nextFeast.rank)}: <strong>{nextFeast.name}</strong>
                             </span>
                         </div>
                         <div
