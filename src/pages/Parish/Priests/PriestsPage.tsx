@@ -79,7 +79,7 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
     };
 
     const cardContent = (
-        <div className="priest-horizontal-card-content">
+        <div translate="no" className="priest-horizontal-card-content">
             <div className="priest-image-section">
                 {imageUrl || priest.name === 'Tadeusz' ? (
                     <img
@@ -93,7 +93,7 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
                     </div>
                 )}
 
-                <div className="priest-tag-overlay">
+                <div translate="no" className="priest-tag-overlay">
                     <Tag
                         value={getTitleInPolish(priest.title)}
                         severity={getTitleColor(priest.title)}
@@ -104,12 +104,12 @@ const PriestHorizontalCard: React.FC<{ priest: Priest; onClick: () => void }> = 
 
             <div className="priest-divider"></div>
 
-            <div className="priest-info-section">
-                <h3 className="priest-full-name">
+            <div translate="no" className="priest-info-section">
+                <h3 translate="no" className="priest-full-name">
                     {priest.name} {priest.surname}
                 </h3>
 
-                <div className="priest-basic-info">
+                <div translate="no" className="priest-basic-info">
                     <span className="priest-title">
                         <i className="pi pi-crown"></i>
                         {getTitleInPolish(priest.title)}
@@ -199,8 +199,8 @@ const ParishionerItem: React.FC<{ parishioner: Parishioner }> = ({ parishioner }
     );
 
     return (
-        <div className="parishioner-item">
-            <div className="parishioner-content">
+        <div translate="no" className="parishioner-item">
+            <div translate="no" className="parishioner-content">
                 {/* Zdjęcie (opcjonalne) */}
                 {imageUrl ? (
                     <div className="parishioner-photo-section">
@@ -260,7 +260,7 @@ export const PriestsPage: React.FC = () => {
 
     if (isLoadingPriests) {
         return (
-            <div className="priests-page">
+            <div translate="no" className="priests-page">
                 <div className="priests-main-container">
                     <div className="priests-content">
                         <div className="priests-intro-section">
@@ -294,7 +294,7 @@ export const PriestsPage: React.FC = () => {
 
     if (isLoadingParishioners) {
         return (
-            <div className="parishioners-section">
+            <div translate="no" className="parishioners-section">
                 <div className="parishioners-header">
                     <div className="parishioners-title-section">
                         <Skeleton height="2rem" className="mb-2" />
@@ -319,7 +319,7 @@ export const PriestsPage: React.FC = () => {
 
     if (errorPriests) {
         return (
-            <div className="priests-page">
+            <div translate="no" className="priests-page">
                 <div className="priests-main-container">
                     <div className="priests-content">
                         <div className="priests-intro-section">
@@ -334,7 +334,7 @@ export const PriestsPage: React.FC = () => {
 
     if (errorParishioners) {
         return (
-            <div className="parishioners-section">
+            <div translate="no" className="parishioners-section">
                 <div className="parishioners-header">
                     <div className="parishioners-title-section">
                         <h2 className="parishioners-title">
@@ -351,7 +351,7 @@ export const PriestsPage: React.FC = () => {
     }
 
     return (
-        <div className="priests-page">
+        <div translate="no" className="priests-page">
             <div className="priests-main-container">
                 <div className="priests-content">
                     <CategoryBanner
@@ -363,7 +363,7 @@ export const PriestsPage: React.FC = () => {
                     />
 
                     {/* Sekcja Kapłanów */}
-                    <div className="priests-filters-section">
+                    <div translate="no" className="priests-filters-section">
                         <div className="priests-filters-top">
                             <div className="priests-filters-left">
                                 <span className="priests-results-info">
@@ -391,7 +391,7 @@ export const PriestsPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="priests-cards-grid">
+                    <div translate="no" className="priests-cards-grid">
                         {displayPriests.map((priest, index) => (
                             <PriestHorizontalCard
                                 key={`${priest.name}-${priest.surname}-${index}`}
@@ -402,7 +402,7 @@ export const PriestsPage: React.FC = () => {
                     </div>
 
                     {displayPriests.length === 0 && (
-                        <div className="priests-empty">
+                        <div translate="no" className="priests-empty">
                             <i className="pi pi-info-circle"></i>
                             <h3>Brak kapłanów</h3>
                             <p>W wybranej kategorii nie ma kapłanów do wyświetlenia.</p>
@@ -410,7 +410,7 @@ export const PriestsPage: React.FC = () => {
                     )}
 
                     {/* Nowa sekcja - Parafianie */}
-                    <div className="parishioners-section">
+                    <div translate="no" className="parishioners-section">
                         <div className="parishioners-header">
                             <div className="parishioners-title-section">
                                 <h2 className="parishioners-title">
@@ -424,7 +424,7 @@ export const PriestsPage: React.FC = () => {
                         </div>
 
                         {/* Lista parafian w siatce */}
-                        <div className="parishioners-grid">
+                        <div translate="no" className="parishioners-grid">
                             {parishioners.map(parishioner => (
                                 <ParishionerItem
                                     key={parishioner.id}
@@ -434,7 +434,7 @@ export const PriestsPage: React.FC = () => {
                         </div>
 
                         {parishioners.length === 0 && (
-                            <div className="parishioners-empty">
+                            <div translate="no" className="parishioners-empty">
                                 <i className="pi pi-info-circle"></i>
                                 <h3>Brak parafian</h3>
                                 <p>Nie ma jeszcze żadnych parafian do wyświetlenia.</p>
@@ -443,7 +443,7 @@ export const PriestsPage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="priests-sidebar">
+                <div translate="no" className="priests-sidebar">
                     <div className="priests-sidebar-widget">
                         <div className="priests-sidebar-widget-header">
                             O naszych kapłanach
@@ -460,7 +460,7 @@ export const PriestsPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="priests-sidebar-widget">
+                    <div translate="no" className="priests-sidebar-widget">
                         <div className="priests-sidebar-widget-header">
                             Jak skontaktować się z kapłanem?
                         </div>

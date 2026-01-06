@@ -76,7 +76,7 @@ const HeaderComponent: React.FC = () => {
     return (
         <header>
             {isVisible && (
-                <div className="flex items-center space-x-4" style={{ backgroundColor: "var(--color-accent)" }}>
+                <div translate="no" className="flex items-center space-x-4" style={{ backgroundColor: "var(--color-accent)" }}>
                     <MegaMenu
                         model={menuItems}
                         className="custom-megamenu"

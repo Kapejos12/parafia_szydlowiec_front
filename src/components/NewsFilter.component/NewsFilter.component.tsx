@@ -29,13 +29,13 @@ const NewsFilters = ({
     // To zapewni, że ikona "x" będzie widoczna
 
     const categoryItemTemplate = (option: Category) => (
-        <div className="category-item">
+        <div translate="no" className="category-item">
             <span>{option.name}</span>
         </div>
     );
 
     return (
-        <div className="filters-section p-4">
+        <div translate="no" className="filters-section p-4">
             <div className="grid">
                 {/* MultiSelect do filtrowania po kategoriach */}
                 <div className="col-12 md:col-6">

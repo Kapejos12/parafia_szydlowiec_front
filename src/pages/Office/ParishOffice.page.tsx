@@ -43,7 +43,7 @@ const ParishOfficePage: React.FC = () => {
     // Funkcja do renderowania nagłówka AccordionTab z ikoną
     const sacramentHeader = (sacrament: Sacrament) => {
         return (
-            <div className="sacrament-header">
+            <div translate="no" className="sacrament-header">
                 <span>{sacrament.name}</span>
             </div>
         );
@@ -51,7 +51,7 @@ const ParishOfficePage: React.FC = () => {
 
     // Renderowanie komponentu ładowania podczas pobierania danych
     const renderLoading = () => (
-        <div className="loading-container">
+        <div translate="no" className="loading-container">
             <ProgressSpinner />
             <p>Ładowanie informacji o sakramentach...</p>
         </div>
@@ -59,14 +59,14 @@ const ParishOfficePage: React.FC = () => {
 
     // Renderowanie komunikatu o błędzie, jeśli wystąpił
     const renderError = () => (
-        <Message severity="error" text="Wystąpił błąd podczas pobierania informacji o sakramentach. Prosimy spróbować później." />
+        <Message translate="no" severity="error" text="Wystąpił błąd podczas pobierania informacji o sakramentach. Prosimy spróbować później." />
     );
 
     // Renderowanie akordeonów z sakramentami
     const renderSacraments = () => {
         if (!data || data.length === 0) {
             return (
-                <Message severity="info" text="Brak informacji o sakramentach. Prosimy sprawdzić później." />
+                <Message translate="no" severity="info" text="Brak informacji o sakramentach. Prosimy sprawdzić później." />
             );
         }
 
@@ -88,15 +88,15 @@ const ParishOfficePage: React.FC = () => {
     };
 
     return (
-        <div className="parish-office-page">
-            <div className="container">
-                <div className="page-header">
+        <div translate="no" className="parish-office-page">
+            <div translate="no" className="container">
+                <div translate="no" className="page-header">
                     <h1>
                         <i className="pi pi-home"></i> Kancelaria Parafialna
                     </h1>
                 </div>
 
-                <div className="office-hours-section">
+                <div translate="no" className="office-hours-section">
                     <h2>
                         <i className="pi pi-clock"></i> Godziny otwarcia kancelarii
                     </h2>
@@ -142,7 +142,7 @@ const ParishOfficePage: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="sacraments-section">
+                <div translate="no" className="sacraments-section">
                     <h2>
                         <i className="pi pi-book"></i> Sakramenty i wymagane dokumenty
                     </h2>
@@ -154,7 +154,7 @@ const ParishOfficePage: React.FC = () => {
                     {isLoading ? renderLoading() : error ? renderError() : renderSacraments()}
                 </div>
 
-                <div className="notice-section">
+                <div translate="no" className="notice-section">
                     <Card className="notice-card">
                         <div className="notice-icon">
                             <i className="pi pi-exclamation-circle"></i>

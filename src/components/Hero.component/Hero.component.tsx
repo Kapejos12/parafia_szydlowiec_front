@@ -11,6 +11,7 @@ const HeroComponent: React.FC<HeroProps> = ({ backgroundImage, imageUrl, title }
         <div
             className="hero"
             style={{ backgroundImage: `url(${backgroundImage})` }}
+            translate="no"
         >
             <div className="hero-overlay">
                 {title && <h1>{title}</h1>}

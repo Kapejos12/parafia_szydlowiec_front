@@ -190,7 +190,7 @@ const PriestDetailDialog: React.FC<PriestDetailDialogProps> = ({ priest, visible
                 overflow: window.innerWidth <= 768 ? 'auto' : 'visible'
             }}
         >
-            <div className="priest-dialog-content">
+            <div translate="no" className="priest-dialog-content">
                 {/* Sekcja zdjęcia po lewej */}
                 <div className="priest-dialog-image-section">
                     {imageUrl ? (

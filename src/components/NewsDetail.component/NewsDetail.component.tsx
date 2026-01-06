@@ -137,7 +137,7 @@ const NewsDetailComponent: React.FC = () => {
     // Obsługa stanu ładowania
     if (isLoading) {
         return (
-            <div className="news-detail-page">
+            <div translate="no" className="news-detail-page">
                 <div className="news-detail-container">
                     <div className="news-detail-loading">
                         <ProgressSpinner style={{ width: '50px', height: '50px' }} strokeWidth="4" />
@@ -151,7 +151,7 @@ const NewsDetailComponent: React.FC = () => {
     // Obsługa błędu
     if (error) {
         return (
-            <div className="news-detail-page">
+            <div translate="no" className="news-detail-page">
                 <div className="news-detail-container">
                     <div className="news-detail-error">
                         <i className="pi pi-exclamation-triangle"></i>
@@ -172,7 +172,7 @@ const NewsDetailComponent: React.FC = () => {
     // Jeśli nie ma danych
     if (!news) {
         return (
-            <div className="news-detail-page">
+            <div translate="no" className="news-detail-page">
                 <div className="news-detail-container">
                     <div className="news-detail-not-found">
                         <i className="pi pi-info-circle"></i>
@@ -191,7 +191,7 @@ const NewsDetailComponent: React.FC = () => {
     }
 
     return (
-        <div className="news-detail-page">
+        <div translate="no" className="news-detail-page">
             <div className="news-detail-container">
                 {/* Breadcrumb */}
                 <BreadCrumb model={breadcrumbItems} home={home} />
@@ -238,7 +238,7 @@ const NewsDetailComponent: React.FC = () => {
 
                     {/* Galeria zdjęć */}
                     {photos && photos.length > 1 && (
-                        <div className="news-detail-gallery">
+                        <div translate="no" className="news-detail-gallery">
                             <h3 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>
                                 Galeria zdjęć
                             </h3>

@@ -235,6 +235,7 @@ const CategoryBanner = ({
         <div
             className="category-banner surface-0 shadow-2 mb-5 border-round-xl overflow-hidden"
             style={gradientStyle}
+            translate="no"
         >
             <div className="p-4 md:p-6">
                 {/* Tytuł z opcjonalną ikoną */}

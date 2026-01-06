@@ -7,7 +7,7 @@ export interface MarkdownProps {
 
 const MarkdownComponent = (props: MarkdownProps) => {
     return (
-        <div className="prose max-w-none dark:prose-invert px-4 py-6">
+        <div translate="no" className="prose max-w-none dark:prose-invert px-4 py-6">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {props.markdown}
             </ReactMarkdown>

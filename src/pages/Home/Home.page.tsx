@@ -111,10 +111,11 @@ const HomePage = () => {
     // Szablon dla elementu aktualności
     const itemTemplate = (news: Post) => {
         return (
-            <div className="col-12 md:col-6 lg:col-4 p-2">
+            <div translate="no" className="col-12 md:col-6 lg:col-4 p-2">
                 <div
                     className="news-card"
                     onClick={() => navigate(`/aktualnosci/${news.slug}`)}
+                    translate="no"
                 >
                     <div className="card-link" aria-hidden="true" />
 
@@ -179,7 +180,7 @@ const HomePage = () => {
         const endItem = Math.min(first + rows, totalResults);
 
         return (
-            <div className="flex flex-column lg:flex-row justify-content-between align-items-start lg:align-items-center gap-3 mb-3 p-3 bg-gray-50 border-round">
+            <div translate="no" className="flex flex-column lg:flex-row justify-content-between align-items-start lg:align-items-center gap-3 mb-3 p-3 bg-gray-50 border-round">
                 <div className="flex flex-column gap-1">
                     <span className="text-sm text-color-secondary">
                         Wyświetlane {startItem}-{endItem} z {totalResults} wyników
@@ -191,7 +192,7 @@ const HomePage = () => {
                     )}
                 </div>
 
-                <div className="flex align-items-center gap-2">
+                <div translate="no" className="flex align-items-center gap-2">
                     <label htmlFor="rows-dropdown" className="text-sm font-medium">
                         Wyników na stronie:
                     </label>
@@ -213,7 +214,7 @@ const HomePage = () => {
         if (!error) return null;
 
         return (
-            <div className="flex flex-column align-items-center justify-content-center p-5">
+            <div translate="no" className="flex flex-column align-items-center justify-content-center p-5">
                 <i className="pi pi-exclamation-triangle text-5xl text-red-500 mb-3"></i>
                 <h3>Wystąpił błąd</h3>
                 <p className="mb-3">{error.message}</p>
@@ -232,7 +233,7 @@ const HomePage = () => {
     // Główna funkcja renderująca komponent
     if (postsLoading) {
         return (
-            <div className="grid">
+            <div translate="no" className="grid">
                 <div className="col-12">
                     <CategoryBanner
                         categories={[]}
@@ -240,7 +241,7 @@ const HomePage = () => {
                         showLiturgicalInfo={true}
                     />
                 </div>
-                <div className="col-12 lg:col-10 lg:col-offset-1">
+                <div translate="no" className="col-12 lg:col-10 lg:col-offset-1">
                     <div className="card">
                         <NewsFilters
                             selectedCategories={selectedCategories}
@@ -258,15 +259,15 @@ const HomePage = () => {
 
     if (postsError) {
         return (
-            <div className="flex flex-column align-items-center justify-content-center min-h-screen">
+            <div translate="no" className="flex flex-column align-items-center justify-content-center min-h-screen">
                 {renderError(postsError as Error)}
             </div>
         );
     }
 
     return (
-        <div className="news-container">
-            <div className="grid">
+        <div translate="no" className="news-container">
+            <div translate="no" className="grid">
                 <div className="col-12">
                     <CategoryBanner
                         categories={[]}
@@ -274,7 +275,7 @@ const HomePage = () => {
                         showLiturgicalInfo={true}
                     />
                 </div>
-                <div className="col-12 lg:col-10 lg:col-offset-1">
+                <div translate="no" className="col-12 lg:col-10 lg:col-offset-1">
                     <div className="card">
                         <NewsFilters
                             selectedCategories={selectedCategories}
