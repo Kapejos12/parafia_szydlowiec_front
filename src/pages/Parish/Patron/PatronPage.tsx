@@ -38,8 +38,8 @@ const PatronPage: React.FC = () => {
     // Renderowanie komponentu ładowania podczas pobierania danych
     if (isLoading) {
         return (
-            <div className="patron-page">
-                <div className="container">
+            <div translate="no" className="patron-page">
+                <div translate="no" className="container">
                     <div className="loading-container">
                         <ProgressSpinner />
                         <p>Ładowanie informacji o patronie parafii...</p>
@@ -52,9 +52,10 @@ const PatronPage: React.FC = () => {
     // Renderowanie komunikatu o błędzie, jeśli wystąpił
     if (error) {
         return (
-            <div className="patron-page">
-                <div className="container">
+            <div translate="no" className="patron-page">
+                <div translate="no" className="container">
                     <Message
+                        translate="no"
                         severity="error"
                         text="Wystąpił błąd podczas pobierania informacji o patronie parafii. Prosimy spróbować później."
                     />
@@ -66,9 +67,10 @@ const PatronPage: React.FC = () => {
     // Jeśli dane nie zostały znalezione
     if (!patronData) {
         return (
-            <div className="patron-page">
-                <div className="container">
+            <div translate="no" className="patron-page">
+                <div translate="no" className="container">
                     <Message
+                        translate="no"
                         severity="info"
                         text="Brak informacji o patronie parafii. Prosimy sprawdzić później."
                     />
@@ -78,16 +80,16 @@ const PatronPage: React.FC = () => {
     }
 
     return (
-        <div className="patron-page">
-            <div className="container">
-                <div className="page-header">
+        <div translate="no" className="patron-page">
+            <div translate="no" className="container">
+                <div translate="no" className="page-header">
                     <h1>
                         <i className="pi pi-user"></i> {patronData.title}
                     </h1>
                 </div>
 
-                <div className="patron-content">
-                    <div className="patron-main-info">
+                <div translate="no" className="patron-content">
+                    <div translate="no" className="patron-main-info">
                         {/* Główna karta z informacjami o patronie */}
                         <Card className="patron-card">
                             <div className="patron-hero">
@@ -98,7 +100,7 @@ const PatronPage: React.FC = () => {
                                         className="patron-image"
                                     />
                                 </div>
-                                <div className="patron-details">
+                                <div translate="no" className="patron-details">
                                     <h2>Informacje o świętym</h2>
                                     <div className="patron-fact-row">
                                         <i className="pi pi-calendar"></i>
@@ -106,13 +108,13 @@ const PatronPage: React.FC = () => {
                                             <strong>Wspomnienie:</strong> {patronData.feastDay}
                                         </div>
                                     </div>
-                                    <div className="patron-fact-row">
+                                    <div translate="no" className="patron-fact-row">
                                         <i className="pi pi-star"></i>
                                         <div>
                                             <strong>Lata życia:</strong> {patronData.birthYear} - {patronData.deathYear}
                                         </div>
                                     </div>
-                                    <div className="patron-fact-row">
+                                    <div translate="no" className="patron-fact-row">
                                         <i className="pi pi-shield"></i>
                                         <div>
                                             <strong>Patron:</strong>
@@ -132,11 +134,11 @@ const PatronPage: React.FC = () => {
 
                     {/* Biografia */}
                     <section className="patron-section">
-                        <h2 className="section-title">
+                        <h2 translate="no" className="section-title">
                             <i className="pi pi-book"></i> Życiorys
                         </h2>
                         <Card className="biography-card">
-                            <div className="markdown-wrapper">
+                            <div translate="no" className="markdown-wrapper">
                                 <MarkdownComponent markdown={patronData.biography} />
                             </div>
                         </Card>
@@ -146,11 +148,11 @@ const PatronPage: React.FC = () => {
 
                     {/* Modlitwa */}
                     <section className="patron-section">
-                        <h2 className="section-title">
+                        <h2 translate="no" className="section-title">
                             <i className="pi pi-heart"></i> Modlitwa do św. {patronData.name}
                         </h2>
-                        <Card className="prayer-card">
-                            <div className="prayer-content">
+                        <Card translate="no" className="prayer-card">
+                            <div translate="no" className="prayer-content">
                                 <MarkdownComponent markdown={patronData.prayer} />
                             </div>
                         </Card>

@@ -14,12 +14,12 @@ const GroupHorizontalCard: React.FC<{ group: Group; onClick: () => void }> = ({ 
     };
 
     return (
-        <div className="group-card">
-            <div className="group-card__content">
+        <div translate="no" className="group-card">
+            <div translate="no" className="group-card__content">
                 {/* Treść po prawej */}
-                <div className="group-card__info">
+                <div translate="no" className="group-card__info">
                     {/* Nazwa grupy */}
-                    <h3 className="group-card__name">
+                    <h3 translate="no" className="group-card__name">
                         {group.name}
                     </h3>
 
@@ -27,14 +27,14 @@ const GroupHorizontalCard: React.FC<{ group: Group; onClick: () => void }> = ({ 
                     <div className="group-card__basic-info">
 
                         {group.memberCount && (
-                            <div className="group-card__info-item">
+                            <div translate="no" className="group-card__info-item">
                                 <i className="pi pi-users"></i>
                                 <span>{group.memberCount} członków</span>
                             </div>
                         )}
 
                         {group.meetingDay && (
-                            <div className="group-card__info-item">
+                            <div translate="no" className="group-card__info-item">
                                 <i className="pi pi-calendar"></i>
                                 <span>{group.meetingDay}</span>
                             </div>
@@ -43,20 +43,20 @@ const GroupHorizontalCard: React.FC<{ group: Group; onClick: () => void }> = ({ 
 
                     {/* Opis */}
                     {group.description && (
-                        <p className="group-card__description">
+                        <p translate="no" className="group-card__description">
                             {truncateText(group.description, 120)}
                         </p>
                     )}
 
                     {/* Lider grupy */}
                     {group.leader && (
-                        <div className="group-card__leader">
+                        <div translate="no" className="group-card__leader">
                             <strong>Lider:</strong> {group.leader}
                         </div>
                     )}
 
                     {/* Footer karty */}
-                    <div className="group-card__footer">
+                    <div translate="no" className="group-card__footer">
                         <button
                             className="group-card__button"
                             onClick={onClick}
@@ -162,7 +162,7 @@ export const GroupsPage: React.FC = () => {
 
     if (error) {
         return (
-            <div className="groups-page">
+            <div className="groups-page" translate="no">
                 <div className="groups-page__container">
                     <div className="groups-page__content">
                         <div className="groups-empty">
@@ -181,7 +181,7 @@ export const GroupsPage: React.FC = () => {
     }
 
     return (
-        <div className="groups-page">
+        <div className="groups-page" translate="no">
             <div className="groups-page__container">
                 {/* Główna treść */}
                 <div className="groups-page__content">
@@ -231,7 +231,7 @@ export const GroupsPage: React.FC = () => {
 
                     {/* Empty state */}
                     {activeGroups.length === 0 && (
-                        <div className="groups-empty">
+                        <div translate="no" className="groups-empty">
                             <div className="groups-empty__icon">
                                 <i className="pi pi-info-circle"></i>
                             </div>
@@ -246,11 +246,11 @@ export const GroupsPage: React.FC = () => {
                 {/* Sidebar */}
                 <div className="groups-page__sidebar">
                     {/* Informacje o grupach */}
-                    <div className="sidebar-widget">
+                    <div translate="no" className="sidebar-widget">
                         <div className="sidebar-widget__header">
                             O naszych grupach
                         </div>
-                        <div className="sidebar-widget__content">
+                        <div translate="no" className="sidebar-widget__content">
                             <p className="sidebar-widget__text">
                                 Grupy parafialne to żywe wspólnoty wierzących,
                                 które spotykają się regularnie w celu pogłębienia
@@ -265,10 +265,10 @@ export const GroupsPage: React.FC = () => {
 
                     {/* Jak dołączyć */}
                     <div className="sidebar-widget">
-                        <div className="sidebar-widget__header">
+                        <div translate="no" className="sidebar-widget__header">
                             Jak dołączyć do grupy?
                         </div>
-                        <div className="sidebar-widget__content">
+                        <div translate="no" className="sidebar-widget__content">
                             <p className="sidebar-widget__text">
                                 <strong>Bezpośredni kontakt:</strong><br />
                                 Skontaktuj się z liderem grupy lub
@@ -283,11 +283,11 @@ export const GroupsPage: React.FC = () => {
                     </div>
 
                     Statystyki
-                    <div className="sidebar-widget">
+                    <div translate="no" className="sidebar-widget">
                         <div className="sidebar-widget__header">
                             Nasze wspólnoty w liczbach
                         </div>
-                        <div className="sidebar-widget__content">
+                        <div translate="no" className="sidebar-widget__content">
                             <div className="stats">
                                 <div className="stats__item">
                                     <div className="stats__number">{activeGroups.length}</div>

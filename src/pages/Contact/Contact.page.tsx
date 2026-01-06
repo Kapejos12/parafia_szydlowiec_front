@@ -3,9 +3,9 @@ import './ContactPage.css';
 
 const ContactPage: React.FC = () => {
     return (
-        <div className="contact-page">
+        <div translate="no" className="contact-page">
             {/* Sekcja z mapą na górze */}
-            <div className="map-section">
+            <div translate="no" className="map-section">
                 <h2>Znajdź nas</h2>
                 <div className="map-container">
                     <iframe
@@ -18,7 +18,7 @@ const ContactPage: React.FC = () => {
             </div>
 
             {/* Sekcja z informacjami kontaktowymi w jednym wierszu */}
-            <div className="container">
+            <div translate="no" className="container">
                 <div className="contact-info-section">
                     <div className="contact-info-row">
                         {/* Karta z adresem */}
@@ -51,7 +51,7 @@ const ContactPage: React.FC = () => {
                 </div>
 
                 {/* Sekcja z informacjami o darowiznych */}
-                <div className="donation-section">
+                <div translate="no" className="donation-section">
                     <div className="donation-card">
                         <div className="donation-header">
                             <h3>Możesz złożyć dobrowolną ofiarę na funkcjonowanie naszej parafii i na utrzymanie świątyni.</h3>

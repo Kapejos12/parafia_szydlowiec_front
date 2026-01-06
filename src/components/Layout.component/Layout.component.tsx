@@ -61,7 +61,7 @@ const LayoutComponent: React.FC = () => {
 
             {/* Przycisk przełączający sidebar (widoczny tylko na urządzeniach mobilnych) */}
             {isMobile && (
-                <div className="sidebar-toggle-container">
+                <div translate="no" className="sidebar-toggle-container">
                     <Button
                         icon={showSidebar ? "pi pi-times" : "pi pi-bars"}
                         onClick={toggleSidebar}
@@ -71,7 +71,7 @@ const LayoutComponent: React.FC = () => {
                 </div>
             )}
 
-            <div className="layout-container">
+            <div translate="no" className="layout-container">
                 {/* Główna treść */}
                 <div className={`main-content ${isMobile && showSidebar ? 'shifted' : ''}`}>
                     <Outlet />
@@ -79,7 +79,7 @@ const LayoutComponent: React.FC = () => {
 
                 {/* Sidebar - różne style dla mobilnych i desktopowych */}
                 <aside
-                    className={`sidebar ${isMobile ? 'mobile' : 'desktop'} ${showSidebar ? 'show' : ''}`}
+                    translate="no" className={`sidebar ${isMobile ? 'mobile' : 'desktop'} ${showSidebar ? 'show' : ''}`}
                 >
                     <SidebarContent onClose={isMobile ? toggleSidebar : undefined} />
                 </aside>

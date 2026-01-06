@@ -213,7 +213,7 @@ export default function VirtualTour360() {
     };
     if (!aframeLoaded) {
         return (
-            <div className="virtual-tour-container">
+            <div className="virtual-tour-container" translate="no">
                 <div className="loading-overlay">
                     <div className="loading-content">
                         <div className="loading-spinner"></div>
@@ -232,7 +232,7 @@ export default function VirtualTour360() {
     // Loading state - ładowanie panoram
     if (isPanoramasLoading) {
         return (
-            <div className="virtual-tour-container">
+            <div className="virtual-tour-container" translate="no">
                 <div className="loading-overlay">
                     <div className="loading-content">
                         <div className="loading-spinner"></div>
@@ -251,7 +251,7 @@ export default function VirtualTour360() {
     // Error state
     if (error) {
         return (
-            <div className="virtual-tour-container">
+            <div className="virtual-tour-container" translate="no">
                 <div className="error-container">
                     <div className="error-content">
                         <div className="error-icon">❌</div>
@@ -274,7 +274,7 @@ export default function VirtualTour360() {
     // Brak danych
     if (!scenes.length) {
         return (
-            <div className="virtual-tour-container">
+            <div className="virtual-tour-container" translate="no">
                 <div className="error-container">
                     <div className="error-content">
                         <div className="error-icon">📷</div>
@@ -289,7 +289,7 @@ export default function VirtualTour360() {
     }
 
     return (
-        <div className="virtual-tour-container">
+        <div className="virtual-tour-container" translate="no">
             <div className="tour-grid">
 
                 {/* 1. Instrukcja obsługi - lewy górny */}

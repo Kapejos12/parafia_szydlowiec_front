@@ -148,8 +148,8 @@ const HistoryPage: React.FC = () => {
     // Renderowanie komponentu ładowania podczas pobierania danych
     if (isLoading) {
         return (
-            <div className="history-page">
-                <div className="container">
+            <div translate="no" className="history-page">
+                <div translate="no" className="container">
                     <div className="loading-container">
                         <ProgressSpinner />
                         <p>Ładowanie historii parafii...</p>
@@ -162,9 +162,10 @@ const HistoryPage: React.FC = () => {
     // Renderowanie komunikatu o błędzie, jeśli wystąpił
     if (error) {
         return (
-            <div className="history-page">
-                <div className="container">
+            <div translate="no" className="history-page">
+                <div translate="no" className="container">
                     <Message
+                        translate="no"
                         severity="error"
                         text="Wystąpił błąd podczas pobierania historii parafii. Prosimy spróbować później."
                     />
@@ -176,9 +177,10 @@ const HistoryPage: React.FC = () => {
     // Jeśli dane nie zostały znalezione
     if (!historyData) {
         return (
-            <div className="history-page">
-                <div className="container">
+            <div translate="no" className="history-page">
+                <div translate="no" className="container">
                     <Message
+                        translate="no"
                         severity="info"
                         text="Brak danych o historii parafii. Prosimy sprawdzić później."
                     />
@@ -188,9 +190,9 @@ const HistoryPage: React.FC = () => {
     }
 
     return (
-        <div className="history-page">
-            <div className="container">
-                <div className="page-header">
+        <div translate="no" className="history-page">
+            <div translate="no" className="container">
+                <div translate="no" className="page-header">
                     <h1>
                         <i className="pi pi-history"></i> {historyData.title}
                     </h1>
@@ -199,7 +201,7 @@ const HistoryPage: React.FC = () => {
                 <div className="history-content">
                     {/* Treść główna */}
                     <Card className="content-card">
-                        <div className="markdown-wrapper">
+                        <div translate="no" className="markdown-wrapper">
                             <MarkdownComponent markdown={historyData.content} />
                         </div>
                     </Card>
@@ -209,7 +211,7 @@ const HistoryPage: React.FC = () => {
                     {/* Galeria zdjęć */}
                     {historyData.photos && historyData.photos.length > 0 && (
                         <section className="gallery-section">
-                            <h2 className="section-title">
+                            <h2 translate="no" className="section-title">
                                 <i className="pi pi-images"></i> Galeria Historyczna
                             </h2>
                             <Card className="gallery-card">

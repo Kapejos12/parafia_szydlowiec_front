@@ -15,7 +15,7 @@ const PreMarriageCourseComponent: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="pre-marriage-loading">
+            <div translate="no" className="pre-marriage-loading">
                 <div className="pre-marriage-loading__content">
                     <i className="pi pi-spin pi-spinner pre-marriage-loading__spinner"></i>
                     <p className="pre-marriage-loading__text">Ładowanie...</p>
@@ -26,7 +26,7 @@ const PreMarriageCourseComponent: React.FC = () => {
 
     if (error) {
         return (
-            <div className="pre-marriage-error">
+            <div translate="no" className="pre-marriage-error">
                 <div className="pre-marriage-error__content">
                     <i className="pi pi-exclamation-triangle pre-marriage-error__icon"></i>
                     <p className="pre-marriage-error__text">
@@ -38,7 +38,7 @@ const PreMarriageCourseComponent: React.FC = () => {
     }
 
     return (
-        <div className="pre-marriage-page">
+        <div translate="no" className="pre-marriage-page">
             <div className="pre-marriage-container">
                 {/* Tytuł sekcji z ikoną */}
                 <div className="pre-marriage-header">

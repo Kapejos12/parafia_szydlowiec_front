@@ -24,19 +24,19 @@ const GroupDetailDialog: React.FC<GroupDetailDialogProps> = ({ group, visible, o
             draggable={false}
             resizable={false}
         >
-            <div className="group-dialog__content">
+            <div translate="no" className="group-dialog__content">
                 {/* Status grupy */}
-                <div className={`group-dialog__status group-dialog__status--${group.active ? 'active' : 'inactive'}`}>
-                    <div className="group-dialog__status-icon">
+                <div translate="no" className={`group-dialog__status group-dialog__status--${group.active ? 'active' : 'inactive'}`}>
+                    <div translate="no" className="group-dialog__status-icon">
                         <i className={`pi ${group.active ? 'pi-check-circle' : 'pi-pause-circle'}`}></i>
                     </div>
-                    <span className="group-dialog__status-text">
+                    <span translate="no" className="group-dialog__status-text">
                         Grupa {group.active ? 'aktywna' : 'zawieszona'}
                     </span>
                 </div>
 
                 {/* Opis */}
-                <div className="group-dialog__section">
+                <div translate="no" className="group-dialog__section">
                     <h3 className="group-dialog__section-title">Opis grupy</h3>
                     <div className="group-dialog__description">
                         <MarkdownComponent markdown={group.description} />
@@ -44,7 +44,7 @@ const GroupDetailDialog: React.FC<GroupDetailDialogProps> = ({ group, visible, o
                 </div>
 
                 {/* Informacje podstawowe */}
-                <div className="group-dialog__info-grid">
+                <div translate="no" className="group-dialog__info-grid">
                     {/* Lewa kolumna */}
                     <div className="group-dialog__info-column">
                         <h4 className="group-dialog__column-title">Informacje podstawowe</h4>
@@ -87,7 +87,7 @@ const GroupDetailDialog: React.FC<GroupDetailDialogProps> = ({ group, visible, o
                     </div>
 
                     {/* Prawa kolumna */}
-                    <div className="group-dialog__info-column">
+                    <div translate="no" className="group-dialog__info-column">
                         <h4 className="group-dialog__column-title">Spotkania</h4>
 
                         {group.meetingDay && (
@@ -121,7 +121,7 @@ const GroupDetailDialog: React.FC<GroupDetailDialogProps> = ({ group, visible, o
 
                 {/* Kontakt */}
                 {group.contactEmail && (
-                    <div className="group-dialog__section">
+                    <div translate="no" className="group-dialog__section">
                         <h3 className="group-dialog__section-title">Kontakt</h3>
                         <div className="group-dialog__contact-grid">
                             <div className="group-dialog__contact-item">
@@ -164,7 +164,7 @@ const GroupDetailDialog: React.FC<GroupDetailDialogProps> = ({ group, visible, o
                 )}
 
                 {/* Akcje */}
-                <div className="group-dialog__actions">
+                <div translate="no" className="group-dialog__actions">
                     <button
                         className="group-dialog__button group-dialog__button--secondary"
                         onClick={onHide}

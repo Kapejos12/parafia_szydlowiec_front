@@ -14,7 +14,7 @@ const ChildProtectionStandards: React.FC = () => {
 
     if (isLoading) {
         return (
-            <div className="child-protection-loading">
+            <div className="child-protection-loading" translate="no">
                 <div className="child-protection-loading-content">
                     <i className="pi pi-spin pi-spinner child-protection-loading-spinner"></i>
                     <p className="child-protection-loading-text">Ładowanie...</p>
@@ -25,7 +25,7 @@ const ChildProtectionStandards: React.FC = () => {
 
     if (error) {
         return (
-            <div className="child-protection-error">
+            <div className="child-protection-error" translate="no">
                 <div className="child-protection-error-content">
                     <i className="pi pi-exclamation-triangle child-protection-error-icon"></i>
                     <p className="child-protection-error-text">
@@ -37,7 +37,7 @@ const ChildProtectionStandards: React.FC = () => {
     }
 
     return (
-        <div className="child-protection-page">
+        <div className="child-protection-page" translate="no">
             <div className="child-protection-container">
                 {/* Tytuł sekcji z ikoną */}
                 <div className="child-protection-header">
@@ -51,7 +51,7 @@ const ChildProtectionStandards: React.FC = () => {
 
                 {/* Zawartość sekcji */}
                 {childProtectionData?.content && (
-                    <div className="child-protection-content">
+                    <div className="child-protection-content" translate="no">
                         <div className="child-protection-markdown">
                             <MarkdownComponent markdown={childProtectionData.content} />
                         </div>
