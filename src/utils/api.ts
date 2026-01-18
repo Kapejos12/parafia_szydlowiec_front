@@ -34,6 +34,7 @@ export const fetchPosts = async (params?: FetchPostsParams): Promise<FetchPostsR
         'pagination[page]': page.toString(),
         'pagination[pageSize]': Math.min(pageSize, 25).toString(), // Max 25
         'populate': '*',
+        'sort[0]': 'createdAt:desc'
     };
 
     // Filtrowanie po kategoriach jeśli są wybrane
