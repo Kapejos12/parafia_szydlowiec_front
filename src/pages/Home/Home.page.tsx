@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { fetchPosts } from "../../utils/api";
 import { Category, Post } from "../../utils/types";
-// import { Card } from "primereact/card";
 import { DataView, DataViewPageEvent } from "primereact/dataview";
 import { Button } from "primereact/button";
 import { useEffect, useState } from "react";
@@ -15,56 +14,51 @@ import './home-styles.css';
 import CategoryBanner from "../../components/CategoryBanner.component/CategoryBanner.component";
 import NewsFilters from "../../components/NewsFilter.component/NewsFilter.component";
 
-
 const HomePage = () => {
     const navigate = useNavigate();
     const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-    const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
-    const [first, setFirst] = useState(0); // Index pierwszego elementu na stronie
-    const [rows, setRows] = useState(9); // Liczba elementów na stronie
+    const [page, setPage] = useState(1);
+    const [rows, setRows] = useState(9);
+    const [totalRecords, setTotalRecords] = useState(0);
 
-    // Opcje liczby elementów na stronie
     const rowsPerPageOptions = [
         { label: '6 na stronie', value: 6 },
         { label: '9 na stronie', value: 9 },
         { label: '12 na stronie', value: 12 },
-        { label: '18 na stronie', value: 18 }
+        { label: '18 na stronie', value: 18 },
+        { label: '25 na stronie', value: 25 }
     ];
 
-    // Pobieranie aktualności
     const {
-        data: posts = [],
+        data: postsData,
         isLoading: postsLoading,
         error: postsError,
         refetch: refetchPosts
-    } = useQuery<Post[]>({
-        queryKey: ['posts'],
-        queryFn: fetchPosts,
+    } = useQuery({
+        queryKey: ['posts', page, rows, selectedCategories],
+        queryFn: async () => {
+            const categorySlugs = selectedCategories.map(cat => cat.slug).join(',');
+            const response = await fetchPosts({
+                page,
+                pageSize: Math.min(rows, 25),
+                categories: categorySlugs || undefined
+            });
+            return response;
+        },
         staleTime: 5 * 60 * 1000,
-        gcTime: 30 * 60 * 1000
+        gcTime: 30 * 60 * 1000,
+        placeholderData: (previousData) => previousData
     });
 
-    // Filtrowanie postów na podstawie wybranych kategorii
     useEffect(() => {
-        if (posts.length === 0) return;
-
-        let filtered = [...posts];
-
-        // Filtrowanie po kategoriach
-        if (selectedCategories.length > 0) {
-            const categorySlugs = selectedCategories.map(cat => cat.slug);
-            filtered = filtered.filter(post => {
-                if (!post.categories || post.categories.length === 0) {
-                    return false;
-                }
-                return post.categories.some(cat => categorySlugs.includes(cat.slug));
-            });
+        if (postsData?.meta?.pagination?.total !== undefined) {
+            setTotalRecords(postsData.meta.pagination.total);
         }
+    }, [postsData]);
 
-        setFilteredPosts(filtered);
-        // Reset paginacji przy zmianie filtrów
-        setFirst(0);
-    }, [posts, selectedCategories]);
+    useEffect(() => {
+        setPage(1);
+    }, [selectedCategories]);
 
     const formatDate = (date: Date | string): string => {
         const dateObject = date instanceof Date ? date : new Date(date);
@@ -79,7 +73,6 @@ const HomePage = () => {
                 month: 'long',
                 year: 'numeric'
             });
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             const day = dateObject.getDate();
             const month = dateObject.getMonth() + 1;
@@ -96,19 +89,17 @@ const HomePage = () => {
         }
     };
 
-    // Handler dla zmiany strony
     const onPageChange = (event: DataViewPageEvent) => {
-        setFirst(event.first);
+        const newPage = Math.floor(event.first / event.rows) + 1;
+        setPage(newPage);
         setRows(event.rows);
     };
 
-    // Handler dla zmiany liczby elementów na stronie
     const onRowsChange = (value: number) => {
         setRows(value);
-        setFirst(0); // Reset do pierwszej strony
+        setPage(1);
     };
 
-    // Szablon dla elementu aktualności
     const itemTemplate = (news: Post) => {
         return (
             <div translate="no" className="col-12 md:col-6 lg:col-4 p-2">
@@ -173,17 +164,16 @@ const HomePage = () => {
 
     // Header z informacjami o wynikach i opcjami paginacji
     const renderResultsHeader = () => {
-        const totalResults = filteredPosts.length;
-        const currentPage = Math.floor(first / rows) + 1;
-        const totalPages = Math.ceil(totalResults / rows);
-        const startItem = first + 1;
-        const endItem = Math.min(first + rows, totalResults);
+        const currentPage = page;
+        const totalPages = Math.ceil(totalRecords / rows);
+        const startItem = totalRecords > 0 ? (page - 1) * rows + 1 : 0;
+        const endItem = Math.min(page * rows, totalRecords);
 
         return (
             <div translate="no" className="flex flex-column lg:flex-row justify-content-between align-items-start lg:align-items-center gap-3 mb-3 p-3 bg-gray-50 border-round">
                 <div className="flex flex-column gap-1">
                     <span className="text-sm text-color-secondary">
-                        Wyświetlane {startItem}-{endItem} z {totalResults} wyników
+                        Wyświetlane {startItem}-{endItem} z {totalRecords} wyników
                     </span>
                     {totalPages > 1 && (
                         <span className="text-sm text-color-secondary">
@@ -230,8 +220,10 @@ const HomePage = () => {
         );
     };
 
+    const posts = postsData?.data || [];
+
     // Główna funkcja renderująca komponent
-    if (postsLoading) {
+    if (postsLoading && !postsData) {
         return (
             <div translate="no" className="grid">
                 <div className="col-12">
@@ -285,28 +277,27 @@ const HomePage = () => {
 
                         {/* Lista aktualności */}
                         <div>
-                            {filteredPosts.length > 0 ? (
+                            {totalRecords > 0 || posts.length > 0 ? (
                                 <>
                                     {renderResultsHeader()}
                                     <DataView
-                                        value={filteredPosts}
-                                        sortField="creationDate"
-                                        sortOrder={-1}
+                                        value={posts}
                                         layout="grid"
                                         itemTemplate={itemTemplate}
                                         rows={rows}
-                                        first={first}
+                                        first={(page - 1) * rows}
+                                        totalRecords={totalRecords}
                                         onPage={onPageChange}
                                         paginator={true}
-                                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
+                                        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
                                         paginatorClassName="justify-content-center mt-4"
-                                        rowsPerPageOptions={[6, 9, 12, 18]}
                                         paginatorLeft={
                                             <span className="text-sm text-color-secondary">
-                                                Łącznie: {filteredPosts.length} wyników
+                                                Łącznie: {totalRecords} wyników
                                             </span>
                                         }
                                         emptyMessage="Brak aktualności do wyświetlenia"
+                                        lazy={true}
                                     />
                                 </>
                             ) : (

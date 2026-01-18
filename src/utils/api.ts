@@ -7,9 +7,46 @@ const apiClient = axios.create({
     baseURL: import.meta.env.VITE_NODE_ENV === "production" ? import.meta.env.VITE_PRODUCTION_API_BASE_URL : import.meta.env.VITE_DEVELOPMENT_API_BASE_URL,
 });
 
-export const fetchPosts = async (): Promise<Post[]> => {
-    const response = await apiClient.get("/api/posts?populate=*");
-    return response.data.data;
+interface FetchPostsParams {
+    page?: number;
+    pageSize?: number;
+    categories?: string;
+}
+
+interface StrapiPaginationMeta {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+}
+
+interface FetchPostsResponse {
+    data: Post[];
+    meta: {
+        pagination: StrapiPaginationMeta;
+    };
+}
+
+export const fetchPosts = async (params?: FetchPostsParams): Promise<FetchPostsResponse> => {
+    const { page = 1, pageSize = 25, categories = '' } = params || {};
+
+    const queryParams: Record<string, string> = {
+        'pagination[page]': page.toString(),
+        'pagination[pageSize]': Math.min(pageSize, 25).toString(), // Max 25
+        'populate': '*',
+    };
+
+    // Filtrowanie po kategoriach jeśli są wybrane
+    if (categories) {
+        queryParams['filters[categories][slug][$in]'] = categories;
+    }
+
+    const response = await apiClient.get("/api/posts", { params: queryParams });
+
+    return {
+        data: response.data.data,
+        meta: response.data.meta
+    };
 }
 
 export const fetchCategories = async (): Promise<Category[]> => {
