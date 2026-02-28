@@ -168,3 +168,24 @@
         /* Największy margines na małych telefonach */
     }
 }
+
+/* Vatican News widget */
+.vatican-news-section {
+    width: 100%;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    background-color: var(--color-element-bg);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 960px) {
+    .vatican-news-section {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .vatican-news-section {
+        padding: 0.75rem 0.5rem;
+    }
+}

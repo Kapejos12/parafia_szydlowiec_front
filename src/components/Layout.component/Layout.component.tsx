@@ -3,7 +3,7 @@ import HeaderComponent from "../Header.component/Header.component"
 import HeroComponent from "../Hero.component/Hero.component"
 import kosciol from '../../assets/kosciol.jpeg';
 import logo from '../../assets/header.png';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SidebarContent from "../SidebarContent.component/SidebarContent.component";
 import { Button } from 'primereact/button';
 
@@ -13,16 +13,14 @@ const LayoutComponent: React.FC = () => {
     const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
     const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
     const [showSidebar, setShowSidebar] = useState<boolean>(false);
+    const vaticanIframeRef = useRef<HTMLIFrameElement>(null);
 
-    // Sprawdza czy urządzenie jest mobilne (szerokość < 768px)
     const isMobile = windowWidth < 768;
 
-    // Nasłuchiwanie zmian rozmiaru okna
     useEffect(() => {
         const handleResize = () => {
             const newWidth = window.innerWidth;
             setWindowWidth(newWidth);
-            // Ukryj sidebar automatycznie gdy przejdziemy na widok mobilny
             if (newWidth < 960) {
                 setShowSidebar(false);
             }
@@ -38,28 +36,33 @@ const LayoutComponent: React.FC = () => {
         };
 
         window.addEventListener("scroll", handleScroll);
-        handleScroll(); // na wypadek scrolla już przy starcie
+        handleScroll();
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Funkcja przełączająca widoczność sidebara na urządzeniach mobilnych
-    const toggleSidebar = () => {
-        setShowSidebar(!showSidebar);
-    };
+    // Obsługa dynamicznej wysokości iFrame Vatican News
+    useEffect(() => {
+        const handleMessage = (e: MessageEvent) => {
+            if (!e.data || e.data.source !== 'vn-embed') return;
+            if (vaticanIframeRef.current) {
+                vaticanIframeRef.current.style.height = e.data.height + 'px';
+            }
+        };
 
-    const scrollToTop = () => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, []);
+
+    const toggleSidebar = () => setShowSidebar(!showSidebar);
+
+    const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
     return (
         <div>
             <HeaderComponent />
             <HeroComponent backgroundImage={kosciol} imageUrl={logo} />
 
-            {/* Przycisk przełączający sidebar (widoczny tylko na urządzeniach mobilnych) */}
             {isMobile && (
                 <div translate="no" className="sidebar-toggle-container">
                     <Button
@@ -72,18 +75,31 @@ const LayoutComponent: React.FC = () => {
             )}
 
             <div translate="no" className="layout-container">
-                {/* Główna treść */}
                 <div className={`main-content ${isMobile && showSidebar ? 'shifted' : ''}`}>
                     <Outlet />
                 </div>
 
-                {/* Sidebar - różne style dla mobilnych i desktopowych */}
                 <aside
-                    translate="no" className={`sidebar ${isMobile ? 'mobile' : 'desktop'} ${showSidebar ? 'show' : ''}`}
+                    translate="no"
+                    className={`sidebar ${isMobile ? 'mobile' : 'desktop'} ${showSidebar ? 'show' : ''}`}
                 >
                     <SidebarContent onClose={isMobile ? toggleSidebar : undefined} />
                 </aside>
             </div>
+
+            {/* Widget Vatican News */}
+            <section className="vatican-news-section">
+                <iframe
+                    ref={vaticanIframeRef}
+                    id="VaticanNews"
+                    src="https://vaticannews.pl/news?lang=pl&template=full&count=8&fs=16&link=%23235787&date=%23828282&video=1&brand=1&cols=full"
+                    width="100%"
+                    height="420"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    title="Vatican News"
+                />
+            </section>
 
             {showBackToTop && (
                 <button
